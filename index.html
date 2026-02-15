@@ -70,20 +70,6 @@
             margin-bottom: 20px;
             color: #ccc;
         }
-        .benefits {
-            text-align: left;
-            font-size: 0.8em;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-        .benefits ul {
-            list-style-type: disc;
-            margin: 0;
-            padding-left: 20px;
-        }
-        .benefits li {
-            margin-bottom: 5px;
-        }
         .buy-btn {
             background: linear-gradient(45deg, #ffff00, #ffd700);
             color: #000;
@@ -102,3 +88,57 @@
             color: #ccc;
             font-size: 0.8em;
         }
+    </style>
+</head>
+<body>
+    <!-- Backsound Audio -->
+    <audio autoplay loop volume="0.3">
+        <source src="https://organic-salmon-gk6fatcxia.edgeone.app/yung_kai_-_yung_kai_-_blue_Official_Music_Video_(mp3.pm).mp3" type="audio/mp3">  <!-- Ganti dengan URL audio legal Anda -->
+        Browser Anda tidak mendukung audio.
+    </audio>
+
+    <div class="overlay">
+        <h1>Minecraft Rank Shop</h1>
+        <p style="font-size: 1.2em; margin-bottom: 40px;">Pilih rank impianmu dan tingkatkan pengalaman bermain Minecraft!</p>
+        
+        <div class="ranks">
+            <div class="rank-card">
+                <div class="rank-icon">🗡️</div>
+                <h2>Executive</h2>
+                <p>Rank premium dengan akses eksklusif ke fitur server. Benefit: (/fly)(/kit Executive). Harga: Rp 6.000</p>
+                <button class="buy-btn" onclick="orderRank('Executive')">Beli Sekarang</button>
+            </div>
+            <div class="rank-card">
+                <div class="rank-icon">👑</div>
+                <h2>Deity</h2>
+                <p>Rank legendaris dengan kekuatan penuh. Benefit: (/fly)(/kit Deity)(15k money per minggu) (bonus 25k money). Harga: Rp 14.000</p>
+                <button class="buy-btn" onclick="orderRank('Deity')">Beli Sekarang</button>
+            </div>
+            <div class="rank-card">
+                <div class="rank-icon">🔒</div>
+                <h2>Secret</h2>
+                <p>Rank rahasia dengan bonus tersembunyi. Benefit: (/fly(/kit secret)(/craft)(Random 1 spawner per minggu)(bonus 75k money). Harga: Rp 26.000</p>
+                <button class="buy-btn" onclick="orderRank('Secret')">Beli Sekarang</button>
+            </div>
+            <div class="rank-card">
+                <div class="rank-icon">🌟</div>
+                <h2>Celestial</h2>
+                <p>Rank surgawi dengan fitur langka. Benefit: (/fly)(/kit celestial)(/craft)(Random 2 spawner per minggu) (/enderchest)(Bonus 125k money). Harga: Rp 31.000</p>
+                <button class="buy-btn" onclick="orderRank('Celestial')">Beli Sekarang</button>
+            </div>
+        </div>
+        
+        <footer>
+            &copy; 2023 Minecraft Rank Shop. Semua hak dilindungi. Hubungi kami untuk info lebih lanjut.
+        </footer>
+    </div>
+
+    <script>
+        function orderRank(rankName) {
+            const message = `min mau beli rank **${rankName}**`;
+            const whatsappUrl = `https://wa.me/6287879007194?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
