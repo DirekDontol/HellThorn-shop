@@ -3,185 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toko Rank Server Minecraft</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Minecraft Rank Shop - Gelap & Modern</title>
     <style>
-        body { 
-            font-family: 'Press Start 2P', Arial, sans-serif; 
-            background: #0f0f0f; /* Dark murni */
-            color: #ffffff; 
-            margin: 0; 
-            padding: 20px; 
-            min-height: 100vh; 
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: url('https://server.wallpaperalchemy.com/storage/wallpapers/110/minecraft-4k-wallpaper-snowy-sunset.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            overflow-x: hidden;
         }
-        .container { 
-            max-width: 1000px; 
-            margin: auto; 
-            padding: 30px; 
+        .overlay {
+            background: rgba(0, 0, 0, 0.8);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        h1 { 
-            text-align: center; 
-            color: #4CAF50; 
-            text-shadow: 2px 2px 0px #000; 
-            font-size: 1.5em; 
-            margin-bottom: 20px; 
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #ffff00;
+            color: #ffff00;
         }
-        p { 
-            text-align: center; 
-            font-size: 0.8em; 
-            margin-bottom: 30px; 
+        .ranks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
         }
-        .products { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 20px; 
+        .rank-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #007bff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeIn 1s ease-in-out;
         }
-        .rank { 
-            background: rgba(0, 0, 0, 0.9); 
-            padding: 20px; 
-            border-radius: 15px; 
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5); 
-            border: 2px solid #4CAF50; 
-            text-align: center; 
-            transition: transform 0.3s; 
+        .rank-card:nth-child(1) { animation-delay: 0.1s; }
+        .rank-card:nth-child(2) { animation-delay: 0.2s; }
+        .rank-card:nth-child(3) { animation-delay: 0.3s; }
+        .rank-card:nth-child(4) { animation-delay: 0.4s; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .rank:hover { 
-            transform: translateY(-5px); 
+        .rank-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 0, 0.8);
         }
-        .rank img { 
-            width: 100px; 
-            height: 100px; 
-            border-radius: 10px; 
-            margin-bottom: 10px; 
+        .rank-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
         }
-        .rank h3 { 
-            color: #FFD700; 
-            margin: 0; 
+        .rank-card h2 {
+            color: #ffff00;
+            margin-bottom: 10px;
         }
-        .rank p { 
-            font-size: 0.7em; 
-            margin: 10px 0; 
+        .rank-card p {
+            margin-bottom: 20px;
+            color: #ccc;
         }
-        .benefits { 
-            text-align: left; 
-            font-size: 0.6em; 
-            margin: 10px 0; 
-            padding-left: 20px; 
+        .benefits {
+            text-align: left;
+            font-size: 0.8em;
+            margin-bottom: 20px;
+            color: #fff;
         }
-        .benefits ul { 
-            list-style-type: disc; 
-            margin: 0; 
-            padding: 0; 
+        .benefits ul {
+            list-style-type: disc;
+            margin: 0;
+            padding-left: 20px;
         }
-        .benefits li { 
-            margin-bottom: 5px; 
+        .benefits li {
+            margin-bottom: 5px;
         }
-        .price { 
-            font-weight: bold; 
-            color: #FF4500; 
-            font-size: 0.9em; 
-            display: block; 
-            margin: 10px 0; 
+        .buy-btn {
+            background: linear-gradient(45deg, #ffff00, #ffd700);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
         }
-        button { 
-            background: linear-gradient(to right, #4CAF50, #45a049); 
-            color: white; 
-            border: 2px solid #2E8B57; 
-            padding: 12px 20px; 
-            cursor: pointer; 
-            border-radius: 10px; 
-            font-family: inherit; 
-            font-size: 0.7em; 
-            transition: all 0.3s; 
+        .buy-btn:hover {
+            background: linear-gradient(45deg, #ffd700, #ffff00);
         }
-        button:hover { 
-            background: linear-gradient(to right, #45a049, #4CAF50); 
-            box-shadow: 0 0 10px #4CAF50; 
-            transform: scale(1.05); 
+        footer {
+            margin-top: 40px;
+            color: #ccc;
+            font-size: 0.8em;
         }
-        .footer { 
-            text-align: center; 
-            margin-top: 30px; 
-            font-size: 0.6em; 
-            color: #cccccc; 
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Toko Rank Server Minecraft</h1>
-        <p>Selamat datang di toko resmi server Minecraft kami! Pilih rank favorit Anda dan tingkatkan pengalaman bermain di dunia blok.</p>
-        
-        <div class="products">
-            <div class="rank">
-                <img src="https://via.placeholder.com/100x100/4CAF50/FFFFFF?text=Exec" alt="Executive Icon">
-                <h3>Executive</h3>
-                <p>Rank dasar dengan fitur premium untuk eksplorasi awal.</p>
-                <div class="benefits">
-                    <ul>
-                        <li>/fly </li>
-                        <li>/kit Executive</li>
-                    </ul>
-                </div>
-                <span class="price">Rp 6.000</span>
-                <button onclick="window.location.href='https://wa.me/6287879007194?text=Halo%20Min!%20Aku%20Mau%20Beli%20Rank%20*Executive*'">Beli Sekarang</button>
-            </div>
-            
-            <div class="rank">
-                <img src="https://via.placeholder.com/100x100/FFD700/000000?text=Deity" alt="Deity Icon">
-                <h3>Deity</h3>
-                <p>Rank lanjutan dengan akses eksklusif ke dunia bawah tanah.</p>
-                <div class="benefits">
-                    <ul>
-                        <li>/fly </li>
-                        <li>/kit Deity</li>
-                        <li>15k money per minggu</li>
-                        <li>bonus 25k money</li>
-                    </ul>
-                </div>
-                <span class="price">Rp 12.000</span>
-                <button onclick="window.location.href='https://wa.me/6287879007194?text=Halo%20Min!%20Aku%20Mau%20Beli%20Rank%20*Deity*'">Beli Sekarang</button>
-            </div>
-            
-            <div class="rank">
-                <img src="https://via.placeholder.com/100x100/FF4500/FFFFFF?text=Secret" alt="Secret Icon">
-                <h3>Secret</h3>
-                <p>Rank rahasia dengan keuntungan tersembunyi di dimensi paralel.</p>
-                <div class="benefits">
-                    <ul>
-                        <li>/fly </li>
-                        <li>/kit secret</li>
-                        <li>/craft</li>
-                        <li>Random 1 spawner per minggu</li>
-                        <li>bonus 75k money</li>
-                    </ul>
-                </div>
-                <span class="price">Rp 20.000</span>
-                <button onclick="window.location.href='https://wa.me/6287879007194?text=Halo%20Min!%20Aku%20Mau%20Beli%20Rank%20*Secret*'">Beli Sekarang</button>
-            </div>
-            
-            <div class="rank">
-                <img src="https://via.placeholder.com/100x100/87CEEB/000000?text=Celestial" alt="Celestial Icon">
-                <h3>Celestial</h3>
-                <p>Rank tertinggi dengan semua fitur maksimal untuk menaklukkan langit.</p>
-                <div class="benefits">
-                    <ul>
-                        <li>/fly </li>
-                        <li>/kit celestial</li>
-                        <li>/craft</li>
-                        <li>Random 2 spawner per minggu</li>
-                        <li>/enderchest</li>
-                        <li>Bonus 125k money</li>
-                    </ul>
-                </div>
-                <span class="price">Rp 30.000</span>
-                <button onclick="window.location.href='https://wa.me/6287879007194?text=Halo%20Min!%20Aku%20Mau%20Beli%20Rank%20*Celestial*'">Beli Sekarang</button>
-            </div>
-        </div>
-        
-        <div class="footer">
-            Untuk pembelian, klik tombol di atas untuk chat WhatsApp langsung dengan admin. Nikmati petualangan Minecraft Anda!
-        </div>
-    </div>
-</body>
-</html>
