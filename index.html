@@ -1,200 +1,183 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Minecraft Rank Shop</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<title>Hacking By AzazelDeLucent</title>
 
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
-margin:0;
-font-family:'Poppins',sans-serif;
-background:url('https://server.wallpaperalchemy.com/storage/wallpapers/110/minecraft-4k-wallpaper-snowy-sunset.jpg');
-background-size:cover;
-background-position:center;
-color:white;
+    background:black;
+    overflow:hidden;
+    font-family:monospace;
+    color:#00ff66;
 }
 
-.overlay{
-background:rgba(0,0,0,0.75);
-backdrop-filter:blur(6px);
-min-height:100vh;
-padding:40px;
+/* BACKGROUND */
+.background{
+    position:fixed;
+    inset:0;
+
+    background:
+    radial-gradient(circle at center,#001100 0%,black 80%);
 }
 
+/* CENTER */
+.center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    z-index:2;
+}
+
+/* TITLE */
 .title{
-font-size:40px;
-font-weight:700;
-text-align:center;
-margin-bottom:10px;
+    font-size:5rem;
+    line-height:1.1;
+    letter-spacing:8px;
+
+    text-shadow:
+        0 0 10px #00ff66,
+        0 0 20px #00ff66,
+        0 0 40px #00ff66;
+
+    animation:flicker .08s infinite;
 }
 
-.subtitle{
-text-align:center;
-opacity:0.8;
-margin-bottom:40px;
+/* SUB */
+.sub{
+    margin-top:20px;
+    color:#00aa44;
+    letter-spacing:4px;
 }
 
-.rank-container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
-max-width:1200px;
-margin:auto;
+/* TERMINAL */
+.terminal{
+    margin-top:40px;
+
+    width:700px;
+    max-width:90vw;
+
+    border:1px solid #00ff66;
+
+    padding:20px;
+
+    text-align:left;
+
+    background:rgba(0,20,0,.45);
+
+    box-shadow:0 0 20px #00ff66;
 }
 
-.rank-card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-border-radius:18px;
-padding:25px;
-transition:0.3s;
-backdrop-filter:blur(12px);
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
+.terminal p{
+    margin:8px 0;
 }
 
-.rank-card:hover{
-transform:translateY(-6px);
-box-shadow:0 0 25px rgba(255,255,255,0.2);
+/* MATRIX */
+.matrix{
+    position:absolute;
+    color:#003300;
+    opacity:.5;
+    user-select:none;
+    animation:fall linear infinite;
 }
 
-.rank-name{
-font-size:24px;
-font-weight:600;
-margin-bottom:10px;
+/* SCANLINES */
+.scan{
+    position:fixed;
+    inset:0;
+
+    background:
+    repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        rgba(255,255,255,.03) 2px,
+        transparent 4px
+    );
+
+    pointer-events:none;
 }
 
-.rank-benefit{
-font-size:14px;
-opacity:0.85;
-line-height:1.6;
-margin-bottom:20px;
+/* ANIMATION */
+@keyframes flicker{
+    0%{opacity:1;}
+    50%{opacity:.7;}
+    100%{opacity:1;}
 }
 
-.price{
-font-weight:600;
-margin-bottom:15px;
+@keyframes fall{
+    from{
+        transform:translateY(-100vh);
+    }
+    to{
+        transform:translateY(100vh);
+    }
 }
-
-.buy-btn{
-width:100%;
-padding:12px;
-border:none;
-border-radius:10px;
-font-weight:600;
-cursor:pointer;
-background:linear-gradient(135deg,#00ffe5,#00aaff);
-color:black;
-transition:0.3s;
-}
-
-.buy-btn:hover{
-transform:scale(1.05);
-}
-
-footer{
-margin-top:50px;
-text-align:center;
-font-size:13px;
-opacity:0.7;
-}
-
 </style>
 </head>
 
 <body>
 
+<!-- AUDIO -->
 <audio autoplay loop>
-<source src="https://organic-salmon-gk6fatcxia.edgeone.app/yung_kai_-_yung_kai_-_blue_Official_Music_Video_(mp3.pm).mp3">
+    <source src="lagu.mp3" type="audio/mpeg">
 </audio>
 
-<div class="overlay">
+<div class="background"></div>
 
-<div class="title">Minecraft Rank Shop</div>
-<div class="subtitle">Upgrade rank kamu dan dapatkan fitur spesial!</div>
+<div class="center">
 
-<div class="rank-container">
+    <div class="title">
+        HACKING BY<br>
+        AZAZELDELUCENT
+    </div>
 
-<div class="rank-card">
-<div class="rank-name">🗡️ Executive</div>
-<div class="rank-benefit">
-Benefit:<br>
-/fly<br>
-/kit Executive
-</div>
-<div class="price">Rp 6.000</div>
-<button class="buy-btn" onclick="orderRank('Executive','6.000')">Order</button>
-</div>
+    <div class="sub">
+        SECURITY SIMULATION
+    </div>
 
-<div class="rank-card">
-<div class="rank-name">👑 Deity</div>
-<div class="rank-benefit">
-/fly<br>
-/kit Deity<br>
-15k money / minggu<br>
-bonus 25k
-</div>
-<div class="price">Rp 14.000</div>
-<button class="buy-btn" onclick="orderRank('Deity','14.000')">Order</button>
-</div>
-
-<div class="rank-card">
-<div class="rank-name">🔒 Secret</div>
-<div class="rank-benefit">
-/fly<br>
-/kit secret<br>
-/craft<br>
-1 spawner / minggu<br>
-bonus 75k
-</div>
-<div class="price">Rp 26.000</div>
-<button class="buy-btn" onclick="orderRank('Secret','26.000')">Order</button>
-</div>
-
-<div class="rank-card">
-<div class="rank-name">🌟 Celestial</div>
-<div class="rank-benefit">
-/fly<br>
-/kit celestial<br>
-/craft<br>
-2 spawner / minggu<br>
-/enderchest<br>
-bonus 125k
-</div>
-<div class="price">Rp 31.000</div>
-<button class="buy-btn" onclick="orderRank('Celestial','31.000')">Order</button>
-</div>
+    <div class="terminal">
+        <p>> connecting to remote node...</p>
+        <p>> bypassing firewall...</p>
+        <p>> reading system configuration...</p>
+        <p>> access granted</p>
+        <p>> simulation complete</p>
+    </div>
 
 </div>
 
-<footer>
-© 2026 Minecraft Rank Shop
-</footer>
-
-</div>
+<div class="scan"></div>
 
 <script>
+for(let i=0;i<140;i++){
 
-function orderRank(rank,price){
+    let d=document.createElement("div");
 
-const message =
-`🛒 ORDER RANK
+    d.className="matrix";
 
-Package : ${rank}
-Category : Rank Upgrade / Donation
-Price : IDR ${price}
-Notes : Saya ingin membeli rank ini`;
+    d.innerText=
+`010101
+ACCESS
+NULL`;
 
-const wa = `https://wa.me/6287879007194?text=${encodeURIComponent(message)}`;
+    d.style.left=Math.random()*100+"vw";
 
-window.open(wa,'_blank');
+    d.style.animationDuration=
+        (5+Math.random()*10)+"s";
 
+    d.style.fontSize=
+        (10+Math.random()*10)+"px";
+
+    document.body.appendChild(d);
 }
-
 </script>
 
 </body>
