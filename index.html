@@ -1,184 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-
-<title>Hacking By AzazelDeLucent</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:black;
-    overflow:hidden;
-    font-family:monospace;
-    color:#00ff66;
-}
-
-/* BACKGROUND */
-.background{
-    position:fixed;
-    inset:0;
-
-    background:
-    radial-gradient(circle at center,#001100 0%,black 80%);
-}
-
-/* CENTER */
-.center{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
-    z-index:2;
-}
-
-/* TITLE */
-.title{
-    font-size:5rem;
-    line-height:1.1;
-    letter-spacing:8px;
-
-    text-shadow:
-        0 0 10px #00ff66,
-        0 0 20px #00ff66,
-        0 0 40px #00ff66;
-
-    animation:flicker .08s infinite;
-}
-
-/* SUB */
-.sub{
-    margin-top:20px;
-    color:#00aa44;
-    letter-spacing:4px;
-}
-
-/* TERMINAL */
-.terminal{
-    margin-top:40px;
-
-    width:700px;
-    max-width:90vw;
-
-    border:1px solid #00ff66;
-
-    padding:20px;
-
-    text-align:left;
-
-    background:rgba(0,20,0,.45);
-
-    box-shadow:0 0 20px #00ff66;
-}
-
-.terminal p{
-    margin:8px 0;
-}
-
-/* MATRIX */
-.matrix{
-    position:absolute;
-    color:#003300;
-    opacity:.5;
-    user-select:none;
-    animation:fall linear infinite;
-}
-
-/* SCANLINES */
-.scan{
-    position:fixed;
-    inset:0;
-
-    background:
-    repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        rgba(255,255,255,.03) 2px,
-        transparent 4px
-    );
-
-    pointer-events:none;
-}
-
-/* ANIMATION */
-@keyframes flicker{
-    0%{opacity:1;}
-    50%{opacity:.7;}
-    100%{opacity:1;}
-}
-
-@keyframes fall{
-    from{
-        transform:translateY(-100vh);
-    }
-    to{
-        transform:translateY(100vh);
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
 </head>
-
 <body>
+<div class="display-cover">
+    <video autoplay></video>
+    <canvas class="d-none"></canvas>
 
-<!-- AUDIO -->
-<audio autoplay loop>
-    <source src="lagu.mp3" type="audio/mpeg">
-</audio>
-
-<div class="background"></div>
-
-<div class="center">
-
-    <div class="title">
-        HACKING BY<br>
-        AZAZELDELUCENT
+    <div class="video-options">
+        <select name="" id="" class="custom-select">
+            <option value="">Select camera</option>
+        </select>
     </div>
 
-    <div class="sub">
-        SECURITY SIMULATION
-    </div>
+    <img class="screenshot-image d-none" alt="">
 
-    <div class="terminal">
-        <p>> connecting to remote node...</p>
-        <p>> bypassing firewall...</p>
-        <p>> reading system configuration...</p>
-        <p>> access granted</p>
-        <p>> simulation complete</p>
+    <div class="controls">
+        <button class="btn btn-danger play" title="Play"><i data-feather="play-circle"></i></button>
+        <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
+        <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
     </div>
-
 </div>
 
-<div class="scan"></div>
-
-<script>
-for(let i=0;i<140;i++){
-
-    let d=document.createElement("div");
-
-    d.className="matrix";
-
-    d.innerText=
-`010101
-ACCESS
-NULL`;
-
-    d.style.left=Math.random()*100+"vw";
-
-    d.style.animationDuration=
-        (5+Math.random()*10)+"s";
-
-    d.style.fontSize=
-        (10+Math.random()*10)+"px";
-
-    document.body.appendChild(d);
-}
-</script>
-
+<script src="https://unpkg.com/feather-icons"></script>
+<script src="script.js"></script>
 </body>
 </html>
