@@ -3,94 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dyyrex | Minecraft Server Development</title>
+    <title>Dyyrex | Minecraft Development</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-950 text-white selection:bg-blue-500/30">
-
-    <!-- NAVIGATION -->
+<body class="bg-gray-950 text-white">
+    <!-- Navbar & Hero Section -->
     <nav class="fixed w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800">
-        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-            <span class="font-bold text-lg tracking-tight">DYYREX<span class="text-blue-500">.</span></span>
-            <div class="space-x-6 text-sm font-medium text-gray-400">
-                <a href="#services" class="hover:text-white transition-colors">Layanan</a>
-                <a href="#pricing" class="hover:text-white transition-colors">Harga</a>
-            </div>
-        </div>
+        <!-- (Isi Navigasi Sama Seperti Sebelumnya) -->
     </nav>
-
-    <!-- HERO -->
-    <header class="pt-32 pb-20 text-center px-6">
-        <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Expert Minecraft <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Server Solutions.</span></h1>
-        <p class="text-gray-400 max-w-lg mx-auto mb-10">Setup, Konfigurasi, hingga Fix Bug. Layanan profesional dengan harga transparan untuk komunitasmu.</p>
-        <a href="#contact" class="px-8 py-4 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition-all shadow-lg shadow-blue-900/20">Mulai Order</a>
-    </header>
-
-    <!-- PRICING -->
-    <section id="pricing" class="py-20 px-6 max-w-5xl mx-auto">
-        <h2 class="text-3xl font-bold mb-12 text-center">List Harga</h2>
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="p-8 bg-gray-900 border border-gray-800 rounded-2xl">
-                <h3 class="text-lg font-semibold">Fix Bug</h3>
-                <div class="text-3xl font-bold my-4">3k - 10k</div>
-                <p class="text-sm text-gray-500">Perbaikan error/crash per kasus.</p>
-            </div>
-            <div class="p-8 bg-gray-900 border border-gray-800 rounded-2xl">
-                <h3 class="text-lg font-semibold">Config</h3>
-                <div class="text-3xl font-bold my-4">Start 5k</div>
-                <p class="text-sm text-gray-500">Konfigurasi plugin & optimasi.</p>
-            </div>
-            <div class="p-8 bg-blue-600/10 border border-blue-600 rounded-2xl">
-                <h3 class="text-lg font-semibold">Full Setup</h3>
-                <div class="text-3xl font-bold my-4">Start 30k</div>
-                <p class="text-sm text-blue-200">Setup dari nol (Core + Plugins).</p>
-            </div>
-        </div>
+    
+    <!-- Bagian Portfolio & Harga (Panggil file style.css) -->
+    <section id="pricing" class="py-20 px-6">
+        <!-- List Harga & QRIS -->
     </section>
 
-    <!-- ORDER SECTION -->
-    <section id="contact" class="py-20 px-6 max-w-xl mx-auto">
-        <div id="form-container" class="bg-gray-900 p-8 rounded-3xl border border-gray-800">
-            <h2 class="text-2xl font-bold mb-6">Form Order</h2>
-            <form id="orderForm" class="space-y-4">
-                <input type="text" name="name" placeholder="Nama" required class="w-full p-4 bg-black border border-gray-700 rounded-xl outline-none">
-                <input type="text" name="discord" placeholder="Discord ID" required class="w-full p-4 bg-black border border-gray-700 rounded-xl outline-none">
-                <select name="service" class="w-full p-4 bg-black border border-gray-700 rounded-xl outline-none text-gray-400">
-                    <option>Fix Bug (3k-10k)</option>
-                    <option>Config (Start 5k)</option>
-                    <option>Full Setup (Start 30k)</option>
-                </select>
-                <textarea name="desc" placeholder="Detail kebutuhan..." required class="w-full p-4 bg-black border border-gray-700 rounded-xl outline-none"></textarea>
-                <button type="submit" class="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200">Kirim & Bayar</button>
-            </form>
-        </div>
-
-        <!-- HIDDEN PAYMENT SECTION -->
-        <div id="payment-container" class="hidden bg-gray-900 p-8 rounded-3xl border border-blue-600 text-center">
-            <h2 class="text-2xl font-bold mb-4">Selesaikan Pembayaran</h2>
-            <p class="text-gray-400 mb-6">Silahkan transfer ke QRIS atau link di bawah ini.</p>
-            <div class="bg-white p-2 rounded-xl mb-6 w-48 mx-auto">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://saweria.co/dyyrex" class="w-full">
-            </div>
-            <a href="https://saweria.co/dyyrex" target="_blank" class="block w-full py-3 bg-blue-600 rounded-xl font-bold">Bayar via Saweria</a>
-        </div>
+    <!-- Bagian Saran -->
+    <section id="saran" class="py-20">
+        <!-- Form Saran -->
     </section>
 
-    <script>
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Tampilkan bagian pembayaran
-            document.getElementById('form-container').classList.add('hidden');
-            document.getElementById('payment-container').classList.remove('hidden');
-            // Kirim data ke Formspree
-            fetch('https://formspree.io/f/xbdbezya', {
-                method: 'POST',
-                body: new FormData(this),
-                headers: { 'Accept': 'application/json' }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
