@@ -3,346 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacked by AzazelDeLucent</title>
+    <title>ACCESS DENIED</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background: #0a0a0a;
+            color: #00ff41;
             font-family: 'Share Tech Mono', monospace;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Matrix rain canvas */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        /* Scanlines overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 65, 0.03) 2px,
+                rgba(0, 255, 65, 0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* CRT vignette */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            width: 100%;
+            background: rgba(0, 10, 0, 0.85);
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3), inset 0 0 30px rgba(0, 255, 65, 0.1);
+            padding: 40px;
+            border-radius: 8px;
+            animation: flicker 0.15s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.98; }
+            100% { opacity: 1; }
+        }
+
+        /* Glitch text effect */
+        .glitch {
+            font-size: 2.5rem;
+            text-align: center;
+            text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 40px #00ff41;
+            letter-spacing: 6px;
+            margin-bottom: 25px;
+            position: relative;
+            animation: glitch-skew 4s infinite linear;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .glitch::before {
+            color: #ff00ff;
+            z-index: -1;
+            animation: glitch-color 3s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            color: #00ffff;
+            z-index: -2;
+            animation: glitch-color 2s infinite linear alternate;
+        }
+
+        @keyframes glitch-color {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            10% { transform: skew(0deg); }
+            11% { transform: skew(-2deg); }
+            12% { transform: skew(2deg); }
+            13% { transform: skew(0deg); }
+            98% { transform: skew(0deg); }
+            99% { transform: skew(1deg); }
+            100% { transform: skew(0deg); }
+        }
+
+        .status-line {
+            border-bottom: 1px solid #00ff41;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .output {
+            background: #000d00;
+            border: 1px solid #003300;
+            padding: 20px;
+            border-radius: 4px;
+            min-height: 320px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+
+        .output .line {
+            opacity: 0;
+            animation: typeLine 0.05s ease-out forwards;
+        }
+
+        .output .line.highlight {
+            color: #ff4444;
+            text-shadow: 0 0 8px #ff0000;
+        }
+
+        .output .line.green {
+            color: #00ff41;
+        }
+
+        .output .line.cyan {
+            color: #00ffff;
+        }
+
+        .output .line.yellow {
+            color: #ffff00;
+        }
+
+        .output .line.magenta {
+            color: #ff00ff;
+        }
+
+        .output .line.dim {
+            opacity: 0.5;
+        }
+
+        .cursor-line {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .cursor-line span {
+            color: #00ff41;
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: #00ff41;
+            margin-left: 6px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes typeLine {
+            to { opacity: 1; }
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border: 1px solid #00ff41;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: #00ff41; box-shadow: 0 0 5px rgba(0,255,65,0.3); }
+            50% { border-color: #00ff41; box-shadow: 0 0 20px rgba(0,255,65,0.7); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #003300;
+            border-radius: 2px;
+            margin: 10px 0;
             overflow: hidden;
         }
-        canvas#matrix {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; opacity: 0.12; pointer-events: none;
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #00ff41;
+            box-shadow: 0 0 10px #00ff41;
+            border-radius: 2px;
+            transition: width 0.3s;
         }
-        .container {
-            position: relative; z-index: 1; width: 90%; max-width: 750px;
-            padding: 35px; background: rgba(10,10,10,0.88);
-            border: 2px solid #ff0000;
-            box-shadow: 0 0 40px rgba(255,0,0,0.25), inset 0 0 40px rgba(255,0,0,0.04);
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .toolbar button {
+            background: transparent;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .toolbar button:hover {
+            background: #00ff41;
+            color: #000;
+            box-shadow: 0 0 20px rgba(0,255,65,0.4);
+        }
+
+        .toolbar button.danger {
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+
+        .toolbar button.danger:hover {
+            background: #ff4444;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255,68,68,0.4);
+        }
+
+        .footer {
             text-align: center;
+            margin-top: 15px;
+            font-size: 0.75rem;
+            opacity: 0.4;
+            border-top: 1px solid #003300;
+            padding-top: 15px;
         }
-        .glitch {
-            font-size: 2.8rem; color: #ff0000;
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
-            letter-spacing: 5px; margin-bottom: 5px;
-            animation: glitchAnim 2s infinite;
-        }
-        @keyframes glitchAnim {
-            0%,100%{opacity:1;transform:none}
-            91%{opacity:1;transform:skew(-2deg)}
-            92%{opacity:0.8;transform:skew(3deg)}
-            93%{opacity:1;transform:skew(-1deg)}
-            95%{opacity:0.7;transform:skew(4deg)}
-            96%{opacity:1;transform:none}
-        }
-        .sub { color: #cc0000; font-size: 1rem; letter-spacing: 8px; margin-bottom: 25px; border-bottom: 1px solid #ff000033; padding-bottom: 12px; }
-        .status-bar {
-            display: flex; justify-content: space-between; background: #1a0000;
-            border: 1px solid #ff000066; padding: 10px 15px; margin-bottom: 20px; font-size: 0.8rem;
-        }
-        .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; animation: blink 1s infinite; }
-        .dot.green{background:#00ff00;box-shadow:0 0 8px #00ff00}
-        .dot.red{background:#ff0000;box-shadow:0 0 8px #ff0000}
-        .dot.yellow{background:#ffff00;box-shadow:0 0 8px #ffff00;animation:blink .4s infinite}
-        @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-        
-        .vid-box {
-            position: relative; width: 100%; max-width: 480px; margin: 0 auto 15px;
-            border: 2px solid #ff000088; background: #000; aspect-ratio: 4/3; overflow: hidden;
-        }
-        #video { width: 100%; height: 100%; object-fit: cover; display: none; transform: scaleX(-1); }
-        .placeholder {
-            width: 100%; height: 100%; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; color: #660000; gap: 8px;
-        }
-        .placeholder .icon { font-size: 3rem; opacity: 0.4; }
-        .scanlines {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,0,0.03) 2px, rgba(255,0,0,0.03) 4px);
-            z-index: 2;
-        }
-        .live-badge {
-            position: absolute; top: 10px; left: 10px; color: #ff0000; font-size: 0.7rem;
-            text-shadow: 0 0 10px #ff0000; z-index: 3; display: none; letter-spacing: 2px;
-        }
-        .flash-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 5; pointer-events: none; display: none;
-        }
-        .flash-overlay.active { display: block; background: white; animation: flash 0.25s ease-out; }
-        @keyframes flash { 0%{opacity:0.8}100%{opacity:0} }
 
-        .btn-group { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 15px 0; }
-        .btn {
-            background: transparent; border: 1px solid #ff000088; color: #ff4444;
-            padding: 9px 20px; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem;
-            cursor: pointer; letter-spacing: 2px; transition: all 0.3s; text-transform: uppercase;
+        .ip-display {
+            color: #00ffff;
+            font-size: 0.85rem;
         }
-        .btn:hover{background:#ff000022;border-color:#ff0000;box-shadow:0 0 15px rgba(255,0,0,0.3)}
-        .btn:disabled{opacity:0.3;cursor:not-allowed}
-        .btn-primary{border-color:#ff0000;color:#ff0000}
-        .btn-primary:hover{background:#ff000044}
-        .btn-wa{border-color:#00ff00;color:#00ff00}
-        .btn-wa:hover{background:#00ff0011;box-shadow:0 0 15px rgba(0,255,0,0.2)}
 
-        #preview-box { display: none; margin: 10px 0; border: 1px solid #ff000066; padding: 8px; }
-        #preview-box h4 { color: #ff4444; font-size: 0.75rem; margin-bottom: 8px; letter-spacing: 2px; }
-        #preview-img { width: 100%; max-width: 200px; border: 1px solid #333; transform: scaleX(-1); }
-
-        .logs {
-            text-align: left; margin-top: 10px; padding: 8px; background: #050000;
-            border: 1px solid #330000; max-height: 100px; overflow-y: auto; font-size: 0.7rem;
+        /* Scrollbar styling */
+        .output::-webkit-scrollbar {
+            width: 4px;
         }
-        .logs div { color: #884444; margin-bottom: 2px; }
-        .logs .ok { color: #00ff00; }
-        .logs .err { color: #ff0000; }
-        .logs .wa { color: #00cc00; }
-        .logs .info { color: #ffff00; }
-        .ts { color: #444; }
-
-        .footer { margin-top: 15px; padding-top: 12px; border-top: 1px solid #ff000022; font-size: 0.65rem; color: #660000; letter-spacing: 3px; }
-        .footer b { color: #aa0000; }
-        
-        .links {
-            margin: 12px 0; display: flex; gap: 12px; justify-content: center;
+        .output::-webkit-scrollbar-track {
+            background: #000d00;
         }
-        .links a {
-            color: #ff4444; font-size: 0.75rem; letter-spacing: 2px;
-            text-decoration: none; border: 1px solid #ff000044; padding: 6px 14px;
-            transition: all 0.3s;
+        .output::-webkit-scrollbar-thumb {
+            background: #00ff41;
+            border-radius: 2px;
         }
-        .links a:hover { background: #ff000022; border-color: #ff0000; }
     </style>
 </head>
 <body>
-    <canvas id="matrix"></canvas>
+    <canvas id="matrix-bg"></canvas>
+
     <div class="container">
-        <div class="glitch">// HACKED //</div>
-        <div class="sub">>> by AzazelDeLucent <<</div>
-
-        <div class="status-bar">
-            <div><span class="dot yellow" id="dot"></span><span id="status-label">INITIALIZING</span></div>
-            <div>ACCESS: <span id="access-status" style="color:#00ff00;">GRANTED</span></div>
-            <div>TARGET: <span style="color:#00ff00;">FRONT_CAM</span></div>
+        <div class="status-line">
+            <span>📡 TERMINAL v3.7.1</span>
+            <span class="ip-display" id="ip-display">[CONNECTING...]</span>
+            <span class="status-badge">● ACTIVE</span>
         </div>
 
-        <div class="vid-box">
-            <video id="video" autoplay playsinline></video>
-            <div class="placeholder" id="placeholder">
-                <div class="icon">📷</div>
-                <span>[ CAMERA OFFLINE ]</span>
-                <span style="font-size:0.6rem;color:#551111;">click INIT to access</span>
-            </div>
-            <div class="scanlines"></div>
-            <div class="live-badge" id="live-badge">● LIVE</div>
-            <div class="flash-overlay" id="flash"></div>
+        <div class="glitch" data-text="SYSTEM BREACHED">SYSTEM BREACHED</div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
         </div>
 
-        <div id="preview-box">
-            <h4>◆ EXTRACTED FRAME ◆</h4>
-            <img id="preview-img" alt="capture">
+        <div class="output" id="output">
+            <!-- Lines will be injected by JS -->
         </div>
 
-        <div class="btn-group">
-            <button class="btn" id="btn-init" disabled>▶ INIT</button>
-            <button class="btn btn-primary" id="btn-capture" disabled>■ CAPTURE</button>
-            <button class="btn btn-wa" id="btn-wa" disabled>📤 KIRIM WA</button>
-            <button class="btn" id="btn-stop" disabled>● STOP</button>
+        <div class="cursor-line">
+            <span>root@breach:~$</span>
+            <span class="cursor-blink"></span>
         </div>
 
-        <!-- Quick links to WA bot panel -->
-        <div class="links">
-            <a href="wa-bot/sender.html" target="_blank">📡 WA BOT PANEL</a>
-            <a href="panel-admin/dashboard.html" target="_blank">📊 ADMIN</a>
+        <div class="toolbar">
+            <button onclick="runAttack()">▶ RUN EXPLOIT</button>
+            <button onclick="extractData()">📂 DUMP DATA</button>
+            <button onclick="defacePage()">💀 DEFACE</button>
+            <button onclick="resetOutput()" class="danger">✕ CLEAR</button>
         </div>
 
-        <div class="logs" id="logs">
-            <div><span class="ts">[SYSTEM]</span> AzazelDeLucent v4.0 loaded</div>
-            <div><span class="ts">[SYSTEM]</span> Ready for deployment</div>
+        <div class="footer">
+            [ PENTEST SIMULATION — AUTHORIZED TESTING ONLY ]<br>
+            <span id="timestamp"></span>
         </div>
-
-        <div class="footer">✦ <b>AZAZELDELUCENT</b> SECURITY FRAMEWORK ✦</div>
     </div>
 
     <script>
-        // ─── Matrix ──────────────────────────────────────────────────────
-        const c = document.getElementById('matrix'), cx = c.getContext('2d');
-        let W, H;
-        function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
-        resize(); onresize = resize;
-        const chars = 'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEF<>/{}[]|&^%$#@!';
-        const cols = Math.floor(W / 14);
-        const drops = Array(cols).fill(1);
-        setInterval(() => {
-            cx.fillStyle = 'rgba(10,0,0,0.05)';
-            cx.fillRect(0,0,W,H);
-            cx.fillStyle = '#ff0000';
-            cx.font = '14px monospace';
-            for(let i=0;i<drops.length;i++) {
-                cx.fillText(chars[Math.floor(Math.random()*chars.length)], i*14, drops[i]*14);
-                if(drops[i]*14 > H && Math.random() > 0.975) drops[i] = 0;
+        // ─── Matrix Rain Background ─────────────────────────────────────────
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const chars = (katakana + latin).split('');
+
+        const fontSize = 12;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
                 drops[i]++;
             }
-        }, 50);
-
-        // ─── Vars ────────────────────────────────────────────────────────
-        const video = document.getElementById('video');
-        const placeholder = document.getElementById('placeholder');
-        const liveBadge = document.getElementById('live-badge');
-        const flash = document.getElementById('flash');
-        const dot = document.getElementById('dot');
-        const statusLabel = document.getElementById('status-label');
-        const accessStatus = document.getElementById('access-status');
-        const previewBox = document.getElementById('preview-box');
-        const previewImg = document.getElementById('preview-img');
-        const logs = document.getElementById('logs');
-        const btnInit = document.getElementById('btn-init');
-        const btnCapture = document.getElementById('btn-capture');
-        const btnStop = document.getElementById('btn-stop');
-        const btnWa = document.getElementById('btn-wa');
-
-        let stream = null;
-        let active = false;
-        let lastPhoto = null;
-        let photoCount = 0;
-
-        // ─── Helpers ─────────────────────────────────────────────────────
-        function log(msg, cls='') {
-            const e = document.createElement('div');
-            const t = new Date().toTimeString().slice(0,8);
-            e.innerHTML = `<span class="ts">[${t}]</span> ${msg}`;
-            if(cls) e.className = cls;
-            logs.appendChild(e);
-            logs.scrollTop = logs.scrollHeight;
         }
-        function setStatus(s, cls) { statusLabel.textContent = s; dot.className = `dot ${cls}`; }
+        setInterval(drawMatrix, 50);
 
-        // ─── Init Camera ─────────────────────────────────────────────────
-        async function initCam() {
-            setStatus('INITIALIZING', 'yellow');
-            btnInit.disabled = true;
-            btnInit.textContent = '⏳';
-            log('Requesting camera...');
+        // ─── IP Grabber ─────────────────────────────────────────────────────
+        function fetchIP() {
+            const ipEl = document.getElementById('ip-display');
+            fetch('https://api.ipify.org?format=json')
+                .then(r => r.json())
+                .then(d => { ipEl.textContent = `[TARGET: ${d.ip}]`; })
+                .catch(() => { ipEl.textContent = '[TARGET: 192.168.1.1]'; });
+        }
+        fetchIP();
 
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
-                    audio: false
-                });
-                video.srcObject = stream;
-                await video.play();
-                video.style.display = 'block';
-                placeholder.style.display = 'none';
-                liveBadge.style.display = 'block';
-                setStatus('ACTIVE', 'green');
-                accessStatus.textContent = 'ESTABLISHED';
-                btnCapture.disabled = false;
-                btnStop.disabled = false;
-                btnInit.textContent = '✓';
-                active = true;
-                log(`Camera active: ${video.videoWidth}x${video.videoHeight}`, 'ok');
-            } catch(err) {
-                setStatus('ERROR', 'red');
-                btnInit.disabled = false;
-                btnInit.textContent = '▶ RETRY';
-                const msg = err.name==='NotAllowedError'?'DENIED':err.name==='NotFoundError'?'NO CAMERA':err.message;
-                log(`Error: ${msg}`, 'err');
-                accessStatus.textContent = 'BLOCKED';
+        // ─── Timestamp ──────────────────────────────────────────────────────
+        function updateTimestamp() {
+            document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        }
+        updateTimestamp();
+        setInterval(updateTimestamp, 1000);
+
+        // ─── Output Engine ──────────────────────────────────────────────────
+        const outputEl = document.getElementById('output');
+        const progressFill = document.getElementById('progress-fill');
+        let lineIndex = 0;
+        let isRunning = false;
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function addLine(text, className = '') {
+            const line = document.createElement('div');
+            line.className = 'line' + (className ? ' ' + className : '');
+            line.textContent = text;
+            line.style.animationDelay = '0s';
+            outputEl.appendChild(line);
+            outputEl.scrollTop = outputEl.scrollHeight;
+            return line;
+        }
+
+        function setProgress(pct) {
+            progressFill.style.width = Math.min(pct, 100) + '%';
+        }
+
+        // ─── Attack Scenarios ──────────────────────────────────────────────
+        const attackLines = [
+            { text: '[●] Initializing exploit module...', cls: 'dim' },
+            { text: '[●] Target: 192.168.1.105:80', cls: 'cyan' },
+            { text: '[●] Payload: CVE-2024-21762 — Remote Code Execution', cls: 'yellow' },
+            { text: '[●] Scanning open ports...', cls: 'dim' },
+            { text: '[+] Port 80 (HTTP) — OPEN', cls: 'green' },
+            { text: '[+] Port 443 (HTTPS) — OPEN', cls: 'green' },
+            { text: '[+] Port 3306 (MySQL) — OPEN', cls: 'green' },
+            { text: '[●] Fingerprinting web server...', cls: 'dim' },
+            { text: '[+] Apache/2.4.57 (Ubuntu) — detected', cls: 'cyan' },
+            { text: '[●] Injecting payload via HTTP POST request...', cls: 'dim' },
+            { text: '[●] Bypassing WAF rules...', cls: 'yellow' },
+            { text: '[+] WAF bypass successful — ModSecurity rule 942100 evaded', cls: 'green' },
+            { text: '[●] Establishing reverse shell...', cls: 'dim' },
+            { text: '[+] Connection established — 192.168.1.105:4443 → attacker:4443', cls: 'green' },
+            { text: '[●] Escalating privileges...', cls: 'dim' },
+            { text: '[+] Privilege escalation — Gained root access', cls: 'highlight' },
+            { text: '[●] Dumping /etc/shadow...', cls: 'dim' },
+            { text: '[+] Shadow file extracted (42 hashes)', cls: 'green' },
+            { text: '[●] Cracking password hashes...', cls: 'dim' },
+            { text: '[+] admin:password123 — cracked', cls: 'yellow' },
+            { text: '[+] root:P@ssw0rd! — cracked', cls: 'yellow' },
+            { text: '[+] mysql:db_admin_2024 — cracked', cls: 'yellow' },
+            { text: '[●] Extracting database credentials...', cls: 'dim' },
+            { text: '[+] MySQL root credentials: root / s3cr3tP@ss', cls: 'cyan' },
+            { text: '[●] Dumping database: wordpress_users...', cls: 'dim' },
+            { text: '[+] 1,284 user records extracted', cls: 'green' },
+            { text: '[●] Planting web shell backdoor...', cls: 'dim' },
+            { text: '[+] shell.php — deployed to /var/www/html/', cls: 'highlight' },
+            { text: '[●] Defacing index page...', cls: 'dim' },
+            { text: '[+] index.html — REPLACED', cls: 'highlight' },
+            { text: '', cls: '' },
+            { text: '╔══════════════════════════════════════════════════╗', cls: 'magenta' },
+            { text: '║            SYSTEM FULLY COMPROMISED             ║', cls: 'magenta' },
+            { text: '║        This server is now under your control     ║', cls: 'magenta' },
+            { text: '╚══════════════════════════════════════════════════╝', cls: 'magenta' },
+            { text: '', cls: '' },
+            { text: '[√] Exploit chain completed — 100% success rate', cls: 'green' },
+            { text: '[!] All evidence logged to /root/.exploit_log', cls: 'dim' },
+        ];
+
+        const dataLines = [
+            { text: '[●] Initializing data extraction protocol...', cls: 'dim' },
+            { text: '[+] Establishing encrypted tunnel (TLS 1.3)...', cls: 'green' },
+            { text: '[●] Querying database: customers...', cls: 'dim' },
+            { text: '[+] 50,342 records found', cls: 'cyan' },
+            { text: '[●] Extracting column: email, username, password_hash', cls: 'dim' },
+            { text: '[+] Exporting to CSV...', cls: 'dim' },
+            { text: '[+] Downloaded: customers_export.csv (12.4 MB)', cls: 'green' },
+            { text: '', cls: '' },
+            { text: ' ┌── SAMPLE DATA ──────────────────────────────┐', cls: 'yellow' },
+            { text: ' │ user@example.com | admin | $2y$10$...HASH1 │', cls: 'yellow' },
+            { text: ' │ john@target.com  | jdoe  | $2y$10$...HASH2 │', cls: 'yellow' },
+            { text: ' │ ceo@company.com  | cexec | $2y$10$...HASH3 │', cls: 'yellow' },
+            { text: ' └─────────────────────────────────────────────┘', cls: 'yellow' },
+            { text: '', cls: '' },
+            { text: '[●] Exfiltrating to remote server...', cls: 'dim' },
+            { text: '[+] Data uploaded to: https://darkcloud.io/storage/abcd1234', cls: 'highlight' },
+            { text: '[√] Extraction complete', cls: 'green' },
+        ];
+
+        const defaceLines = [
+            { text: '[●] Downloading deface page template...', cls: 'dim' },
+            { text: '[+] Template: hacked_by_anonymous.html (2.3 KB)', cls: 'green' },
+            { text: '[●] Backing up original index...', cls: 'dim' },
+            { text: '[+] Original saved as: index.html.bak', cls: 'cyan' },
+            { text: '[●] Writing deface page...', cls: 'dim' },
+            { text: '[+] index.html — OVERWRITTEN', cls: 'highlight' },
+            { text: '[●] Spreading to subdirectories...', cls: 'dim' },
+            { text: '[+] /about/ — DEFACED', cls: 'highlight' },
+            { text: '[+] /blog/ — DEFACED', cls: 'highlight' },
+            { text: '[+] /contact/ — DEFACED', cls: 'highlight' },
+            { text: '[+] /admin/ — DEFACED', cls: 'highlight' },
+            { text: '', cls: '' },
+            { text: '  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', cls: 'magenta' },
+            { text: '  ░  YOU HAVE BEEN HACKED                    ░', cls: 'magenta' },
+            { text: '  ░  Your security is a joke.                ░', cls: 'magenta' },
+            { text: '  ░  Patch your systems.                     ░', cls: 'magenta' },
+            { text: '  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', cls: 'magenta' },
+            { text: '', cls: '' },
+            { text: '[√] 14 pages defaced successfully', cls: 'green' },
+        ];
+
+        async function typeLines(lines) {
+            if (isRunning) return;
+            isRunning = true;
+            setProgress(0);
+
+            for (let i = 0; i < lines.length; i++) {
+                addLine(lines[i].text, lines[i].cls);
+                const delay = lines[i].text ? (200 + Math.random() * 300) : 100;
+                setProgress(((i + 1) / lines.length) * 100);
+                await sleep(delay);
             }
+
+            setProgress(100);
+            isRunning = false;
         }
 
-        // ─── Capture ─────────────────────────────────────────────────────
-        function capture() {
-            if(!active || !stream) { log('Camera not active', 'err'); return; }
-            flash.classList.remove('active');
-            void flash.offsetWidth;
-            flash.classList.add('active');
-
-            const cv = document.createElement('canvas');
-            cv.width = video.videoWidth;
-            cv.height = video.videoHeight;
-            const ctx = cv.getContext('2d');
-            ctx.drawImage(video, 0, 0);
-            
-            // Overlay
-            ctx.fillStyle = 'rgba(255,0,0,0.12)';
-            ctx.fillRect(0,0,cv.width,cv.height);
-            const fs = Math.floor(cv.width*0.045);
-            ctx.font = `bold ${fs}px monospace`;
-            ctx.fillStyle = '#ff0000';
-            ctx.textAlign = 'center';
-            ctx.shadowColor = '#ff0000';
-            ctx.shadowBlur = 15;
-            ctx.fillText('● HACKED BY AZAZELDELUCENT', cv.width/2, cv.height-35);
-            ctx.font = `${Math.floor(cv.width*0.02)}px monospace`;
-            ctx.fillStyle = '#ff6666';
-            ctx.shadowBlur = 8;
-            ctx.fillText('+62 878-7900-7194 ← TARGET', cv.width/2, cv.height-12);
-
-            lastPhoto = cv.toDataURL('image/jpeg', 0.9);
-            previewImg.src = lastPhoto;
-            previewBox.style.display = 'block';
-            btnWa.disabled = false;
-            photoCount++;
-
-            const ts = Date.now();
-            log(`[${photoCount}] Captured (${Math.round(lastPhoto.length/1024)} KB)`, 'ok');
-            const link = document.createElement('a');
-            link.download = `target_${ts}.jpg`;
-            link.href = lastPhoto;
-            link.click();
+        async function runAttack() {
+            if (isRunning) return;
+            outputEl.innerHTML = '';
+            await typeLines(attackLines);
         }
 
-        // ─── Send to WA Bot ──────────────────────────────────────────────
-        function sendToWA() {
-            if(!lastPhoto) { log('No photo to send', 'err'); return; }
-            // Simpan foto ke localStorage agar bisa diambil wa-bot/sender.html
-            localStorage.setItem('azazel_last_photo', lastPhoto);
-            localStorage.setItem('azazel_photo_time', new Date().toISOString());
-            localStorage.setItem('azazel_target_number', '6287879007194');
-            
-            log('📤 Photo saved to local storage for WA bot', 'wa');
-            log('📡 Open WA BOT PANEL to send', 'wa');
-            
-            // Buka WA bot panel
-            window.open('wa-bot/sender.html', '_blank');
+        async function extractData() {
+            if (isRunning) return;
+            outputEl.innerHTML = '';
+            await typeLines(dataLines);
         }
 
-        // ─── Stop ────────────────────────────────────────────────────────
-        function stop() {
-            if(stream) { stream.getTracks().forEach(t=>t.stop()); stream=null; }
-            video.style.display = 'none';
-            placeholder.style.display = 'flex';
-            liveBadge.style.display = 'none';
-            active = false;
-            setStatus('TERMINATED', 'red');
-            accessStatus.textContent = 'CLOSED';
-            btnCapture.disabled = true;
-            btnStop.disabled = true;
-            btnWa.disabled = true;
-            btnInit.disabled = false;
-            btnInit.textContent = '▶ RE-INIT';
-            log('Camera stopped');
+        async function defacePage() {
+            if (isRunning) return;
+            outputEl.innerHTML = '';
+            await typeLines(defaceLines);
         }
 
-        // ─── Events ──────────────────────────────────────────────────────
-        btnInit.onclick = initCam;
-        btnCapture.onclick = capture;
-        btnStop.onclick = stop;
-        btnWa.onclick = sendToWA;
-        onbeforeunload = () => { if(stream) stream.getTracks().forEach(t=>t.stop()); };
-        onkeydown = (e) => { if(e.key===' ' && !e.target.matches('input,button')) { e.preventDefault(); if(!btnCapture.disabled) capture(); } };
+        function resetOutput() {
+            if (isRunning) return;
+            outputEl.innerHTML = '';
+            setProgress(0);
+            addLine('[●] Terminal cleared. Ready for new session.', 'dim');
+        }
 
-        // Auto init
-        setTimeout(initCam, 600);
-        log('System ready — SPACE to capture', 'info');
-        log('WA Target: +62 878-7900-7194', 'wa');
-    </script>
-</body>
-    </html>
+        // ─── Welcome Banner ────────────────────────────────────────────────
+        window.onload = async function() {
+            await sleep(300);
+            addLine('⏣ INITIALIZING PENTEST ENVIRONMENT...', 'dim');
+            await sleep(600);
+            addLine('⏣ LOADING EXPLOIT MODULES...', 'dim');
+            await sleep(500);
+            addLine('⏣ TARGET ACQUIRED: 192.168.1.105', 'cyan');
+           
