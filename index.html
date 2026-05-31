@@ -3,108 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dyyrex | Minecraft Server Developer & Architect</title>
+    <title>Dyyrex | Minecraft Server Development & Infrastructure</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .terminal-shadow { box-shadow: 0 0 20px rgba(220, 38, 38, 0.1); }
     </style>
 </head>
-<body class="bg-[#050608] text-slate-300 antialiased selection:bg-red-500/30">
+<body class="bg-slate-50 text-slate-900">
 
-    <!-- HEADER/NAV -->
-    <nav class="fixed top-0 w-full z-50 border-b border-slate-800 bg-[#050608]/80 backdrop-blur-md">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="font-black text-white text-lg tracking-tighter">DYYREX<span class="text-red-500">.DEV</span></div>
-            <div class="hidden md:flex gap-6 font-mono text-xs text-slate-500">
-                <a href="#about" class="hover:text-red-500">01_ABOUT</a>
-                <a href="#projects" class="hover:text-red-500">02_WORK</a>
-                <a href="#contact" class="hover:text-red-500">03_CONTACT</a>
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+            <span class="text-xl font-bold tracking-tight">DYYREX<span class="text-blue-600">.</span></span>
+            <div class="space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-blue-600 transition-colors">About</a>
+                <a href="#projects" class="hover:text-blue-600 transition-colors">Projects</a>
+                <a href="#contact" class="px-5 py-2 bg-slate-900 text-white rounded-full hover:bg-slate-700 transition-all">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <section class="pt-32 pb-20 px-6">
+    <!-- HERO -->
+    <section class="pt-40 pb-20 px-6">
         <div class="max-w-4xl mx-auto">
-            <div class="font-mono text-red-500 text-sm mb-4">root@dyyrex:~# status --active</div>
-            <h1 class="text-6xl md:text-9xl font-black text-white mb-8 leading-[0.9]">SERVER<br>ENGINEER.</h1>
-            <p class="text-xl text-slate-400 max-w-xl">Mengonstruksi infrastruktur Minecraft SMP yang stabil, teroptimasi, dan memikat komunitas.</p>
+            <div class="text-blue-600 font-semibold text-sm tracking-widest uppercase mb-4">Minecraft Server Infrastructure</div>
+            <h1 class="text-6xl md:text-7xl font-bold mb-8 leading-tight">Membangun server kelas dunia dengan arsitektur yang presisi.</h1>
+            <p class="text-xl text-slate-600 max-w-2xl leading-relaxed">Saya adalah Direk, developer server Minecraft yang fokus pada optimasi performa, stabilitas ekonomi, dan pengalaman komunitas yang autentik.</p>
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-6">
-                <h2 class="text-3xl font-bold text-white uppercase tracking-tighter">Tentang Saya</h2>
-                <p class="leading-relaxed text-slate-400 border-l-2 border-red-500 pl-4">
-                    Halo, saya <strong>Direk</strong>. Saya adalah seseorang yang antusias dalam membuat dan mengembangkan server, terutama di dunia Minecraft.
-                </p>
-                <p class="leading-relaxed text-slate-400">
-                    Fokus saya adalah pada detail sistem: mulai dari setup plugin yang efisien, konfigurasi economy yang seimbang, hingga memastikan kenyamanan player di atas segalanya. Saya membangun server yang unik, stabil, dan menarik.
-                </p>
+    <!-- ABOUT -->
+    <section id="about" class="py-20 px-6 bg-white border-y border-slate-100">
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-16">
+            <h2 class="text-3xl font-bold">Tentang Saya</h2>
+            <div class="space-y-6 text-slate-600 leading-relaxed">
+                <p>Halo, saya Direk. Saya adalah individu yang memiliki dedikasi tinggi dalam pengembangan ekosistem server Minecraft. Saya tidak hanya sekadar "setup", tetapi saya merancang sistem yang berkelanjutan.</p>
+                <p>Keahlian saya mencakup konfigurasi plugin tingkat lanjut, perancangan ekonomi yang seimbang, hingga optimasi sisi server untuk meminimalisir latensi. Saya percaya bahwa server yang baik adalah perpaduan antara teknis yang solid dan kenyamanan bagi komunitas.</p>
             </div>
-            <div class="bg-slate-900/50 p-8 rounded-2xl border border-slate-800">
-                <div class="grid grid-cols-2 gap-4 text-xs font-mono">
-                    <div class="p-4 bg-slate-950 rounded border border-slate-800">SETUP PLUGIN</div>
-                    <div class="p-4 bg-slate-950 rounded border border-slate-800">CONFIG</div>
-                    <div class="p-4 bg-slate-950 rounded border border-slate-800">ECONOMY</div>
-                    <div class="p-4 bg-slate-950 rounded border border-slate-800">OPTIMIZATION</div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-20 px-6 max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold mb-12">Hasil Kerja</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-2 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-shadow">
+                <img src="https://theoretical-white-hm4mcuuv.edgeone.app/Tak%20berjudul33_20260317222712.png" class="w-full h-80 object-cover rounded-2xl">
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold">Hydel SMP</h3>
+                    <p class="text-sm text-slate-500 mt-2">Server survival dengan arsitektur ekonomi teroptimasi.</p>
+                </div>
+            </div>
+            <div class="bg-white p-2 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg transition-shadow">
+                <img src="https://well-magenta-5ep3ig6i.edgeone.app/Screenshot_2025-11-29-10-49-42-06_7352322957d4404136654ef4adb64504.jpg" class="w-full h-80 object-cover rounded-2xl">
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold">Server Logic & Gameplay</h3>
+                    <p class="text-sm text-slate-500 mt-2">Custom system configuration & performance tuning.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PROJECTS SHOWCASE -->
-    <section id="projects" class="py-20 px-6 bg-[#0a0c10]">
-        <div class="max-w-5xl mx-auto">
-            <div class="font-mono text-red-500 text-sm mb-10 text-center uppercase tracking-widest">Selected Works / Server Infrastructure</div>
-            
-            <div class="grid md:grid-cols-2 gap-10">
-                <!-- Project 1 -->
-                <div class="group border border-slate-800 rounded-3xl overflow-hidden hover:border-red-500/50 transition-all">
-                    <img src="https://theoretical-white-hm4mcuuv.edgeone.app/Tak%20berjudul33_20260317222712.png" class="w-full h-72 object-cover">
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">Hydel SMP</h3>
-                        <p class="text-slate-500 text-sm mb-6">Server Survival SMP custom dengan sistem ekonomi dan fitur komunitas yang stabil.</p>
-                        <div class="font-mono text-xs text-red-400 underline">VIEW SYSTEM CONFIG</div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="group border border-slate-800 rounded-3xl overflow-hidden hover:border-red-500/50 transition-all">
-                    <img src="https://well-magenta-5ep3ig6i.edgeone.app/Screenshot_2025-11-29-10-49-42-06_7352322957d4404136654ef4adb64504.jpg" class="w-full h-72 object-cover">
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">Gameplay Logic & Assets</h3>
-                        <p class="text-slate-500 text-sm mb-6">Implementasi visual dan mekanik server-side yang presisi untuk kenyamanan player.</p>
-                        <div class="font-mono text-xs text-red-400 underline">VIEW SYSTEM CONFIG</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
+    <!-- CONTACT FORM -->
     <section id="contact" class="py-20 px-6 max-w-2xl mx-auto">
-        <h2 class="text-3xl font-bold text-white mb-8 text-center uppercase">Ready to deploy?</h2>
-        <form action="https://formspree.io/f/emailmu@gmail.com" method="POST" class="space-y-6">
-            <input type="text" name="name" placeholder="NICKNAME" required class="w-full bg-transparent border-b border-slate-700 py-3 focus:border-red-500 outline-none text-white placeholder:text-slate-700 font-mono">
-            <textarea name="message" placeholder="JELASKAN KEBUTUHAN SERVER ANDA" required class="w-full bg-transparent border-b border-slate-700 py-3 focus:border-red-500 outline-none text-white placeholder:text-slate-700 font-mono"></textarea>
-            <button class="w-full py-4 bg-white text-black font-bold uppercase hover:bg-red-500 hover:text-white transition-all">Kirim Request Developer</button>
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4">Mari berdiskusi</h2>
+            <p class="text-slate-600">Apakah Anda membutuhkan bantuan untuk pengembangan server Minecraft Anda?</p>
+        </div>
+        <form action="https://formspree.io/f/xbdbezya" method="POST" class="space-y-6">
+            <div class="grid grid-cols-2 gap-6">
+                <input type="text" name="name" placeholder="Nama Anda" required class="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+                <input type="email" name="email" placeholder="Email" required class="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none">
+            </div>
+            <textarea name="message" rows="5" placeholder="Detail Proyek" required class="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-600 outline-none"></textarea>
+            <button class="w-full py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all">Kirim Pesan</button>
         </form>
     </section>
 
-    <footer class="py-10 text-center text-[10px] text-slate-700 font-mono uppercase">
-        © 2026 DYYREX SERVER ARCHITECT. ALL SYSTEMS OPERATIONAL.
+    <footer class="py-10 text-center text-sm text-slate-400">
+        &copy; 2026 Dyyrex Server Development.
     </footer>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>AOS.init();</script>
 </body>
     </html>
-            
+    
