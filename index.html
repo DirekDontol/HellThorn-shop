@@ -1,611 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HACKED BY DYYREX</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0a0a0a;
-            color: #cc0000;
-            font-family: 'Share Tech Mono', monospace;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-            user-select: none;
-        }
-
-        /* ─── STATIC NOISE OVERLAY ─── */
-        #static-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: 9997;
-            pointer-events: none;
-            opacity: 0;
-            background: #000;
-            transition: opacity 0.05s;
-        }
-
-        /* ─── RED FLASH ─── */
-        #red-flash {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: #ff0000;
-            z-index: 9998;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.03s;
-        }
-
-        /* ─── JUMPSCARE ─── */
-        #jumpscare-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-            animation: jumpscareShake 0.08s infinite alternate;
-        }
-
-        #jumpscare-overlay img {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-        }
-
-        @keyframes jumpscareShake {
-            0% { transform: translate(-5px, 3px) scale(1.02); }
-            25% { transform: translate(4px, -5px) scale(0.98); }
-            50% { transform: translate(-3px, 4px) scale(1.01); }
-            75% { transform: translate(5px, -2px) scale(0.99); }
-            100% { transform: translate(-2px, 2px) scale(1.0); }
-        }
-
-        /* ─── SCANLINES ─── */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(200, 0, 0, 0.03) 2px,
-                rgba(200, 0, 0, 0.03) 4px
-            );
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* ─── VIGNETTE ─── */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.9) 100%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* ─── DEFACE CONTAINER ─── */
-        .deface-wrapper {
-            position: relative;
-            z-index: 2;
-            max-width: 1100px;
-            width: 100%;
-            background: rgba(5, 0, 0, 0.9);
-            border: 3px solid #cc0000;
-            box-shadow: 0 0 50px rgba(200, 0, 0, 0.3), inset 0 0 50px rgba(200, 0, 0, 0.1);
-            padding: 0;
-            border-radius: 4px;
-            animation: containerFlicker 0.12s infinite alternate;
-        }
-
-        @keyframes containerFlicker {
-            0% { opacity: 1; box-shadow: 0 0 50px rgba(200,0,0,0.3); }
-            50% { opacity: 0.96; box-shadow: 0 0 70px rgba(200,0,0,0.5); }
-            100% { opacity: 1; box-shadow: 0 0 40px rgba(200,0,0,0.2); }
-        }
-
-        /* ─── TOP BAR ─── */
-        .top-bar {
-            background: #1a0000;
-            border-bottom: 2px solid #330000;
-            padding: 10px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: #884444;
-        }
-
-        .top-bar .url-bar {
-            color: #664444;
-            background: #0a0000;
-            padding: 4px 12px;
-            border-radius: 3px;
-            border: 1px solid #220000;
-        }
-
-        .top-bar .url-bar span {
-            color: #cc0000;
-        }
-
-        .top-bar .badge {
-            border: 1px solid #cc0000;
-            color: #ff4444;
-            padding: 3px 12px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-            animation: badgePulse 1.2s infinite;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% { border-color: #cc0000; box-shadow: 0 0 5px rgba(200,0,0,0.3); }
-            50% { border-color: #ff0000; box-shadow: 0 0 25px rgba(255,0,0,0.7); }
-        }
-
-        /* ─── MAIN DEFACE AREA ─── */
-        .deface-content {
-            padding: 40px 50px;
-            text-align: center;
-        }
-
-        /* ─── HACKED BANNER ─── */
-        .hacked-banner {
-            font-family: 'Creepster', cursive;
-            font-size: 5.5rem;
-            color: #ff0000;
-            text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 80px #880000, 0 0 120px #440000;
-            letter-spacing: 12px;
-            line-height: 1;
-            margin-bottom: 10px;
-            position: relative;
-            animation: glitchSkew 2.5s infinite linear;
-        }
-
-        .hacked-banner::before,
-        .hacked-banner::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-        }
-
-        .hacked-banner::before {
-            color: #00ff00;
-            z-index: -1;
-            animation: glitchColor1 1.8s infinite linear alternate-reverse;
-        }
-
-        .hacked-banner::after {
-            color: #0066ff;
-            z-index: -2;
-            animation: glitchColor2 1.2s infinite linear alternate;
-        }
-
-        @keyframes glitchColor1 {
-            0% { transform: translate(0); }
-            12% { transform: translate(-5px, 3px); }
-            25% { transform: translate(4px, -4px); }
-            37% { transform: translate(-6px, -2px); }
-            50% { transform: translate(3px, 6px); }
-            62% { transform: translate(-4px, 0); }
-            75% { transform: translate(2px, -3px); }
-            87% { transform: translate(-3px, 4px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes glitchColor2 {
-            0% { transform: translate(0); }
-            16% { transform: translate(6px, -4px); }
-            33% { transform: translate(-4px, 6px); }
-            50% { transform: translate(5px, 3px); }
-            66% { transform: translate(-3px, -5px); }
-            83% { transform: translate(4px, -2px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes glitchSkew {
-            0% { transform: skew(0deg); }
-            5% { transform: skew(0deg); }
-            6% { transform: skew(-4deg); }
-            7% { transform: skew(4deg); }
-            8% { transform: skew(0deg); }
-            92% { transform: skew(0deg); }
-            93% { transform: skew(-3deg); }
-            94% { transform: skew(3deg); }
-            95% { transform: skew(0deg); }
-            100% { transform: skew(0deg); }
-        }
-
-        /* ─── SUBTITLE ─── */
-        .subtitle {
-            font-size: 1.8rem;
-            color: #aa0000;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 15px #aa0000;
-        }
-
-        .subtitle .dyyrex-name {
-            color: #ff3333;
-            font-weight: bold;
-            font-size: 2.2rem;
-            text-shadow: 0 0 25px #ff0000, 0 0 50px #ff0000;
-            animation: nameGlow 1.5s infinite alternate;
-        }
-
-        @keyframes nameGlow {
-            0% { text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000; }
-            100% { text-shadow: 0 0 30px #ff0000, 0 0 60px #ff0000, 0 0 90px #880000; }
-        }
-
-        /* ─── DIVIDER ─── */
-        .divider {
-            width: 80%;
-            margin: 20px auto;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #cc0000, transparent);
-            box-shadow: 0 0 15px #cc0000;
-        }
-
-        /* ─── MESSAGE ─── */
-        .message {
-            font-size: 1.1rem;
-            color: #cc3333;
-            line-height: 1.8;
-            max-width: 700px;
-            margin: 0 auto 20px;
-        }
-
-        .message .highlight {
-            color: #ff0000;
-            text-shadow: 0 0 10px #ff0000;
-        }
-
-        .message .glitch-text {
-            animation: blinkText 1.5s step-end infinite;
-            color: #ff4444;
-        }
-
-        @keyframes blinkText {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        /* ─── ASCII BANNER ─── */
-        .ascii-banner {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem;
-            color: #884444;
-            line-height: 1.2;
-            margin: 15px auto;
-            white-space: pre;
-            overflow-x: auto;
-            max-width: 100%;
-        }
-
-        .ascii-banner .red {
-            color: #cc0000;
-        }
-
-        /* ─── TEAM LIST ─── */
-        .team-section {
-            margin: 25px 0;
-        }
-
-        .team-title {
-            font-size: 1.2rem;
-            color: #aa0000;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-        }
-
-        .team-names {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .team-names .member {
-            border: 1px solid #330000;
-            padding: 6px 18px;
-            border-radius: 3px;
-            color: #cc6666;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .team-names .member.leader {
-            border-color: #cc0000;
-            color: #ff0000;
-            text-shadow: 0 0 10px #ff0000;
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(200,0,0,0.3);
-        }
-
-        /* ─── FOOTER DEFACE ─── */
-        .deface-footer {
-            background: #0a0000;
-            border-top: 2px solid #220000;
-            padding: 12px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.75rem;
-            color: #553333;
-        }
-
-        .deface-footer .counter {
-            color: #884444;
-        }
-
-        .deface-footer .counter span {
-            color: #cc0000;
-        }
-
-        .deface-footer .ip {
-            color: #00aa00;
-        }
-
-        /* ─── BUTTONS ─── */
-        .action-bar {
-            margin: 10px auto;
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .action-bar button {
-            background: transparent;
-            border: 1px solid #440000;
-            color: #884444;
-            font-family: 'Share Tech Mono', monospace;
-            padding: 6px 16px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            transition: all 0.2s;
-        }
-
-        .action-bar button:hover {
-            background: #220000;
-            border-color: #aa0000;
-            color: #cc0000;
-            box-shadow: 0 0 15px rgba(200,0,0,0.2);
-        }
-
-        .action-bar button.danger {
-            border-color: #660000;
-            color: #aa0000;
-        }
-
-        .action-bar button.danger:hover {
-            background: #440000;
-            border-color: #ff0000;
-            box-shadow: 0 0 25px rgba(255,0,0,0.4);
-        }
-
-        /* ─── TIMESTAMP ─── */
-        .timestamp {
-            color: #442222;
-            font-size: 0.7rem;
-            margin-top: 5px;
-        }
-    </style>
+    <title>Portofolio Profesional Saya</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
-<body>
-    <div id="static-overlay"></div>
-    <div id="red-flash"></div>
-    <div id="jumpscare-overlay">
-        <img id="jumpscare-img" src="" alt="">
-    </div>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased overflow-x-hidden">
 
-    <div class="deface-wrapper">
-        <!-- Top bar -->
-        <div class="top-bar">
-            <div class="url-bar">
-                🔒 <span>www.target-website.com</span> — DEFACED
+    <nav class="fixed top-0 left-0 w-full bg-slate-900/80 backdrop-blur-md z-50 border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                Nama<span class="text-white">Kamu.</span>
+            </a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#home" class="hover:text-cyan-400 transition-colors">Home</a>
+                <a href="#about" class="hover:text-cyan-400 transition-colors">Tentang</a>
+                <a href="#projects" class="hover:text-cyan-400 transition-colors">Proyek</a>
+                <a href="#contact" class="hover:text-cyan-400 transition-colors">Kontak</a>
             </div>
-            <span class="badge">● HACKED</span>
+            <a href="#contact" class="hidden md:block bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-semibold px-4 py-2 rounded-lg transition-all shadow-lg shadow-cyan-500/20 text-sm">
+                Hire Me
+            </a>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6">
+        <div class="max-w-4xl text-center" data-aos="zoom-out" data-aos-duration="1200">
+            <span class="text-cyan-400 font-semibold tracking-widest text-sm uppercase">Halo, Selamat Datang</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold mt-4 mb-6 leading-tight">
+                Saya Seorang <br>
+                <span class="bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500 bg-clip-text text-transparent">
+                    Digital Creator
+                </span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-8">
+                Saya membangun solusi digital yang interaktif, modern, dan berfokus pada pengalaman pengguna yang luar biasa.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#projects" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium px-6 py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/10">
+                    Lihat Karya Saya
+                </a>
+                <a href="#contact" class="border border-slate-700 hover:border-slate-500 text-slate-300 px-6 py-3 rounded-xl transition-all">
+                    Hubungi Saya
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-slate-950 px-6">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right" data-aos-duration="1000">
+                <h2 class="text-3xl font-bold mb-6 text-white">Tentang Saya</h2>
+                <p class="text-slate-400 leading-relaxed mb-4">
+                    Saya adalah seorang antusias teknologi yang suka mengubah ide kreatif menjadi solusi nyata lewat baris kode dan desain yang presisi.
+                </p>
+                <p class="text-slate-400 leading-relaxed">
+                    Fokus utama saya adalah menciptakan produk digital yang tidak hanya terlihat indah, tetapi juga berfungsi dengan performa maksimal dan mudah digunakan.
+                </p>
+            </div>
+            <div data-aos="fade-left" data-aos-duration="1000">
+                <h3 class="text-xl font-semibold mb-6 text-cyan-400">Keahlian Utama:</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex items-center gap-3 hover:border-cyan-500/50 transition-colors">
+                        <i class="fab fa-html5 text-orange-500 text-2xl"></i> <span>HTML & CSS</span>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex items-center gap-3 hover:border-cyan-500/50 transition-colors">
+                        <i class="fab fa-js text-yellow-500 text-2xl"></i> <span>JavaScript</span>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex items-center gap-3 hover:border-cyan-500/50 transition-colors">
+                        <i class="fab fa-react text-cyan-400 text-2xl"></i> <span>React.js</span>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex items-center gap-3 hover:border-cyan-500/50 transition-colors">
+                        <i class="fas fa-palette text-pink-500 text-2xl"></i> <span>UI/UX Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 px-6 max-w-6xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-white mb-4">Proyek Terbaru</h2>
+            <p class="text-slate-400">Beberapa karya terbaik yang pernah saya kerjakan baru-baru ini.</p>
         </div>
 
-        <!-- Main deface content -->
-        <div class="deface-content">
-            <div class="hacked-banner" data-text="HACKED">HACKED</div>
-            <div class="subtitle">by <span class="dyyrex-name">DYYREX</span></div>
-
-            <div class="divider"></div>
-
-            <div class="ascii-banner">
-                <pre>
-    ╔══════════════════════════════════════════════════╗
-    ║     ░▒▓█ DYYREX WAS HERE █▓▒░                   ║
-    ║                                                  ║
-    ║  ╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮   ║
-    ║  ┃   YOUR SECURITY IS AN ILLUSION            ┃   ║
-    ║  ┃   THIS SYSTEM BELONGS TO DYYREX NOW       ┃   ║
-    ║  ╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯   ║
-    ║                                                  ║
-    ║  ⚠  ALL DATA HAS BEEN EXPOSED                   ║
-    ║  ⚠  BACKDOOR INSTALLED                          ║
-    ║  ⚠  DATABASES DUMPED                            ║
-    ║  ⚠  PASSWORDS CRACKED                           ║
-    ╚══════════════════════════════════════════════════╝
-                </pre>
-            </div>
-
-            <div class="message">
-                <span class="highlight">✦ YOUR SYSTEM HAS BEEN COMPROMISED ✦</span><br><br>
-                This server was penetrated by <span class="dyyrex-name" style="font-size:1.3rem;">DYYREX</span>.<br>
-                All security measures have been <span class="highlight">bypassed</span>.<br>
-                All databases have been <span class="highlight">exfiltrated</span>.<br>
-                All pages have been <span class="highlight">defaced</span>.<br><br>
-                <span class="glitch-text">▸ Patch your security. Or we'll be back. ◂</span>
-            </div>
-
-            <div class="divider" style="width:60%;"></div>
-
-            <div class="team-section">
-                <div class="team-title">⚔ DYYREX CREW ⚔</div>
-                <div class="team-names">
-                    <span class="member leader">◈ DYYREX ◈</span>
-                    <span class="member">GH057_5h3ll</span>
-                    <span class="member">n3xus_f4ll</span>
-                    <span class="member">c0d3_br34k3r</span>
-                    <span class="member">s1l3nt_k1ll3r</span>
-                    <span class="member">d4rk_m1rr0r</span>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/30 hover:-translate-y-2 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-48 bg-gradient-to-br from-cyan-900 to-slate-900 relative flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-shopping-cart text-5xl text-cyan-500/40 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white">E-Commerce Platform</h3>
+                    <p class="text-slate-400 text-sm mb-4">Aplikasi toko online responsif dengan sistem pembayaran terintegrasi.</p>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-xs bg-slate-800 text-cyan-400 px-3 py-1 rounded-full">Web App</span>
+                        <a href="#" class="text-white hover:text-cyan-400 flex items-center gap-1">Live Demo <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
                 </div>
             </div>
 
-            <div class="divider" style="width:40%;"></div>
+            <div class="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-teal-500/30 hover:-translate-y-2 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-48 bg-gradient-to-br from-teal-900 to-slate-900 relative flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-chart-line text-5xl text-teal-500/40 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white">Dashboard Analitik</h3>
+                    <p class="text-slate-400 text-sm mb-4">Panel admin untuk memantau data bisnis secara real-time dan akurat.</p>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-xs bg-slate-800 text-teal-400 px-3 py-1 rounded-full">Dashboard</span>
+                        <a href="#" class="text-white hover:text-teal-400 flex items-center gap-1">Live Demo <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
 
-            <div class="timestamp" id="timestamp">[ TIMESTAMP ]</div>
+            <div class="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-blue-500/30 hover:-translate-y-2 transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                <div class="h-48 bg-gradient-to-br from-blue-900 to-slate-900 relative flex items-center justify-center overflow-hidden">
+                    <i class="fas fa-mobile-alt text-5xl text-blue-500/40 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white">Mobile UI Design</h3>
+                    <p class="text-slate-400 text-sm mb-4">Desain antarmuka aplikasi finansial dengan pendekatan user-centric.</p>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-xs bg-slate-800 text-blue-400 px-3 py-1 rounded-full">UI/UX</span>
+                        <a href="#" class="text-white hover:text-blue-400 flex items-center gap-1">View Case <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Footer -->
-        <div class="deface-footer">
-            <div class="counter">VISITORS HACKED: <span id="visitor-count">1337</span></div>
-            <div class="ip" id="ip-display">[ TRACKING YOUR IP ]</div>
+    <section id="contact" class="py-24 bg-slate-950 px-6">
+        <div class="max-w-xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-white mb-4">Hubungi Saya</h2>
+                <p class="text-slate-400">Punya proyek atau tawaran kerja sama? Kirim pesan langsung di bawah ini!</p>
+            </div>
+
+            <form action="https://formspree.io/f/emailmu@gmail.com" method="POST" class="space-y-5" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Nama Anda</label>
+                    <input type="text" name="name" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Email Anda</label>
+                    <input type="email" name="email" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Pesan</label>
+                    <textarea name="message" rows="5" required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 focus:outline-none focus:border-cyan-500 transition-colors"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/10 cursor-pointer">
+                    Kirim Pesan <i class="fas fa-paper-plane ml-2 text-xs"></i>
+                </button>
+            </form>
+
+            <div class="flex justify-center gap-6 mt-16 mb-8 text-2xl">
+                <a href="https://github.com" target="_blank" class="text-slate-500 hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="text-slate-500 hover:text-blue-400 transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="https://instagram.com" target="_blank" class="text-slate-500 hover:text-pink-500 transition-colors"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="text-center text-xs text-slate-600">&copy; 2026 NamaKamu. All rights reserved.</p>
         </div>
-    </div>
+    </section>
 
-    <!-- Action buttons -->
-    <div class="action-bar" style="margin-top:15px; z-index:2; position:relative;">
-        <button onclick="triggerFlashing()">⚡ FLASH</button>
-        <button onclick="triggerJumpscare()">💀 JUMPSCARE</button>
-        <button onclick="triggerBoth()">🔥 FULL ATTACK</button>
-        <button onclick="resetView()" class="danger">✕ RESET</button>
-    </div>
-
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // ─── CONFIG ─────────────────────────────────────────────────────────
-        let isJumping = false;
-
-        // ─── TIMESTAMP ──────────────────────────────────────────────────────
-        function updateTime() {
-            document.getElementById('timestamp').textContent = 
-                '█ ' + new Date().toLocaleString() + ' — SYSTEM COMPROMISED █';
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
-
-        // ─── VISITOR COUNTER ────────────────────────────────────────────────
-        function updateCounter() {
-            const count = document.getElementById('visitor-count');
-            setInterval(() => {
-                const inc = Math.floor(Math.random() * 5) + 1;
-                count.textContent = parseInt(count.textContent) + inc;
-            }, 3000);
-        }
-        updateCounter();
-
-        // ─── IP GRABBER ─────────────────────────────────────────────────────
-        function fetchIP() {
-            const ipEl = document.getElementById('ip-display');
-            fetch('https://api.ipify.org?format=json')
-                .then(r => r.json())
-                .then(d => { ipEl.textContent = `[ TARGET: ${d.ip} — LOGGED ]`; })
-                .catch(() => { ipEl.textContent = '[ TARGET: 192.168.1.1 — LOGGED ]'; });
-        }
-        fetchIP();
-
-        // ─── WEB AUDIO ENGINE ──────────────────────────────────────────────
-        let audioCtx = null;
-
-        function getAudioCtx() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            return audioCtx;
-        }
-
-        function playScream() {
-            try {
-                const ctx = getAudioCtx();
-                const bufferSize = ctx.sampleRate * 2;
-                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-                const data = buffer.getChannelData(0);
-
-                for (let i = 0; i < bufferSize; i++) {
-                    const t = i / ctx.sampleRate;
-                    const screech1 = Math.sin(2 * Math.PI * 1200 * t) * 0.3;
-                    const screech2 = Math.sin(2 * Math.PI * 900 * t) * 0.25;
-                    const static_ = (Math.random() * 2 - 1) * 0.35;
-                    const rumble = Math.sin(2 * Math.PI * 50 * t) * 0.2;
-                    const envelope = Math.exp(-t * 1.8);
-                    data[i] = (screech1 + screech2 + static_ + rumble) * envelope * 0.8;
-                }
-
-                const source = ctx.createBufferSource();
-                source.buffer = buffer;
-                source.connect(ctx.destination);
-                source.start();
-
-                // Sync red flash
-                const flash = document.getElementById('red-flash');
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => {
-                        flash.style.opacity = (i % 2 === 0) ? '0.5' : '0';
-                    }, i * 150 + 50);
-                }
-                setTimeout(() => { flash.style.opacity = '0'; }, 700apse);
-
-            } catch(e) {}
-        }
-
-        function playStaticNoise(duration = 1500) {
-            try {
-                const ctx = getAudioCtx();
-                const bufferSize = ctx.sampleRate * (duration / 1000);
-                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-                const data = buffer.getChannelData(0);
-
-                for (let i = 0; i < bufferSize; i++) {
-                    data[i] = (Math.random() * 2 - 1) * 0.3;
-                }
-
-                const source = ctx.createBufferSource();
-                source.buffer = buffer;
-                source.connect(ctx.destination);
-                source.start();
-
-                const overlay = document.getElementById('static-overlay');
-                overlay.style.background = '#000';
-                overlay.style.opacity = '0.4';
-                setTimeout(() => { overlay.style.opacity = '0'; }, duration);
-
-            } catch(e) {}
-        }
-
-        // ─── JUMPSCARE ──────────────────────────────────────────────────────
-        function triggerJumpscare() {
-            if (isJumping) return;
-            isJumping = true;
-
-            const overlay = document.getElementById('jumpscare-overlay');
-          
+        // Inisialisasi efek animasi scroll
+        AOS.init({
+            once: true // Animasi hanya berjalan sekali saat di-scroll pertama kali
+        });
+    </script>
+</body>
+</html>
