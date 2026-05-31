@@ -2,25 +2,45 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dyyrex | Minecraft Development</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-950 text-white">
-    <!-- Navbar & Hero Section -->
-    <nav class="fixed w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800">
-        <!-- (Isi Navigasi Sama Seperti Sebelumnya) -->
-    </nav>
-    
-    <!-- Bagian Portfolio & Harga (Panggil file style.css) -->
-    <section id="pricing" class="py-20 px-6">
-        <!-- List Harga & QRIS -->
+<body class="text-white">
+
+    <!-- Hero Modern -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-blue-600/10 blur-[120px] rounded-full"></div>
+        <div class="relative text-center px-6">
+            <h1 class="text-7xl font-bold mb-6">DYYREX<span class="text-blue-500">.</span></h1>
+            <p class="text-gray-400 text-xl mb-10">Minecraft Infrastructure & Development</p>
+            <div class="flex gap-4 justify-center">
+                <a href="#pricing" class="px-8 py-3 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform">Lihat Layanan</a>
+            </div>
+        </div>
     </section>
 
-    <!-- Bagian Saran -->
-    <section id="saran" class="py-20">
-        <!-- Form Saran -->
+    <!-- Pricing modern -->
+    <section id="pricing" class="max-w-5xl mx-auto py-24 px-6">
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="glass p-8 rounded-3xl card-hover glow-blue">
+                <h3 class="font-bold text-xl mb-4">Fix Bug</h3>
+                <p class="text-3xl font-bold mb-6">3k<span class="text-sm font-normal text-gray-500"> /kasus</span></p>
+                <a href="https://saweria.co/dyyrex" class="block text-center py-3 bg-blue-600 rounded-xl">Order</a>
+            </div>
+            <!-- Ulangi kartu untuk harga lainnya -->
+        </div>
+    </section>
+
+    <!-- Form Saran -->
+    <section id="saran" class="max-w-xl mx-auto py-24 px-6">
+        <div class="glass p-10 rounded-3xl">
+            <h2 class="text-2xl font-bold mb-6">Saran Anda</h2>
+            <form id="saranForm" class="space-y-4">
+                <input type="text" name="name" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none" placeholder="Nama">
+                <textarea name="msg" class="w-full bg-white/5 p-4 rounded-xl border border-white/10 outline-none" placeholder="Saran..."></textarea>
+                <button class="w-full py-4 bg-white text-black font-bold rounded-xl">Kirim</button>
+            </form>
+        </div>
     </section>
 
     <script src="script.js"></script>
