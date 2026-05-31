@@ -6,7 +6,7 @@
     <title>HACKED BY DYYREX</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&display=swap');
-        
+
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +14,7 @@
         }
 
         body {
-            background: #000;
+            background: #0a0a0a;
             color: #cc0000;
             font-family: 'Share Tech Mono', monospace;
             min-height: 100vh;
@@ -24,50 +24,35 @@
             justify-content: center;
             padding: 20px;
             position: relative;
-            overflow: hidden;
-            cursor: default;
+            overflow-x: hidden;
             user-select: none;
         }
 
-        /* Matrix blood rain */
-        #matrix-bg {
+        /* ─── STATIC NOISE OVERLAY ─── */
+        #static-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
-            z-index: 0;
-            opacity: 0.2;
+            z-index: 9997;
             pointer-events: none;
+            opacity: 0;
+            background: #000;
+            transition: opacity 0.05s;
         }
 
-        /* Scanlines */
-        body::before {
-            content: '';
+        /* ─── RED FLASH ─── */
+        #red-flash {
             position: fixed;
             top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(200, 0, 0, 0.04) 2px,
-                rgba(200, 0, 0, 0.04) 4px
-            );
+            width: 100vw; height: 100vh;
+            background: #ff0000;
+            z-index: 9998;
+            opacity: 0;
             pointer-events: none;
-            z-index: 1;
+            transition: opacity 0.03s;
         }
 
-        /* Vignette */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.95) 100%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* ─── JUMBSCARE ─── */
+        /* ─── JUMPSCARE ─── */
         #jumpscare-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -77,529 +62,550 @@
             align-items: center;
             justify-content: center;
             background: #000;
-            animation: jumpscarePulse 0.1s infinite alternate;
+            animation: jumpscareShake 0.08s infinite alternate;
         }
 
         #jumpscare-overlay img {
             width: 100vw;
             height: 100vh;
             object-fit: cover;
-            filter: contrast(1.3) brightness(0.6);
         }
 
-        @keyframes jumpscarePulse {
-            0% { opacity: estreak; }
-            100% { opacity: 1; }
+        @keyframes jumpscareShake {
+            0% { transform: translate(-5px, 3px) scale(1.02); }
+            25% { transform: translate(4px, -5px) scale(0.98); }
+            50% { transform: translate(-3px, 4px) scale(1.01); }
+            75% { transform: translate(5px, -2px) scale(0.99); }
+            100% { transform: translate(-2px, 2px) scale(1.0); }
         }
 
-        /* ─── RED FLASH OVERLAY ─── */
-        #red-flash {
+        /* ─── SCANLINES ─── */
+        body::before {
+            content: '';
             position: fixed;
             top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: #ff0000;
-            z-index: 9998;
-            opacity: 0;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(200, 0, 0, 0.03) 2px,
+                rgba(200, 0, 0, 0.03) 4px
+            );
             pointer-events: none;
-            transition: opacity 0.05s;
+            z-index: 1;
         }
 
-        /* ─── CONTAINER ─── */
-        .container {
+        /* ─── VIGNETTE ─── */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.9) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ─── DEFACE CONTAINER ─── */
+        .deface-wrapper {
             position: relative;
             z-index: 2;
-            max-width: 950px;
+            max-width: 1100px;
             width: 100%;
-            background: rgba(10, 0, 0, 0.88);
-            border: 2px solid #cc0000;
-            box-shadow: 0 0 40px rgba(200, 0, 0, 0.3), inset 0 0 40px rgba(200, 0, 0, 0.1);
-            padding: 40px;
-            border-radius: 6px;
-            animation: flicker 0.08s infinite alternate;
+            background: rgba(5, 0, 0, 0.9);
+            border: 3px solid #cc0000;
+            box-shadow: 0 0 50px rgba(200, 0, 0, 0.3), inset 0 0 50px rgba(200, 0, 0, 0.1);
+            padding: 0;
+            border-radius: 4px;
+            animation: containerFlicker 0.12s infinite alternate;
         }
 
-        @keyframes flicker {
-            0% { opacity: 1; }
-            25% { opacity: 0.97; }
-            75% { opacity: 1; }
-            100% { opacity: 0.95; }
+        @keyframes containerFlicker {
+            0% { opacity: 1; box-shadow: 0 0 50px rgba(200,0,0,0.3); }
+            50% { opacity: 0.96; box-shadow: 0 0 70px rgba(200,0,0,0.5); }
+            100% { opacity: 1; box-shadow: 0 0 40px rgba(200,0,0,0.2); }
         }
 
-        /* ─── MAIN GLITCH TEXT ─── */
-        .glitch-main {
-            font-family: 'Creepster', cursive;
-            font-size: 4.5rem;
+        /* ─── TOP BAR ─── */
+        .top-bar {
+            background: #1a0000;
+            border-bottom: 2px solid #330000;
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #884444;
+        }
+
+        .top-bar .url-bar {
+            color: #664444;
+            background: #0a0000;
+            padding: 4px 12px;
+            border-radius: 3px;
+            border: 1px solid #220000;
+        }
+
+        .top-bar .url-bar span {
+            color: #cc0000;
+        }
+
+        .top-bar .badge {
+            border: 1px solid #cc0000;
+            color: #ff4444;
+            padding: 3px 12px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            animation: badgePulse 1.2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { border-color: #cc0000; box-shadow: 0 0 5px rgba(200,0,0,0.3); }
+            50% { border-color: #ff0000; box-shadow: 0 0 25px rgba(255,0,0,0.7); }
+        }
+
+        /* ─── MAIN DEFACE AREA ─── */
+        .deface-content {
+            padding: 40px 50px;
             text-align: center;
-            color: #ff0000;
-            text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 60px #880000, 0 0 90px #440000;
-            letter-spacing: 8px;
-            margin-bottom: 5px;
-            position: relative;
-            animation: glitch-skew 3s infinite linear;
         }
 
-        .glitch-main::before,
-        .glitch-main::after {
+        /* ─── HACKED BANNER ─── */
+        .hacked-banner {
+            font-family: 'Creepster', cursive;
+            font-size: 5.5rem;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 80px #880000, 0 0 120px #440000;
+            letter-spacing: 12px;
+            line-height: 1;
+            margin-bottom: 10px;
+            position: relative;
+            animation: glitchSkew 2.5s infinite linear;
+        }
+
+        .hacked-banner::before,
+        .hacked-banner::after {
             content: attr(data-text);
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
         }
 
-        .glitch-main::before {
+        .hacked-banner::before {
             color: #00ff00;
             z-index: -1;
-            animation: glitch-color-1 2s infinite linear alternate-reverse;
+            animation: glitchColor1 1.8s infinite linear alternate-reverse;
         }
 
-        .glitch-main::after {
+        .hacked-banner::after {
             color: #0066ff;
             z-index: -2;
-            animation: glitch-color-2 1.5s infinite linear alternate;
+            animation: glitchColor2 1.2s infinite linear alternate;
         }
 
-        @keyframes glitch-color-1 {
+        @keyframes glitchColor1 {
             0% { transform: translate(0); }
-            15% { transform: translate(-4px, 3px); }
-            30% { transform: translate(3px, -4px); }
-            45% { transform: translate(-5px, -2px); }
-            60% { transform: translate(2px, 5px); }
-            75% { transform: translate(-3px, 0); }
+            12% { transform: translate(-5px, 3px); }
+            25% { transform: translate(4px, -4px); }
+            37% { transform: translate(-6px, -2px); }
+            50% { transform: translate(3px, 6px); }
+            62% { transform: translate(-4px, 0); }
+            75% { transform: translate(2px, -3px); }
+            87% { transform: translate(-3px, 4px); }
             100% { transform: translate(0); }
         }
 
-        @keyframes glitch-color-2 {
+        @keyframes glitchColor2 {
             0% { transform: translate(0); }
-            20% { transform: translate(5px, -3px); }
-            40% { transform: translate(-3px, 5px); }
-            60% { transform: translate(4px, 2px); }
-            80% { transform: translate(-2px, -4px); }
+            16% { transform: translate(6px, -4px); }
+            33% { transform: translate(-4px, 6px); }
+            50% { transform: translate(5px, 3px); }
+            66% { transform: translate(-3px, -5px); }
+            83% { transform: translate(4px, -2px); }
             100% { transform: translate(0); }
         }
 
-        @keyframes glitch-skew {
+        @keyframes glitchSkew {
             0% { transform: skew(0deg); }
+            5% { transform: skew(0deg); }
+            6% { transform: skew(-4deg); }
+            7% { transform: skew(4deg); }
             8% { transform: skew(0deg); }
-            9% { transform: skew(-3deg); }
-            10% { transform: skew(3deg); }
-            11% { transform: skew(0deg); }
-            96% { transform: skew(0deg); }
-            97% { transform: skew(-2deg); }
-            98% { transform: skew(2deg); }
-            99% { transform: skew(0deg); }
+            92% { transform: skew(0deg); }
+            93% { transform: skew(-3deg); }
+            94% { transform: skew(3deg); }
+            95% { transform: skew(0deg); }
             100% { transform: skew(0deg); }
         }
 
-        /* Subtitle hacked by */
+        /* ─── SUBTITLE ─── */
         .subtitle {
-            text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             color: #aa0000;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #aa0000;
-            animation: blinkSub 2s step-end infinite;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #aa0000;
         }
 
-        @keyframes blinkSub {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        .subtitle span {
+        .subtitle .dyyrex-name {
             color: #ff3333;
             font-weight: bold;
-            font-size: 1.8rem;
-            text-shadow: 0 0 20px #ff0000;
+            font-size: 2.2rem;
+            text-shadow: 0 0 25px #ff0000, 0 0 50px #ff0000;
+            animation: nameGlow 1.5s infinite alternate;
         }
 
-        /* ─── STATUS LINE ─── */
-        .status-line {
-            border-bottom: 1px solid #660000;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            opacity: 0.6;
-            color: #880000;
+        @keyframes nameGlow {
+            0% { text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000; }
+            100% { text-shadow: 0 0 30px #ff0000, 0 0 60px #ff0000, 0 0 90px #880000; }
         }
 
-        .status-line .ip {
-            color: #00cc00;
+        /* ─── DIVIDER ─── */
+        .divider {
+            width: 80%;
+            margin: 20px auto;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #cc0000, transparent);
+            box-shadow: 0 0 15px #cc0000;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 3px 12px;
-            border: 1px solid #cc0000;
-            border-radius: 3px;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            animation: pulseRed 1.5s infinite;
+        /* ─── MESSAGE ─── */
+        .message {
+            font-size: 1.1rem;
+            color: #cc3333;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .message .highlight {
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .message .glitch-text {
+            animation: blinkText 1.5s step-end infinite;
             color: #ff4444;
         }
 
-        @keyframes pulseRed {
-            0%, 100% { border-color: #cc0000; box-shadow: 0 0 5px rgba(200,0,0,0.3); }
-            50% { border-color: #ff0000; box-shadow: 0 0 25px rgba(255,0,0,0.7); }
+        @keyframes blinkText {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
-        /* ─── OUTPUT ─── */
-        .output {
-            background: #0a0000;
-            border: 1px solid #330000;
-            padding: 20px;
-            border-radius: 4px;
-            min-height: 300px;
-            font-size: 0.85rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            overflow-y: auto;
-            max-height: 450px;
-            color: #cc3333;
+        /* ─── ASCII BANNER ─── */
+        .ascii-banner {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: #884444;
+            line-height: 1.2;
+            margin: 15px auto;
+            white-space: pre;
+            overflow-x: auto;
+            max-width: 100%;
         }
 
-        .output .line {
-            opacity: 0;
-            animation: typeLine 0.05s ease-out forwards;
-        }
-
-        .output .line.red     { color: #ff2222; text-shadow: 0 0 8px #ff0000; }
-        .output .line.green   { color: #00cc00; }
-        .output .line.cyan    { color: #00aaaa; }
-        .output .line.yellow  { color: #aa7700; }
-        .output .line.magenta { color: #aa00aa; }
-        .output .line.dim     { opacity: 0.5; color: #884444; }
-        .output .line.white   { color: #cccccc; }
-        .output .line.bigred  { color: #ff0000; font-size: 1.1rem; text-shadow: 0 0 15px #ff0000; }
-
-        @keyframes typeLine {
-            to { opacity: 1; }
-        }
-
-        .cursor-line {
-            display: flex;
-            align-items: center;
-            margin-top: 6px;
+        .ascii-banner .red {
             color: #cc0000;
         }
 
-        .cursor-blink {
-            display: inline-block;
-            width: 10px;
-            height: 18px;
-            background: #cc0000;
-            margin-left: 6px;
-            animation: blink 1s step-end infinite;
-            box-shadow: 0 0 8px #cc0000;
+        /* ─── TEAM LIST ─── */
+        .team-section {
+            margin: 25px 0;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 3px;
-            background: #1a0000;
-            border-radius: 2px;
-            margin: 8px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0%;
-            background: #cc0000;
-            box-shadow: 0 0 10px #cc0000;
-            border-radius: 2px;
-            transition: width 0.3s;
-        }
-
-        .toolbar {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-
-        .toolbar button {
-            background: transparent;
-            border: 1px solid #660000;
+        .team-title {
+            font-size: 1.2rem;
             color: #aa0000;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+        }
+
+        .team-names {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .team-names .member {
+            border: 1px solid #330000;
+            padding: 6px 18px;
+            border-radius: 3px;
+            color: #cc6666;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .team-names .member.leader {
+            border-color: #cc0000;
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(200,0,0,0.3);
+        }
+
+        /* ─── FOOTER DEFACE ─── */
+        .deface-footer {
+            background: #0a0000;
+            border-top: 2px solid #220000;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #553333;
+        }
+
+        .deface-footer .counter {
+            color: #884444;
+        }
+
+        .deface-footer .counter span {
+            color: #cc0000;
+        }
+
+        .deface-footer .ip {
+            color: #00aa00;
+        }
+
+        /* ─── BUTTONS ─── */
+        .action-bar {
+            margin: 10px auto;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-bar button {
+            background: transparent;
+            border: 1px solid #440000;
+            color: #884444;
             font-family: 'Share Tech Mono', monospace;
-            padding: 7px 18px;
+            padding: 6px 16px;
             border-radius: 3px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             transition: all 0.2s;
         }
 
-        .toolbar button:hover {
-            background: #330000;
-            border-color: #cc0000;
-            color: #ff0000;
-            box-shadow: 0 0 20px rgba(200,0,0,0.3);
-        }
-
-        .toolbar button.danger {
-            border-color: #880000;
+        .action-bar button:hover {
+            background: #220000;
+            border-color: #aa0000;
             color: #cc0000;
+            box-shadow: 0 0 15px rgba(200,0,0,0.2);
         }
 
-        .toolbar button.danger:hover {
-            background: #550000;
+        .action-bar button.danger {
+            border-color: #660000;
+            color: #aa0000;
+        }
+
+        .action-bar button.danger:hover {
+            background: #440000;
             border-color: #ff0000;
-            box-shadow: 0 0 30px rgba(255,0,0,0.5);
+            box-shadow: 0 0 25px rgba(255,0,0,0.4);
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 12px;
+        /* ─── TIMESTAMP ─── */
+        .timestamp {
+            color: #442222;
             font-size: 0.7rem;
-            opacity: 0.3;
-            border-top: 1px solid #220000;
-            padding-top: 12px;
-            color: #664444;
-        }
-
-        .footer .dyy {
-            color: #ff0000;
-            opacity: 0.7;
-        }
-
-        .output::-webkit-scrollbar {
-            width: 4px;
-        }
-        .output::-webkit-scrollbar-track {
-            background: #0a0000;
-        }
-        .output::-webkit-scrollbar-thumb {
-            background: #660000;
-            border-radius: 2px;
-        }
-
-        /* ─── BLOOD DRIP ─── */
-        .blood-drip {
-            position: fixed;
-            top: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, #cc0000, transparent);
-            z-index: 3;
-            animation: drip 4s infinite;
-            opacity: 0.4;
-        }
-
-        @keyframes drip {
-            0% { height: 0; opacity: 0; }
-            50% { height: 100vh; opacity: 0.5; }
-            100% { height: 100vh; opacity: 0; }
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
-    <canvas id="matrix-bg"></canvas>
+    <div id="static-overlay"></div>
     <div id="red-flash"></div>
-
-    <!-- Jumpscare overlay -->
     <div id="jumpscare-overlay">
-        <img id="jumpscare-img" src="" alt="SCARE">
+        <img id="jumpscare-img" src="" alt="">
     </div>
 
-    <!-- Blood drips -->
-    <div class="blood-drip" style="left: 5%; animation-delay: 0s;"></div>
-    <div class="blood-drip" style="left: 15%; animation-delay: 1.5s; width: 2px;"></div>
-    <div class="blood-drip" style="left: 30%; animation-delay: 3s; width: 4px;"></div>
-    <div class="blood-drip" style="left: 55%; animation-delay: 0.8s; width: 2px;"></div>
-    <div class="blood-drip" style="left: 75%; animation-delay: 2.2s; width: 3px;"></div>
-    <div class="blood-drip" style="left: 90%; animation-delay: 4.5s; width: 1px;"></div>
-    <div class="blood-drip" style="left: 42%; animation-delay: 5s; width: 2px;"></div>
-
-    <div class="container">
-        <div class="status-line">
-            <span>⚠ SYSTEM COMPROMISED</span>
-            <span class="ip" id="ip-display">[TARGET ACQUIRED]</span>
-            <span class="status-badge">● BREACHED</span>
+    <div class="deface-wrapper">
+        <!-- Top bar -->
+        <div class="top-bar">
+            <div class="url-bar">
+                🔒 <span>www.target-website.com</span> — DEFACED
+            </div>
+            <span class="badge">● HACKED</span>
         </div>
 
-        <div class="glitch-main" data-text="HACKED">HACKED</div>
-        <div class="subtitle">by <span>DYYREX</span></div>
+        <!-- Main deface content -->
+        <div class="deface-content">
+            <div class="hacked-banner" data-text="HACKED">HACKED</div>
+            <div class="subtitle">by <span class="dyyrex-name">DYYREX</span></div>
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill"></div>
+            <div class="divider"></div>
+
+            <div class="ascii-banner">
+                <pre>
+    ╔══════════════════════════════════════════════════╗
+    ║     ░▒▓█ DYYREX WAS HERE █▓▒░                   ║
+    ║                                                  ║
+    ║  ╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮   ║
+    ║  ┃   YOUR SECURITY IS AN ILLUSION            ┃   ║
+    ║  ┃   THIS SYSTEM BELONGS TO DYYREX NOW       ┃   ║
+    ║  ╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯   ║
+    ║                                                  ║
+    ║  ⚠  ALL DATA HAS BEEN EXPOSED                   ║
+    ║  ⚠  BACKDOOR INSTALLED                          ║
+    ║  ⚠  DATABASES DUMPED                            ║
+    ║  ⚠  PASSWORDS CRACKED                           ║
+    ╚══════════════════════════════════════════════════╝
+                </pre>
+            </div>
+
+            <div class="message">
+                <span class="highlight">✦ YOUR SYSTEM HAS BEEN COMPROMISED ✦</span><br><br>
+                This server was penetrated by <span class="dyyrex-name" style="font-size:1.3rem;">DYYREX</span>.<br>
+                All security measures have been <span class="highlight">bypassed</span>.<br>
+                All databases have been <span class="highlight">exfiltrated</span>.<br>
+                All pages have been <span class="highlight">defaced</span>.<br><br>
+                <span class="glitch-text">▸ Patch your security. Or we'll be back. ◂</span>
+            </div>
+
+            <div class="divider" style="width:60%;"></div>
+
+            <div class="team-section">
+                <div class="team-title">⚔ DYYREX CREW ⚔</div>
+                <div class="team-names">
+                    <span class="member leader">◈ DYYREX ◈</span>
+                    <span class="member">GH057_5h3ll</span>
+                    <span class="member">n3xus_f4ll</span>
+                    <span class="member">c0d3_br34k3r</span>
+                    <span class="member">s1l3nt_k1ll3r</span>
+                    <span class="member">d4rk_m1rr0r</span>
+                </div>
+            </div>
+
+            <div class="divider" style="width:40%;"></div>
+
+            <div class="timestamp" id="timestamp">[ TIMESTAMP ]</div>
         </div>
 
-        <div class="output" id="output"></div>
-
-        <div class="cursor-line">
-            <span>dyyrex@void:~$</span>
-            <span class="cursor-blink"></span>
+        <!-- Footer -->
+        <div class="deface-footer">
+            <div class="counter">VISITORS HACKED: <span id="visitor-count">1337</span></div>
+            <div class="ip" id="ip-display">[ TRACKING YOUR IP ]</div>
         </div>
+    </div>
 
-        <div class="toolbar">
-            <button onclick="runAttack()">▶ EXECUTE</button>
-            <button onclick="dumpData()">📂 DUMP</button>
-            <button onclick="triggerJumpscare()">💀 SCARE</button>
-            <button onclick="resetTerminal()" class="danger">✕ CLEAR</button>
-        </div>
-
-        <div class="footer">
-            <span class="dyy">[ DYYREX ]</span> — PENTEST SIMULATION — AUTHORIZED TESTING ONLY<br>
-            <span id="timestamp"></span>
-        </div>
+    <!-- Action buttons -->
+    <div class="action-bar" style="margin-top:15px; z-index:2; position:relative;">
+        <button onclick="triggerFlashing()">⚡ FLASH</button>
+        <button onclick="triggerJumpscare()">💀 JUMPSCARE</button>
+        <button onclick="triggerBoth()">🔥 FULL ATTACK</button>
+        <button onclick="resetView()" class="danger">✕ RESET</button>
     </div>
 
     <script>
-        // ─── MATRIX BLOOD RAIN ─────────────────────────────────────────────
-        const canvas = document.getElementById('matrix-bg');
-        const ctx = canvas.getContext('2d');
+        // ─── CONFIG ─────────────────────────────────────────────────────────
+        let isJumping = false;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        // ─── TIMESTAMP ──────────────────────────────────────────────────────
+        function updateTime() {
+            document.getElementById('timestamp').textContent = 
+                '█ ' + new Date().toLocaleString() + ' — SYSTEM COMPROMISED █';
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
+        updateTime();
+        setInterval(updateTime, 1000);
 
-        // Blood-like characters
-        const bloodChars = '💀☠️⚠️⛔🔴🩸🧛🏻‍♂️😈👹👺𐤁𐤄𐤋𐤌𐤍𐤎𐤑𐤇†‡•‧⁂※⁑☠︎︎⚰️🪦'.split('');
-        const latinBlood = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}:">?<';
-
-        const allChars = [...bloodChars, ...latinBlood.split('')];
-        const fontSize = 14;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = Array(columns).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height collectOne);
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = allChars[Math.floor(Math.random() * allChars.length)];
-                const red = 150 + Math.floor(Math.random() * 105);
-                ctx.fillStyle = `rgb(${red}, 0, 0)`;
-                ctx.font = fontSize + 'px monospace';
-                ctx.fillText(text, i * fontSize, drops[i] * fontSizeapse);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
+        // ─── VISITOR COUNTER ────────────────────────────────────────────────
+        function updateCounter() {
+            const count = document.getElementById('visitor-count');
+            setInterval(() => {
+                const inc = Math.floor(Math.random() * 5) + 1;
+                count.textContent = parseInt(count.textContent) + inc;
+            }, 3000);
         }
-        setInterval(drawMatrix, 40);
+        updateCounter();
 
         // ─── IP GRABBER ─────────────────────────────────────────────────────
         function fetchIP() {
             const ipEl = document.getElementById('ip-display');
             fetch('https://api.ipify.org?format=json')
                 .then(r => r.json())
-                .then(d => { ipEl.textContent = `[TARGET: ${d.ip}]`; })
-                .catch(() => { ipEl.textContent = '[TARGET: 192.168.1.1]'; });
+                .then(d => { ipEl.textContent = `[ TARGET: ${d.ip} — LOGGED ]`; })
+                .catch(() => { ipEl.textContent = '[ TARGET: 192.168.1.1 — LOGGED ]'; });
         }
         fetchIP();
 
-        // ─── TIMESTAMP ──────────────────────────────────────────────────────
-        function updateTimestamp() {
-            document.getElementById('timestamp').textContent = new Date().toLocaleString();
-        }
-        updateTimestamp();
-        setInterval(updateTimestamp, 1000);
+        // ─── WEB AUDIO ENGINE ──────────────────────────────────────────────
+        let audioCtx = null;
 
-        // ─── OUTPUT ENGINE ──────────────────────────────────────────────────
-        const outputEl = document.getElementById('output');
-        const progressFill = document.getElementById('progress-fill');
-        let isRunning = false;
-
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve separator ms));
+        function getAudioCtx() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
         }
 
-        function addLine(text, className = '') {
-            const line = document.createElement('div');
-            line.className = 'line' + (className ? ' ' + className : '');
-            line.textContent = text;
-            outputEl.appendChild(line);
-            outputEl.scrollTop = outputEl.scrollHeight;
-            return line;
-        }
-
-        function setProgress(pct) {
-            progressFill.style.width = Math.min(pct, 100) + '%';
-        }
-
-        // ─── AUDIO ──────────────────────────────────────────────────────────
         function playScream() {
             try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                // Generate screeching noise
-                const bufferSize = audioCtx.sampleRate * 1.5;
-                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const ctx = getAudioCtx();
+                const bufferSize = ctx.sampleRate * 2;
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
                 const data = buffer.getChannelData(0);
 
                 for (let i = 0; i < bufferSize; i++) {
-                    const t = i / audioCtx.sampleRate;
-                    // Mix of screech + static + low rumble
-                    const screech = Math.sin(2 * Math.PI * 800 * t) * 0.4;
-                    const static_ = (Math.random() * 2 - 1) * 0.3;
-                    const rumble = Math.sin(2 * Math.PI * 60 * t) * 0.2;
-                    const envelope = Math.exp(-t * 2);
-                    data[i] = (screech + static_ + rumble) * envelope * 0.7;
+                    const t = i / ctx.sampleRate;
+                    const screech1 = Math.sin(2 * Math.PI * 1200 * t) * 0.3;
+                    const screech2 = Math.sin(2 * Math.PI * 900 * t) * 0.25;
+                    const static_ = (Math.random() * 2 - 1) * 0.35;
+                    const rumble = Math.sin(2 * Math.PI * 50 * t) * 0.2;
+                    const envelope = Math.exp(-t * 1.8);
+                    data[i] = (screech1 + screech2 + static_ + rumble) * envelope * 0.8;
                 }
 
-                const source = audioCtx.createBufferSource();
+                const source = ctx.createBufferSource();
                 source.buffer = buffer;
-                source.connect(audioCtx.destination);
+                source.connect(ctx.destination);
                 source.start();
 
-                // Red flash sync
+                // Sync red flash
                 const flash = document.getElementById('red-flash');
-                flash.style.opacity = '0.6';
-                setTimeout(() => { flash.style.opacity = '0'; }, 200);
-                setTimeout(() => { flash.style.opacity = '0.4'; }, 400);
-                setTimeout(() => { flash.style.opacity = '0'; }, 600);
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => {
+                        flash.style.opacity = (i % 2 === 0) ? '0.5' : '0';
+                    }, i * 150 + 50);
+                }
+                setTimeout(() => { flash.style.opacity = '0'; }, 700apse);
 
-            } catch (e) {
-                console.log('Audio not supported');
-            }
+            } catch(e) {}
         }
 
-        function playHeartbeat() {
+        function playStaticNoise(duration = 1500) {
             try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
-                const bufferSize = audioCtx.sampleRate * 4;
-                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const ctx = getAudioCtx();
+                const bufferSize = ctx.sampleRate * (duration / 1000);
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
                 const data = buffer.getChannelData(0);
 
                 for (let i = 0; i < bufferSize; i++) {
-                    const t = i / audioCtx.sampleRate;
-                    const beat = Math.sin(2 * Math.PI * 40 * t) * 0.5;
-                    // Heartbeat envelope - two quick thumps
-                    const beatMod = (Math.sin(2 * Math.PI * 2 * t) > 0.7) || (Math.sin(2 * Math.PI * 2 * t + 0.5) > 0.7) ? 1 : 0;
-                    data[i] = beat * beatMod * 0.4;
+                    data[i] = (Math.random() * 2 - 1) * 0.3;
                 }
 
-                const source = audioCtx.createBufferSource();
+                const source = ctx.createBufferSource();
                 source.buffer = buffer;
-                source.connect(audioCtx.destination);
-                source.loop = true;
+                source.connect(ctx.destination);
                 source.start();
-                return source;
-            } catch (e) {
-                return null;
-            }
+
+                const overlay = document.getElementById('static-overlay');
+                overlay.style.background = '#000';
+                overlay.style.opacity = '0.4';
+                setTimeout(() => { overlay.style.opacity = '0'; }, duration);
+
+            } catch(e) {}
         }
 
         // ─── JUMPSCARE ──────────────────────────────────────────────────────
         function triggerJumpscare() {
-            const overlay = document.getElementById('jumpscare-overlay');
-            const img = document.getElementById('jumpscare-img');
+            if (isJumping) return;
+            isJumping = true;
 
-            // Use a classic creepypasta / scary face (base64 SVG so it works offline)
-            img.src = 'data:image/svg+xml,' + encodeURIComponent(`
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-                    <rect width="500" heig
+            const overlay = document.getElementById('jumpscare-overlay');
+          
