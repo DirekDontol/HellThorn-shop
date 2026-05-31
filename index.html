@@ -5,45 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dyyrex | Developer Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Poppins', sans-serif; 
-            background: linear-gradient(135deg, #4da4e6 0%, #1e3a8a 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
+        /* Container Utama - Lebar Maksimal Diperluas Biar Nggak Sempit */
         .glass-container {
-            background-color: #111827; 
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background-color: #0b0f19; 
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             width: 100%;
-            max-w: 1200px; /* Diperlebar sedikit agar karakter muat */
-            height: 90vh;
+            max-w: 1300px; 
+            height: 88vh;
             overflow-y: auto;
-            overflow-x: hidden;
             position: relative;
             scrollbar-width: none; 
+            border: 1px solid rgba(255, 255, 255, 0.03);
         }
         .glass-container::-webkit-scrollbar { display: none; }
 
+        /* Cyan Neon Glow Effects */
         .text-glow {
             color: #00d2ff;
             text-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
         }
 
+        /* Floating Sidebar Nav (Kiri) */
         .sidebar-nav {
             position: fixed;
-            left: max(10px, calc(50% - 630px)); 
+            left: max(20px, calc(50% - 690px)); 
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 40px;
             padding: 1.5rem 0.75rem;
             display: flex;
@@ -53,10 +57,10 @@
         }
 
         .nav-item {
-            color: #6b7280;
-            transition: all 0.3s;
+            color: #4b5563;
+            transition: all 0.3s ease;
             cursor: pointer;
-            padding: 10px;
+            padding: 12px;
             border-radius: 50%;
         }
         .nav-item:hover, .nav-item.active {
@@ -65,138 +69,150 @@
             box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
         }
 
+        /* Shop Cards */
         .shop-card {
-            background: #1f2937;
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 16px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            z-index: 10;
+            background: #121826;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .shop-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.15);
-            border-color: rgba(0, 210, 255, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.15);
+            border-color: rgba(0, 210, 255, 0.4);
         }
 
-        /* Dekorasi Teks Besar di Belakang (Watermark) */
+        /* Watermark Background Text */
         .bg-text {
             position: absolute;
-            font-size: 14rem;
+            font-size: clamp(5rem, 12vw, 13rem);
             font-weight: 900;
-            color: rgba(255, 255, 255, 0.02);
-            top: 40%;
+            color: rgba(255, 255, 255, 0.015);
+            top: 35%;
             left: 5%;
             transform: translateY(-50%);
             z-index: 0;
             pointer-events: none;
             user-select: none;
+            letter-spacing: -5px;
         }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR NAV -->
-    <nav class="sidebar-nav hidden md:flex">
-        <a href="#home" class="nav-item active">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+    <!-- FLOATING SIDEBAR NAV -->
+    <nav class="sidebar-nav hidden lg:flex">
+        <a href="#home" class="nav-item active" title="Home">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
         </a>
-        <a href="#shop" class="nav-item">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        <a href="#shop" class="nav-item" title="Shop">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
         </a>
     </nav>
 
-    <!-- MAIN APP CONTAINER -->
-    <main class="glass-container text-white px-8 md:px-16 pb-16 scroll-smooth">
+    <!-- MAIN BOX -->
+    <main class="glass-container text-white px-6 md:px-16 lg:px-24 py-12 scroll-smooth">
         
-        <!-- HERO SECTION DENGAN KARAKTER ANIME -->
-        <section id="home" class="min-h-[85vh] flex items-center relative mb-20">
-            <!-- Background Text Watermark ala referensi -->
-            <div class="bg-text tracking-tighter">DYYREX</div>
+        <!-- HERO SECTION (Teks Kiri, Char Kanan) -->
+        <section id="home" class="min-h-[75vh] flex flex-col lg:flex-row items-center justify-between relative mb-24 pt-6 lg:pt-0">
+            <!-- Watermark -->
+            <div class="bg-text">DYYREX</div>
             
-            <!-- Karakter Anime (Ganti src dengan link gambar anime kamu yang TRANSPARAN / PNG) -->
-            <!-- Diset absolute di kanan bawah agar memotong / overlap dengan indah -->
-            <img src="https://i.postimg.cc/L8w0Zn2R/makima-from-chainsaw-man-png-render-by-xanccount-dfta1it-fullview.png" 
-                 alt="Anime Character" 
-                 class="absolute bottom-0 -right-10 md:right-0 w-[80%] md:w-[50%] h-[90%] object-contain object-bottom z-10 pointer-events-none drop-shadow-[-10px_0_20px_rgba(0,0,0,0.5)]">
-            
-            <!-- Konten Teks di Kiri -->
-            <div class="relative z-20 w-full md:w-1/2 pt-20">
-                <h1 class="text-6xl md:text-7xl font-black mb-2 uppercase tracking-tight">DYY<span class="text-glow">REX</span></h1>
-                <h2 class="text-xl md:text-2xl font-semibold mb-6 text-gray-300">Infrastructure & System</h2>
+            <!-- Sisi Kiri: Deskripsi -->
+            <div class="relative z-20 w-full lg:w-1/2 order-2 lg:order-1 text-center lg:text-left mt-8 lg:mt-0">
+                <h1 class="text-5xl md:text-7xl font-black mb-3 uppercase tracking-tight">DYY<span class="text-glow">REX</span></h1>
+                <h2 class="text-lg md:text-2xl font-semibold mb-6 text-gray-400 tracking-wide">Infrastructure & System Developer</h2>
                 
-                <p class="text-gray-400 text-sm max-w-md mb-10 leading-relaxed bg-[#111827]/60 backdrop-blur-sm p-4 rounded-xl border border-gray-800">
-                    Membangun dan mengoptimasi ekosistem server Minecraft. Fokus pada performa, stabilitas ekonomi, dan integrasi fitur kustom.
+                <p class="text-gray-400 text-sm md:text-base max-w-md mx-auto lg:mx-0 mb-10 leading-relaxed bg-[#121826]/40 backdrop-blur-md p-5 rounded-2xl border border-gray-800/50">
+                    Membangun dan melakukan optimasi penuh pada arsitektur server Minecraft. Fokus utama pada stabilitas core, balancing sistem ekonomi, serta performa tinggi tanpa lag.
                 </p>
                 
-                <div class="flex flex-wrap gap-4">
-                    <a href="#shop" class="px-8 py-3 bg-white text-black rounded-full font-bold text-sm hover:bg-[#00d2ff] hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition-all">
-                        LAYANAN DYYREX STORE
+                <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                    <a href="#shop" class="px-8 py-3.5 bg-white text-black rounded-full font-bold text-sm hover:bg-[#00d2ff] hover:shadow-[0_0_25px_rgba(0,210,255,0.4)] transition-all uppercase tracking-wider">
+                        Buka Toko
                     </a>
-                    <a href="https://wa.me/6281316683463" target="_blank" class="px-8 py-3 border-2 border-white rounded-full font-bold text-sm hover:border-[#00d2ff] hover:text-[#00d2ff] transition-all bg-black/30 backdrop-blur-md">
-                        TANYA DULU
+                    <a href="https://wa.me/6281316683463" target="_blank" class="px-8 py-3.5 border border-gray-700 rounded-full font-bold text-sm hover:border-[#00d2ff] hover:text-[#00d2ff] transition-all bg-black/20 backdrop-blur-sm tracking-wider">
+                        Hubungi Saya
                     </a>
                 </div>
+            </div>
+            
+            <!-- Sisi Kanan: Karakter Anime Makima (Tidak tumpang tindih karena Flexbox) -->
+            <div class="relative w-full lg:w-1/2 h-[350px] md:h-[500px] lg:h-[650px] order-1 lg:order-2 flex justify-center lg:justify-end overflow-visible">
+                <!-- Efek Semburat Cahaya di Belakang Karakter -->
+                <div class="absolute inset-0 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+                <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5f0018a2-8560-4f86-b6ed-ce255489220d/dfta1it-fc942fb7-7288-4c67-8292-5416cb99624b.png/v1/fill/w_1280,h_1575/makima_from_chainsaw_man___png_render_by_xanccount_dfta1it-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTU3NSIsInBhdGgiOiIvZi81ZjAwMThhMi04NTYwLTRmODYtYjZlZC1jZTI1NTQ4OTIyMGQvZGZ0YTFpdC1mYzk0MmZiNy03Mjg4LTRjNjctODI5Mi01NDE2Y2I5OTYyNGIucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.8v1shNpAQ2Ulzg-gD0J-Ctms4-ywdHScFTc__U0srgE" 
+                     alt="Makima Dev" 
+                     class="h-full w-auto object-contain object-bottom select-none pointer-events-none drop-shadow-[-15px_10px_30px_rgba(0,0,0,0.6)]">
             </div>
         </section>
 
-        <!-- SHOP / PRICING SECTION -->
-        <section id="shop" class="mb-20 relative z-20 pt-10">
-            <div class="mb-12">
-                <h2 class="text-4xl font-black mb-2 uppercase tracking-tight">My <span class="text-glow">Shop</span></h2>
-                <p class="text-gray-400 text-sm">Pilih layanan server yang Anda butuhkan.</p>
+        <!-- SHOP SECTION -->
+        <section id="shop" class="mb-16 relative z-20 pt-8">
+            <div class="text-center lg:text-left mb-12">
+                <h2 class="text-4xl font-black mb-2 uppercase tracking-tight">Catalog <span class="text-glow">Shop</span></h2>
+                <p class="text-gray-400 text-sm">Layanan konfigurasi profesional, instan, dan aman.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-6 max-w-5xl">
-                <!-- Service 1 -->
-                <div class="shop-card p-6 flex flex-col justify-between">
+            <!-- Grid Responsive: Otomatis membesar di desktop biar lega -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl">
+                
+                <!-- Jasa 1: Fix Bug -->
+                <div class="shop-card p-8 flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4 text-[#00d2ff]">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <div class="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6 text-[#00d2ff] border border-gray-800">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-1">Fix Bug</h3>
-                        <p class="text-2xl font-semibold text-[#00d2ff] mb-3">3k - 10k</p>
-                        <p class="text-gray-400 text-xs leading-relaxed mb-6">Perbaikan error plugin, console spam, atau malfungsi sistem.</p>
+                        <h3 class="text-2xl font-bold mb-2">Fix Bug</h3>
+                        <p class="text-2xl font-semibold text-[#00d2ff] mb-4">3k - 10k <span class="text-xs font-normal text-gray-500">/ Kasus</span></p>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">Pembersihan error log konsol, crash plugin, konflik data yml, hingga malfungsi fungsionalitas sistem.</p>
                     </div>
-                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order%20jasa%20*Fix%20Bug*.%20Bisa%20dibantu?" target="_blank" class="w-full py-3 bg-gray-800 text-center rounded-lg text-sm font-bold hover:bg-[#00d2ff] hover:text-black transition-colors uppercase">
-                        Order
+                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20mau%20order%20jasa%20*Fix%20Bug*." target="_blank" class="w-full py-3.5 bg-gray-900 border border-gray-800 text-center rounded-xl text-sm font-bold hover:bg-[#00d2ff] hover:text-black hover:border-[#00d2ff] transition-all uppercase tracking-wider">
+                        Order via WA
                     </a>
                 </div>
 
-                <!-- Service 2 -->
-                <div class="shop-card p-6 flex flex-col justify-between border-[#00d2ff]/30 shadow-[0_0_15px_rgba(0,210,255,0.1)] relative">
-                    <span class="absolute -top-3 right-6 bg-[#00d2ff] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Popular</span>
+                <!-- Jasa 2: Config Plugin -->
+                <div class="shop-card p-8 flex flex-col justify-between border-cyan-500/20 shadow-[0_0_20px_rgba(0,210,255,0.05)]">
                     <div>
-                        <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4 text-[#00d2ff]">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0..."></path></svg>
+                        <div class="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6 text-[#00d2ff] border border-gray-800">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-1">Config Plugin</h3>
-                        <p class="text-2xl font-semibold text-[#00d2ff] mb-3">Start 5k</p>
-                        <p class="text-gray-400 text-xs leading-relaxed mb-6">Setup file .yml, custom ekonomi, pembuatan rank, dll.</p>
+                        <h3 class="text-2xl font-bold mb-2">Config Plugin</h3>
+                        <p class="text-2xl font-semibold text-[#00d2ff] mb-4">Mulai 5k</p>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">Pembuatan kustom menu GUI, setup database kustom ekonomi, konfigurasi rank, hingga integrasi resource pack.</p>
                     </div>
-                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order%20jasa%20*Config%20Plugin*.%20Bisa%20dibantu?" target="_blank" class="w-full py-3 bg-gradient-to-r from-[#00d2ff] to-[#3a7bd5] text-white text-center rounded-lg text-sm font-bold hover:opacity-90 transition-opacity uppercase">
-                        Order
+                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20mau%20order%20jasa%20*Config%20Plugin*." target="_blank" class="w-full py-3.5 bg-gradient-to-r from-[#00d2ff] to-[#0088cc] text-black rounded-xl text-sm font-bold hover:opacity-90 transition-all uppercase tracking-wider">
+                        Order via WA
                     </a>
                 </div>
 
-                <!-- Service 3 -->
-                <div class="shop-card p-6 flex flex-col justify-between">
+                <!-- Jasa 3: Full Setup -->
+                <div class="shop-card p-8 flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center mb-4 text-[#00d2ff]">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14..."></path></svg>
+                        <div class="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6 text-[#00d2ff] border border-gray-800">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold mb-1">Full Setup</h3>
-                        <p class="text-2xl font-semibold text-[#00d2ff] mb-3">Start 30k</p>
-                        <p class="text-gray-400 text-xs leading-relaxed mb-6">Perancangan arsitektur server dari nol siap rilis.</p>
+                        <h3 class="text-2xl font-bold mb-2">Full Setup</h3>
+                        <p class="text-2xl font-semibold text-[#00d2ff] mb-4">Mulai 30k</p>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">Pembangunan sistem arsitektur server menyeluruh dari nol esensial. Optimalisasi performa anti-lag tinggi, siap pakai.</p>
                     </div>
-                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order%20jasa%20*Full%20Setup%20Server*.%20Bisa%20dibantu?" target="_blank" class="w-full py-3 bg-gray-800 text-center rounded-lg text-sm font-bold hover:bg-[#00d2ff] hover:text-black transition-colors uppercase">
-                        Order
+                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20mau%20order%20jasa%20*Full%20Setup*." target="_blank" class="w-full py-3.5 bg-gray-900 border border-gray-800 text-center rounded-xl text-sm font-bold hover:bg-[#00d2ff] hover:text-black hover:border-[#00d2ff] transition-all uppercase tracking-wider">
+                        Order via WA
                     </a>
                 </div>
+
             </div>
         </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center text-gray-600 text-xs mt-16 pt-6 border-t border-gray-900/40">
+            <p>&copy; 2026 Dyyrex Solutions. Powered by Tailwind CSS.</p>
+        </footer>
 
     </main>
 
+    <!-- SCRIPT (Nav Active Class Switcher) -->
     <script>
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
