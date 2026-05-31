@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACCESS DENIED</title>
+    <title>HACKED BY DYYREX</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Share+Tech+Mono&display=swap');
         
         * {
             margin: 0;
@@ -14,8 +14,8 @@
         }
 
         body {
-            background: #0a0a0a;
-            color: #00ff41;
+            background: #000;
+            color: #cc0000;
             font-family: 'Share Tech Mono', monospace;
             min-height: 100vh;
             display: flex;
@@ -24,22 +24,22 @@
             justify-content: center;
             padding: 20px;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
+            cursor: default;
+            user-select: none;
         }
 
-        /* Matrix rain canvas */
+        /* Matrix blood rain */
         #matrix-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             z-index: 0;
-            opacity: 0.15;
+            opacity: 0.2;
             pointer-events: none;
         }
 
-        /* Scanlines overlay */
+        /* Scanlines */
         body::before {
             content: '';
             position: fixed;
@@ -49,116 +49,215 @@
                 0deg,
                 transparent,
                 transparent 2px,
-                rgba(0, 255, 65, 0.03) 2px,
-                rgba(0, 255, 65, 0.03) 4px
+                rgba(200, 0, 0, 0.04) 2px,
+                rgba(200, 0, 0, 0.04) 4px
             );
             pointer-events: none;
             z-index: 1;
         }
 
-        /* CRT vignette */
+        /* Vignette */
         body::after {
             content: '';
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.7) 100%);
+            background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.95) 100%);
             pointer-events: none;
             z-index: 1;
         }
 
+        /* ─── JUMBSCARE ─── */
+        #jumpscare-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            animation: jumpscarePulse 0.1s infinite alternate;
+        }
+
+        #jumpscare-overlay img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            filter: contrast(1.3) brightness(0.6);
+        }
+
+        @keyframes jumpscarePulse {
+            0% { opacity: estreak; }
+            100% { opacity: 1; }
+        }
+
+        /* ─── RED FLASH OVERLAY ─── */
+        #red-flash {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #ff0000;
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.05s;
+        }
+
+        /* ─── CONTAINER ─── */
         .container {
             position: relative;
             z-index: 2;
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
-            background: rgba(0, 10, 0, 0.85);
-            border: 2px solid #00ff41;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3), inset 0 0 30px rgba(0, 255, 65, 0.1);
+            background: rgba(10, 0, 0, 0.88);
+            border: 2px solid #cc0000;
+            box-shadow: 0 0 40px rgba(200, 0, 0, 0.3), inset 0 0 40px rgba(200, 0, 0, 0.1);
             padding: 40px;
-            border-radius: 8px;
-            animation: flicker 0.15s infinite alternate;
+            border-radius: 6px;
+            animation: flicker 0.08s infinite alternate;
         }
 
         @keyframes flicker {
             0% { opacity: 1; }
-            50% { opacity: 0.98; }
-            100% { opacity: 1; }
+            25% { opacity: 0.97; }
+            75% { opacity: 1; }
+            100% { opacity: 0.95; }
         }
 
-        /* Glitch text effect */
-        .glitch {
-            font-size: 2.5rem;
+        /* ─── MAIN GLITCH TEXT ─── */
+        .glitch-main {
+            font-family: 'Creepster', cursive;
+            font-size: 4.5rem;
             text-align: center;
-            text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41, 0 0 40px #00ff41;
-            letter-spacing: 6px;
-            margin-bottom: 25px;
+            color: #ff0000;
+            text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000, 0 0 60px #880000, 0 0 90px #440000;
+            letter-spacing: 8px;
+            margin-bottom: 5px;
             position: relative;
-            animation: glitch-skew 4s infinite linear;
+            animation: glitch-skew 3s infinite linear;
         }
 
-        .glitch::before,
-        .glitch::after {
+        .glitch-main::before,
+        .glitch-main::after {
             content: attr(data-text);
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
         }
 
-        .glitch::before {
-            color: #ff00ff;
+        .glitch-main::before {
+            color: #00ff00;
             z-index: -1;
-            animation: glitch-color 3s infinite linear alternate-reverse;
+            animation: glitch-color-1 2s infinite linear alternate-reverse;
         }
 
-        .glitch::after {
-            color: #00ffff;
+        .glitch-main::after {
+            color: #0066ff;
             z-index: -2;
-            animation: glitch-color 2s infinite linear alternate;
+            animation: glitch-color-2 1.5s infinite linear alternate;
         }
 
-        @keyframes glitch-color {
+        @keyframes glitch-color-1 {
             0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(2px, -2px); }
-            60% { transform: translate(-1px, -1px); }
-            80% { transform: translate(1px, 2px); }
+            15% { transform: translate(-4px, 3px); }
+            30% { transform: translate(3px, -4px); }
+            45% { transform: translate(-5px, -2px); }
+            60% { transform: translate(2px, 5px); }
+            75% { transform: translate(-3px, 0); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-color-2 {
+            0% { transform: translate(0); }
+            20% { transform: translate(5px, -3px); }
+            40% { transform: translate(-3px, 5px); }
+            60% { transform: translate(4px, 2px); }
+            80% { transform: translate(-2px, -4px); }
             100% { transform: translate(0); }
         }
 
         @keyframes glitch-skew {
             0% { transform: skew(0deg); }
-            10% { transform: skew(0deg); }
-            11% { transform: skew(-2deg); }
-            12% { transform: skew(2deg); }
-            13% { transform: skew(0deg); }
-            98% { transform: skew(0deg); }
-            99% { transform: skew(1deg); }
+            8% { transform: skew(0deg); }
+            9% { transform: skew(-3deg); }
+            10% { transform: skew(3deg); }
+            11% { transform: skew(0deg); }
+            96% { transform: skew(0deg); }
+            97% { transform: skew(-2deg); }
+            98% { transform: skew(2deg); }
+            99% { transform: skew(0deg); }
             100% { transform: skew(0deg); }
         }
 
-        .status-line {
-            border-bottom: 1px solid #00ff41;
-            padding-bottom: 8px;
+        /* Subtitle hacked by */
+        .subtitle {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #aa0000;
+            letter-spacing: 4px;
             margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            opacity: 0.7;
+            text-shadow: 0 0 10px #aa0000;
+            animation: blinkSub 2s step-end infinite;
         }
 
+        @keyframes blinkSub {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .subtitle span {
+            color: #ff3333;
+            font-weight: bold;
+            font-size: 1.8rem;
+            text-shadow: 0 0 20px #ff0000;
+        }
+
+        /* ─── STATUS LINE ─── */
+        .status-line {
+            border-bottom: 1px solid #660000;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            color: #880000;
+        }
+
+        .status-line .ip {
+            color: #00cc00;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border: 1px solid #cc0000;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            animation: pulseRed 1.5s infinite;
+            color: #ff4444;
+        }
+
+        @keyframes pulseRed {
+            0%, 100% { border-color: #cc0000; box-shadow: 0 0 5px rgba(200,0,0,0.3); }
+            50% { border-color: #ff0000; box-shadow: 0 0 25px rgba(255,0,0,0.7); }
+        }
+
+        /* ─── OUTPUT ─── */
         .output {
-            background: #000d00;
-            border: 1px solid #003300;
+            background: #0a0000;
+            border: 1px solid #330000;
             padding: 20px;
             border-radius: 4px;
-            min-height: 320px;
-            font-size: 0.9rem;
+            min-height: 300px;
+            font-size: 0.85rem;
             line-height: 1.6;
-            margin-bottom: 20px;
-            position: relative;
+            margin-bottom: 15px;
             overflow-y: auto;
-            max-height: 500px;
+            max-height: 450px;
+            color: #cc3333;
         }
 
         .output .line {
@@ -166,48 +265,34 @@
             animation: typeLine 0.05s ease-out forwards;
         }
 
-        .output .line.highlight {
-            color: #ff4444;
-            text-shadow: 0 0 8px #ff0000;
-        }
+        .output .line.red     { color: #ff2222; text-shadow: 0 0 8px #ff0000; }
+        .output .line.green   { color: #00cc00; }
+        .output .line.cyan    { color: #00aaaa; }
+        .output .line.yellow  { color: #aa7700; }
+        .output .line.magenta { color: #aa00aa; }
+        .output .line.dim     { opacity: 0.5; color: #884444; }
+        .output .line.white   { color: #cccccc; }
+        .output .line.bigred  { color: #ff0000; font-size: 1.1rem; text-shadow: 0 0 15px #ff0000; }
 
-        .output .line.green {
-            color: #00ff41;
-        }
-
-        .output .line.cyan {
-            color: #00ffff;
-        }
-
-        .output .line.yellow {
-            color: #ffff00;
-        }
-
-        .output .line.magenta {
-            color: #ff00ff;
-        }
-
-        .output .line.dim {
-            opacity: 0.5;
+        @keyframes typeLine {
+            to { opacity: 1; }
         }
 
         .cursor-line {
             display: flex;
             align-items: center;
-            margin-top: 8px;
-        }
-
-        .cursor-line span {
-            color: #00ff41;
+            margin-top: 6px;
+            color: #cc0000;
         }
 
         .cursor-blink {
             display: inline-block;
             width: 10px;
             height: 18px;
-            background: #00ff41;
+            background: #cc0000;
             margin-left: 6px;
             animation: blink 1s step-end infinite;
+            box-shadow: 0 0 8px #cc0000;
         }
 
         @keyframes blink {
@@ -215,146 +300,159 @@
             50% { opacity: 0; }
         }
 
-        @keyframes typeLine {
-            to { opacity: 1; }
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 4px 14px;
-            border: 1px solid #00ff41;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            animation: pulse-border 2s infinite;
-        }
-
-        @keyframes pulse-border {
-            0%, 100% { border-color: #00ff41; box-shadow: 0 0 5px rgba(0,255,65,0.3); }
-            50% { border-color: #00ff41; box-shadow: 0 0 20px rgba(0,255,65,0.7); }
-        }
-
         .progress-bar {
             width: 100%;
-            height: 4px;
-            background: #003300;
+            height: 3px;
+            background: #1a0000;
             border-radius: 2px;
-            margin: 10px 0;
+            margin: 8px 0;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
             width: 0%;
-            background: #00ff41;
-            box-shadow: 0 0 10px #00ff41;
+            background: #cc0000;
+            box-shadow: 0 0 10px #cc0000;
             border-radius: 2px;
             transition: width 0.3s;
         }
 
         .toolbar {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .toolbar button {
             background: transparent;
-            border: 1px solid #00ff41;
-            color: #00ff41;
+            border: 1px solid #660000;
+            color: #aa0000;
             font-family: 'Share Tech Mono', monospace;
-            padding: 8px 20px;
-            border-radius: 4px;
+            padding: 7px 18px;
+            border-radius: 3px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             transition: all 0.2s;
         }
 
         .toolbar button:hover {
-            background: #00ff41;
-            color: #000;
-            box-shadow: 0 0 20px rgba(0,255,65,0.4);
+            background: #330000;
+            border-color: #cc0000;
+            color: #ff0000;
+            box-shadow: 0 0 20px rgba(200,0,0,0.3);
         }
 
         .toolbar button.danger {
-            border-color: #ff4444;
-            color: #ff4444;
+            border-color: #880000;
+            color: #cc0000;
         }
 
         .toolbar button.danger:hover {
-            background: #ff4444;
-            color: #000;
-            box-shadow: 0 0 20px rgba(255,68,68,0.4);
+            background: #550000;
+            border-color: #ff0000;
+            box-shadow: 0 0 30px rgba(255,0,0,0.5);
         }
 
         .footer {
             text-align: center;
-            margin-top: 15px;
-            font-size: 0.75rem;
-            opacity: 0.4;
-            border-top: 1px solid #003300;
-            padding-top: 15px;
+            margin-top: 12px;
+            font-size: 0.7rem;
+            opacity: 0.3;
+            border-top: 1px solid #220000;
+            padding-top: 12px;
+            color: #664444;
         }
 
-        .ip-display {
-            color: #00ffff;
-            font-size: 0.85rem;
+        .footer .dyy {
+            color: #ff0000;
+            opacity: 0.7;
         }
 
-        /* Scrollbar styling */
         .output::-webkit-scrollbar {
             width: 4px;
         }
         .output::-webkit-scrollbar-track {
-            background: #000d00;
+            background: #0a0000;
         }
         .output::-webkit-scrollbar-thumb {
-            background: #00ff41;
+            background: #660000;
             border-radius: 2px;
+        }
+
+        /* ─── BLOOD DRIP ─── */
+        .blood-drip {
+            position: fixed;
+            top: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #cc0000, transparent);
+            z-index: 3;
+            animation: drip 4s infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes drip {
+            0% { height: 0; opacity: 0; }
+            50% { height: 100vh; opacity: 0.5; }
+            100% { height: 100vh; opacity: 0; }
         }
     </style>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
+    <div id="red-flash"></div>
+
+    <!-- Jumpscare overlay -->
+    <div id="jumpscare-overlay">
+        <img id="jumpscare-img" src="" alt="SCARE">
+    </div>
+
+    <!-- Blood drips -->
+    <div class="blood-drip" style="left: 5%; animation-delay: 0s;"></div>
+    <div class="blood-drip" style="left: 15%; animation-delay: 1.5s; width: 2px;"></div>
+    <div class="blood-drip" style="left: 30%; animation-delay: 3s; width: 4px;"></div>
+    <div class="blood-drip" style="left: 55%; animation-delay: 0.8s; width: 2px;"></div>
+    <div class="blood-drip" style="left: 75%; animation-delay: 2.2s; width: 3px;"></div>
+    <div class="blood-drip" style="left: 90%; animation-delay: 4.5s; width: 1px;"></div>
+    <div class="blood-drip" style="left: 42%; animation-delay: 5s; width: 2px;"></div>
 
     <div class="container">
         <div class="status-line">
-            <span>📡 TERMINAL v3.7.1</span>
-            <span class="ip-display" id="ip-display">[CONNECTING...]</span>
-            <span class="status-badge">● ACTIVE</span>
+            <span>⚠ SYSTEM COMPROMISED</span>
+            <span class="ip" id="ip-display">[TARGET ACQUIRED]</span>
+            <span class="status-badge">● BREACHED</span>
         </div>
 
-        <div class="glitch" data-text="SYSTEM BREACHED">SYSTEM BREACHED</div>
+        <div class="glitch-main" data-text="HACKED">HACKED</div>
+        <div class="subtitle">by <span>DYYREX</span></div>
 
         <div class="progress-bar">
             <div class="progress-fill" id="progress-fill"></div>
         </div>
 
-        <div class="output" id="output">
-            <!-- Lines will be injected by JS -->
-        </div>
+        <div class="output" id="output"></div>
 
         <div class="cursor-line">
-            <span>root@breach:~$</span>
+            <span>dyyrex@void:~$</span>
             <span class="cursor-blink"></span>
         </div>
 
         <div class="toolbar">
-            <button onclick="runAttack()">▶ RUN EXPLOIT</button>
-            <button onclick="extractData()">📂 DUMP DATA</button>
-            <button onclick="defacePage()">💀 DEFACE</button>
-            <button onclick="resetOutput()" class="danger">✕ CLEAR</button>
+            <button onclick="runAttack()">▶ EXECUTE</button>
+            <button onclick="dumpData()">📂 DUMP</button>
+            <button onclick="triggerJumpscare()">💀 SCARE</button>
+            <button onclick="resetTerminal()" class="danger">✕ CLEAR</button>
         </div>
 
         <div class="footer">
-            [ PENTEST SIMULATION — AUTHORIZED TESTING ONLY ]<br>
+            <span class="dyy">[ DYYREX ]</span> — PENTEST SIMULATION — AUTHORIZED TESTING ONLY<br>
             <span id="timestamp"></span>
         </div>
     </div>
 
     <script>
-        // ─── Matrix Rain Background ─────────────────────────────────────────
+        // ─── MATRIX BLOOD RAIN ─────────────────────────────────────────────
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
 
@@ -365,32 +463,35 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        const chars = (katakana + latin).split('');
+        // Blood-like characters
+        const bloodChars = '💀☠️⚠️⛔🔴🩸🧛🏻‍♂️😈👹👺𐤁𐤄𐤋𐤌𐤍𐤎𐤑𐤇†‡•‧⁂※⁑☠︎︎⚰️🪦'.split('');
+        const latinBlood = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}:">?<';
 
-        const fontSize = 12;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
+        const allChars = [...bloodChars, ...latinBlood.split('')];
+        const fontSize = 14;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(1);
 
         function drawMatrix() {
-            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00ff41';
-            ctx.font = fontSize + 'px monospace';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height collectOne);
 
             for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                const text = allChars[Math.floor(Math.random() * allChars.length)];
+                const red = 150 + Math.floor(Math.random() * 105);
+                ctx.fillStyle = `rgb(${red}, 0, 0)`;
+                ctx.font = fontSize + 'px monospace';
+                ctx.fillText(text, i * fontSize, drops[i] * fontSizeapse);
+
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 drops[i]++;
             }
         }
-        setInterval(drawMatrix, 50);
+        setInterval(drawMatrix, 40);
 
-        // ─── IP Grabber ─────────────────────────────────────────────────────
+        // ─── IP GRABBER ─────────────────────────────────────────────────────
         function fetchIP() {
             const ipEl = document.getElementById('ip-display');
             fetch('https://api.ipify.org?format=json')
@@ -400,28 +501,26 @@
         }
         fetchIP();
 
-        // ─── Timestamp ──────────────────────────────────────────────────────
+        // ─── TIMESTAMP ──────────────────────────────────────────────────────
         function updateTimestamp() {
             document.getElementById('timestamp').textContent = new Date().toLocaleString();
         }
         updateTimestamp();
         setInterval(updateTimestamp, 1000);
 
-        // ─── Output Engine ──────────────────────────────────────────────────
+        // ─── OUTPUT ENGINE ──────────────────────────────────────────────────
         const outputEl = document.getElementById('output');
         const progressFill = document.getElementById('progress-fill');
-        let lineIndex = 0;
         let isRunning = false;
 
         function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
+            return new Promise(resolve => setTimeout(resolve separator ms));
         }
 
         function addLine(text, className = '') {
             const line = document.createElement('div');
             line.className = 'line' + (className ? ' ' + className : '');
             line.textContent = text;
-            line.style.animationDelay = '0s';
             outputEl.appendChild(line);
             outputEl.scrollTop = outputEl.scrollHeight;
             return line;
@@ -431,137 +530,76 @@
             progressFill.style.width = Math.min(pct, 100) + '%';
         }
 
-        // ─── Attack Scenarios ──────────────────────────────────────────────
-        const attackLines = [
-            { text: '[●] Initializing exploit module...', cls: 'dim' },
-            { text: '[●] Target: 192.168.1.105:80', cls: 'cyan' },
-            { text: '[●] Payload: CVE-2024-21762 — Remote Code Execution', cls: 'yellow' },
-            { text: '[●] Scanning open ports...', cls: 'dim' },
-            { text: '[+] Port 80 (HTTP) — OPEN', cls: 'green' },
-            { text: '[+] Port 443 (HTTPS) — OPEN', cls: 'green' },
-            { text: '[+] Port 3306 (MySQL) — OPEN', cls: 'green' },
-            { text: '[●] Fingerprinting web server...', cls: 'dim' },
-            { text: '[+] Apache/2.4.57 (Ubuntu) — detected', cls: 'cyan' },
-            { text: '[●] Injecting payload via HTTP POST request...', cls: 'dim' },
-            { text: '[●] Bypassing WAF rules...', cls: 'yellow' },
-            { text: '[+] WAF bypass successful — ModSecurity rule 942100 evaded', cls: 'green' },
-            { text: '[●] Establishing reverse shell...', cls: 'dim' },
-            { text: '[+] Connection established — 192.168.1.105:4443 → attacker:4443', cls: 'green' },
-            { text: '[●] Escalating privileges...', cls: 'dim' },
-            { text: '[+] Privilege escalation — Gained root access', cls: 'highlight' },
-            { text: '[●] Dumping /etc/shadow...', cls: 'dim' },
-            { text: '[+] Shadow file extracted (42 hashes)', cls: 'green' },
-            { text: '[●] Cracking password hashes...', cls: 'dim' },
-            { text: '[+] admin:password123 — cracked', cls: 'yellow' },
-            { text: '[+] root:P@ssw0rd! — cracked', cls: 'yellow' },
-            { text: '[+] mysql:db_admin_2024 — cracked', cls: 'yellow' },
-            { text: '[●] Extracting database credentials...', cls: 'dim' },
-            { text: '[+] MySQL root credentials: root / s3cr3tP@ss', cls: 'cyan' },
-            { text: '[●] Dumping database: wordpress_users...', cls: 'dim' },
-            { text: '[+] 1,284 user records extracted', cls: 'green' },
-            { text: '[●] Planting web shell backdoor...', cls: 'dim' },
-            { text: '[+] shell.php — deployed to /var/www/html/', cls: 'highlight' },
-            { text: '[●] Defacing index page...', cls: 'dim' },
-            { text: '[+] index.html — REPLACED', cls: 'highlight' },
-            { text: '', cls: '' },
-            { text: '╔══════════════════════════════════════════════════╗', cls: 'magenta' },
-            { text: '║            SYSTEM FULLY COMPROMISED             ║', cls: 'magenta' },
-            { text: '║        This server is now under your control     ║', cls: 'magenta' },
-            { text: '╚══════════════════════════════════════════════════╝', cls: 'magenta' },
-            { text: '', cls: '' },
-            { text: '[√] Exploit chain completed — 100% success rate', cls: 'green' },
-            { text: '[!] All evidence logged to /root/.exploit_log', cls: 'dim' },
-        ];
+        // ─── AUDIO ──────────────────────────────────────────────────────────
+        function playScream() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Generate screeching noise
+                const bufferSize = audioCtx.sampleRate * 1.5;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
 
-        const dataLines = [
-            { text: '[●] Initializing data extraction protocol...', cls: 'dim' },
-            { text: '[+] Establishing encrypted tunnel (TLS 1.3)...', cls: 'green' },
-            { text: '[●] Querying database: customers...', cls: 'dim' },
-            { text: '[+] 50,342 records found', cls: 'cyan' },
-            { text: '[●] Extracting column: email, username, password_hash', cls: 'dim' },
-            { text: '[+] Exporting to CSV...', cls: 'dim' },
-            { text: '[+] Downloaded: customers_export.csv (12.4 MB)', cls: 'green' },
-            { text: '', cls: '' },
-            { text: ' ┌── SAMPLE DATA ──────────────────────────────┐', cls: 'yellow' },
-            { text: ' │ user@example.com | admin | $2y$10$...HASH1 │', cls: 'yellow' },
-            { text: ' │ john@target.com  | jdoe  | $2y$10$...HASH2 │', cls: 'yellow' },
-            { text: ' │ ceo@company.com  | cexec | $2y$10$...HASH3 │', cls: 'yellow' },
-            { text: ' └─────────────────────────────────────────────┘', cls: 'yellow' },
-            { text: '', cls: '' },
-            { text: '[●] Exfiltrating to remote server...', cls: 'dim' },
-            { text: '[+] Data uploaded to: https://darkcloud.io/storage/abcd1234', cls: 'highlight' },
-            { text: '[√] Extraction complete', cls: 'green' },
-        ];
+                for (let i = 0; i < bufferSize; i++) {
+                    const t = i / audioCtx.sampleRate;
+                    // Mix of screech + static + low rumble
+                    const screech = Math.sin(2 * Math.PI * 800 * t) * 0.4;
+                    const static_ = (Math.random() * 2 - 1) * 0.3;
+                    const rumble = Math.sin(2 * Math.PI * 60 * t) * 0.2;
+                    const envelope = Math.exp(-t * 2);
+                    data[i] = (screech + static_ + rumble) * envelope * 0.7;
+                }
 
-        const defaceLines = [
-            { text: '[●] Downloading deface page template...', cls: 'dim' },
-            { text: '[+] Template: hacked_by_anonymous.html (2.3 KB)', cls: 'green' },
-            { text: '[●] Backing up original index...', cls: 'dim' },
-            { text: '[+] Original saved as: index.html.bak', cls: 'cyan' },
-            { text: '[●] Writing deface page...', cls: 'dim' },
-            { text: '[+] index.html — OVERWRITTEN', cls: 'highlight' },
-            { text: '[●] Spreading to subdirectories...', cls: 'dim' },
-            { text: '[+] /about/ — DEFACED', cls: 'highlight' },
-            { text: '[+] /blog/ — DEFACED', cls: 'highlight' },
-            { text: '[+] /contact/ — DEFACED', cls: 'highlight' },
-            { text: '[+] /admin/ — DEFACED', cls: 'highlight' },
-            { text: '', cls: '' },
-            { text: '  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', cls: 'magenta' },
-            { text: '  ░  YOU HAVE BEEN HACKED                    ░', cls: 'magenta' },
-            { text: '  ░  Your security is a joke.                ░', cls: 'magenta' },
-            { text: '  ░  Patch your systems.                     ░', cls: 'magenta' },
-            { text: '  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░', cls: 'magenta' },
-            { text: '', cls: '' },
-            { text: '[√] 14 pages defaced successfully', cls: 'green' },
-        ];
+                const source = audioCtx.createBufferSource();
+                source.buffer = buffer;
+                source.connect(audioCtx.destination);
+                source.start();
 
-        async function typeLines(lines) {
-            if (isRunning) return;
-            isRunning = true;
-            setProgress(0);
+                // Red flash sync
+                const flash = document.getElementById('red-flash');
+                flash.style.opacity = '0.6';
+                setTimeout(() => { flash.style.opacity = '0'; }, 200);
+                setTimeout(() => { flash.style.opacity = '0.4'; }, 400);
+                setTimeout(() => { flash.style.opacity = '0'; }, 600);
 
-            for (let i = 0; i < lines.length; i++) {
-                addLine(lines[i].text, lines[i].cls);
-                const delay = lines[i].text ? (200 + Math.random() * 300) : 100;
-                setProgress(((i + 1) / lines.length) * 100);
-                await sleep(delay);
+            } catch (e) {
+                console.log('Audio not supported');
             }
-
-            setProgress(100);
-            isRunning = false;
         }
 
-        async function runAttack() {
-            if (isRunning) return;
-            outputEl.innerHTML = '';
-            await typeLines(attackLines);
+        function playHeartbeat() {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                const bufferSize = audioCtx.sampleRate * 4;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+
+                for (let i = 0; i < bufferSize; i++) {
+                    const t = i / audioCtx.sampleRate;
+                    const beat = Math.sin(2 * Math.PI * 40 * t) * 0.5;
+                    // Heartbeat envelope - two quick thumps
+                    const beatMod = (Math.sin(2 * Math.PI * 2 * t) > 0.7) || (Math.sin(2 * Math.PI * 2 * t + 0.5) > 0.7) ? 1 : 0;
+                    data[i] = beat * beatMod * 0.4;
+                }
+
+                const source = audioCtx.createBufferSource();
+                source.buffer = buffer;
+                source.connect(audioCtx.destination);
+                source.loop = true;
+                source.start();
+                return source;
+            } catch (e) {
+                return null;
+            }
         }
 
-        async function extractData() {
-            if (isRunning) return;
-            outputEl.innerHTML = '';
-            await typeLines(dataLines);
-        }
+        // ─── JUMPSCARE ──────────────────────────────────────────────────────
+        function triggerJumpscare() {
+            const overlay = document.getElementById('jumpscare-overlay');
+            const img = document.getElementById('jumpscare-img');
 
-        async function defacePage() {
-            if (isRunning) return;
-            outputEl.innerHTML = '';
-            await typeLines(defaceLines);
-        }
-
-        function resetOutput() {
-            if (isRunning) return;
-            outputEl.innerHTML = '';
-            setProgress(0);
-            addLine('[●] Terminal cleared. Ready for new session.', 'dim');
-        }
-
-        // ─── Welcome Banner ────────────────────────────────────────────────
-        window.onload = async function() {
-            await sleep(300);
-            addLine('⏣ INITIALIZING PENTEST ENVIRONMENT...', 'dim');
-            await sleep(600);
-            addLine('⏣ LOADING EXPLOIT MODULES...', 'dim');
-            await sleep(500);
-            addLine('⏣ TARGET ACQUIRED: 192.168.1.105', 'cyan');
-           
+            // Use a classic creepypasta / scary face (base64 SVG so it works offline)
+            img.src = 'data:image/svg+xml,' + encodeURIComponent(`
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                    <rect width="500" heig
