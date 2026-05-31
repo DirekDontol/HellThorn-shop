@@ -5,317 +5,218 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Dyyrex Developer | Minecraft Server Services</title>
-
-  <meta name="description" content="Jasa setup server Minecraft premium Indonesia. Config plugin, fix bug, optimasi anti lag, dan full setup server oleh Dyyrex Developer.">
+  <meta name="description" content="Jasa setup server Minecraft premium Indonesia. Config plugin, fix bug, dan full setup server oleh Dyyrex Developer.">
 
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-
-    *{
-      font-family:'Inter',sans-serif;
+    * {
+      font-family: 'Inter', sans-serif;
     }
 
-    html{
-      scroll-behavior:smooth;
+    html {
+      scroll-behavior: smooth;
     }
 
-    body{
-      background:#060816;
-      color:white;
-      overflow-x:hidden;
+    body {
+      background: #040612;
+      color: white;
+      overflow-x: hidden;
     }
 
-    .bg-grid{
+    .bg-grid {
       background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size:40px 40px;
+      linear-gradient(rgba(34, 211, 238, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 211, 238, 0.015) 1px, transparent 1px);
+      background-size: 50px 50px;
     }
 
-    .glass{
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      backdrop-filter:blur(14px);
+    .glass {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
     }
 
-    .glow{
-      box-shadow:0 0 30px rgba(0,255,255,0.08);
+    .card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .card{
-      transition:0.35s ease;
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(34, 211, 238, 0.3);
+      box-shadow: 0 15px 40px rgba(34, 211, 238, 0.08);
     }
 
-    .card:hover{
-      transform:translateY(-10px);
-      border-color:rgba(34,211,238,0.4);
-      box-shadow:0 0 40px rgba(34,211,238,0.12);
+    .btn {
+      transition: all 0.3s ease;
     }
 
-    .btn{
-      transition:0.3s ease;
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
     }
 
-    .btn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 0 25px rgba(34,211,238,0.3);
+    /* Background Neon Glow */
+    .hero-blur {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: rgba(34, 211, 238, 0.07);
+      filter: blur(140px);
+      border-radius: 9999px;
+      top: -10%,
+      right: -5%;
+      z-index: 1;
     }
 
-    .hero-blur{
-      position:absolute;
-      width:500px;
-      height:500px;
-      background:rgba(34,211,238,0.12);
-      filter:blur(120px);
-      border-radius:9999px;
-      top:-150px;
-      right:-150px;
+    .hero-blur2 {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: rgba(34, 211, 238, 0.04);
+      filter: blur(120px);
+      border-radius: 9999px;
+      bottom: 10%;
+      left: -10%;
+      z-index: 1;
     }
-
-    .hero-blur2{
-      position:absolute;
-      width:400px;
-      height:400px;
-      background:rgba(34,211,238,0.08);
-      filter:blur(120px);
-      border-radius:9999px;
-      bottom:-150px;
-      left:-150px;
-    }
-
   </style>
-
 </head>
 
-<body class="bg-grid">
+<body class="bg-grid min-h-screen flex flex-col justify-between">
 
-  <!-- BACKGROUND -->
+  <!-- GLOW BACKGROUND -->
   <div class="hero-blur"></div>
   <div class="hero-blur2"></div>
 
   <!-- NAVBAR -->
-  <nav class="fixed top-0 left-0 w-full z-50 border-b border-white/5 backdrop-blur-xl bg-[#060816]/70">
-
+  <nav class="fixed top-0 left-0 w-full z-50 border-b border-white/5 backdrop-blur-xl bg-[#040612]/80">
     <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-
-      <h1 class="text-2xl font-black tracking-wide">
+      <h1 class="text-2xl font-black tracking-wide select-none">
         DYY<span class="text-cyan-400">REX</span>
       </h1>
 
-      <div class="hidden md:flex gap-10 text-sm text-gray-300 font-medium">
-        <a href="#home" class="hover:text-cyan-400 transition">Home</a>
-        <a href="#services" class="hover:text-cyan-400 transition">Services</a>
-        <a href="#pricing" class="hover:text-cyan-400 transition">Pricing</a>
-        <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
-      </div>
-
-      <a href="https://wa.me/6281316683463"
-      target="_blank"
-      class="px-5 py-3 rounded-xl bg-cyan-400 text-black text-sm font-bold btn">
-      Contact
+      <!-- Tombol Kontak Utama di Nav -->
+      <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20tertarik%20dengan%20jasa%20development%20server%20Minecraft%20Anda."
+         target="_blank"
+         class="px-5 py-2.5 rounded-xl bg-cyan-400 text-black text-xs font-bold uppercase tracking-wider btn">
+        Hubungi Saya
       </a>
-
     </div>
-
   </nav>
 
-  <!-- HERO -->
-  <section id="home" class="min-h-screen flex items-center relative">
-
-    <div class="max-w-7xl mx-auto px-6 py-32">
-
-      <div class="max-w-4xl">
-
-        <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full glass mb-8">
-          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-
-          <p class="text-sm text-gray-300">
-            Available for Minecraft Server Projects
-          </p>
-
-        </div>
-
-        <h1 class="text-5xl md:text-7xl font-black leading-tight">
-
-          Professional
-          <span class="text-cyan-400">Minecraft Server</span>
-          Development
-
-        </h1>
-
-        <p class="text-gray-400 text-lg leading-relaxed mt-8 max-w-2xl">
-
-          Jasa setup server Minecraft premium mulai dari config plugin,
-          fix bug, optimasi anti lag, hingga full setup server siap release.
-
+  <!-- HERO SECTION -->
+  <section class="w-full max-w-7xl mx-auto px-6 pt-32 lg:pt-40 pb-20 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+    
+    <!-- SISI KIRI: KONTEN TEKS -->
+    <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
+      
+      <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass mb-8 select-none">
+        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+        <p class="text-xs font-medium text-gray-400 tracking-wide uppercase">
+          HellthornSMP Community Founder
         </p>
+      </div>
 
-        <div class="flex flex-wrap gap-5 mt-12">
+      <h2 class="text-4xl md:text-6xl font-black leading-tight tracking-tight uppercase">
+        Minecraft <br class="hidden md:inline">
+        <span class="text-cyan-400">Server</span> Setup
+      </h2>
 
-          <a href="#services"
-          class="px-8 py-4 rounded-2xl bg-cyan-400 text-black font-bold btn">
-          Explore Services
-          </a>
+      <p class="text-gray-400 text-sm md:text-base leading-relaxed mt-6 max-w-lg">
+        Bantu bangun, konfigurasi, dan optimasi ekosistem server Minecraft kamu. Dari perbaikan error log konsol, setup database ekonomi, hingga full instalan core anti-lag.
+      </p>
 
-          <a href="https://wa.me/6281316683463"
-          target="_blank"
-          class="px-8 py-4 rounded-2xl border border-white/10 hover:border-cyan-400 hover:text-cyan-400 transition">
-          Contact Developer
-          </a>
-
-        </div>
-
+      <div class="flex flex-wrap gap-4 mt-10 justify-center lg:justify-start w-full">
+        <a href="#services"
+           class="px-8 py-4 rounded-xl bg-cyan-400 text-black text-sm font-bold tracking-wider uppercase btn w-full sm:w-auto text-center">
+          Lihat Layanan
+        </a>
       </div>
 
     </div>
 
-  </section>
-
-  <!-- STATS -->
-  <section class="pb-24">
-
-    <div class="max-w-7xl mx-auto px-6">
-
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <div class="glass rounded-3xl p-8 glow">
-          <h2 class="text-4xl font-black text-cyan-400">50+</h2>
-          <p class="text-gray-400 mt-2">Projects Completed</p>
-        </div>
-
-        <div class="glass rounded-3xl p-8 glow">
-          <h2 class="text-4xl font-black text-cyan-400">120+</h2>
-          <p class="text-gray-400 mt-2">Bug Fixed</p>
-        </div>
-
-        <div class="glass rounded-3xl p-8 glow">
-          <h2 class="text-4xl font-black text-cyan-400">99%</h2>
-          <p class="text-gray-400 mt-2">Client Satisfaction</p>
-        </div>
-
-        <div class="glass rounded-3xl p-8 glow">
-          <h2 class="text-4xl font-black text-cyan-400">&lt;10m</h2>
-          <p class="text-gray-400 mt-2">Average Response</p>
-        </div>
-
-      </div>
-
+    <!-- SISI KANAN: MAKIMA CHARACTER (Gak bakal tumpang tindih karena Flex) -->
+    <div class="w-full lg:w-1/2 flex justify-center lg:justify-end relative h-[380px] sm:h-[450px] lg:h-[550px]">
+      <div class="absolute inset-0 bg-cyan-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+      <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5f0018a2-8560-4f86-b6ed-ce255489220d/dfta1it-fc942fb7-7288-4c67-8292-5416cb99624b.png/v1/fill/w_1280,h_1575/makima_from_chainsaw_man___png_render_by_xanccount_dfta1it-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTU3NSIsInBhdGgiOiIvZi81ZjAwMThhMi04NTYwLTRmODYtYjZlZC1jZTI1NTQ4OTIyMGQvZGZ0YTFpdC1mYzk0MmZiNy03Mjg4LTRjNjctODI5Mi01NDE2Y2I5OTYyNGIucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.8v1shNpAQ2Ulzg-gD0J-Ctms4-ywdHScFTc__U0srgE" 
+           alt="Makima Render" 
+           class="h-full w-auto object-contain object-bottom select-none pointer-events-none drop-shadow-[-20px_10px_35px_rgba(0,0,0,0.7)]">
     </div>
 
   </section>
 
-  <!-- SERVICES -->
-  <section id="services" class="py-24">
+  <!-- SERVICES SECTION -->
+  <section id="services" class="w-full max-w-7xl mx-auto px-6 py-20 relative z-10 scroll-mt-24">
+    
+    <div class="mb-14 text-center lg:text-left">
+      <p class="text-cyan-400 uppercase tracking-[4px] text-xs font-bold mb-3">
+        Katalog Jasa
+      </p>
+      <h3 class="text-3xl md:text-4xl font-black uppercase tracking-tight">
+        Layanan Dev & Config
+      </h3>
+    </div>
 
-    <div class="max-w-7xl mx-auto px-6">
+    <!-- GRID LAYOUT (Nggak sempit di PC, rapi di HP) -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <div class="mb-16">
-
-        <p class="text-cyan-400 uppercase tracking-[5px] text-sm font-semibold mb-4">
-          SERVICES
-        </p>
-
-        <h2 class="text-5xl font-black">
-          Premium Services
-        </h2>
-
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <!-- FIX BUG -->
-        <div class="glass rounded-[28px] p-8 card">
-
-          <div class="w-16 h-16 rounded-2xl bg-cyan-400/10 border border-cyan-400/10 flex items-center justify-center text-2xl mb-8">
+      <!-- SERVICE 1: FIX BUG -->
+      <div class="glass rounded-[24px] p-7 flex flex-col justify-between card">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-lg mb-6 border border-cyan-400/20">
             💻
           </div>
-
-          <h3 class="text-2xl font-bold mb-3">
-            Fix Bug
-          </h3>
-
-          <p class="text-cyan-400 text-3xl font-black mb-5">
-            3K - 10K
+          <h4 class="text-xl font-bold mb-2">Fix Bug</h4>
+          <p class="text-cyan-400 text-2xl font-black mb-4">3K - 10K</p>
+          <p class="text-gray-400 text-sm leading-relaxed mb-6">
+            Pembersihan error log konsol, crash tiba-tiba, item dupe, konflik file .yml, atau malfungsi sistem mekanik internal server.
           </p>
-
-          <p class="text-gray-400 leading-relaxed mb-8">
-            Fix console error, plugin issue,
-            crash server, economy bug, dan lainnya.
-          </p>
-
-          <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order.%0A%0A━━━━━━━━━━━━━━━%0A🛒%20Layanan%20:%20Fix%20Bug%0A🌐%20Nama%20Server%20:%20%0A⚙️%20Versi%20:%20%0A💰%20Budget%20:%20%0A📝%20Keterangan%20:%20%0A━━━━━━━━━━━━━━━"
-          target="_blank"
-          class="group relative overflow-hidden block text-center py-4 rounded-2xl bg-cyan-400 text-black font-bold btn">
-
-            Order Service
-
-          </a>
-
         </div>
+        <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order.%0A%0A━━━━━━━━━━━━━━━%0A🛒%20Layanan%20:%20Fix%20Bug%0A🌐%20Nama%20Server%20:%20%0A⚙️%20Versi%20:%20%0A📝%20Keterangan%20Kendala%20:%20%0A━━━━━━━━━━━━━━━"
+           target="_blank"
+           class="block text-center py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-cyan-400 hover:text-black hover:border-cyan-400 font-bold text-xs uppercase tracking-wider btn">
+          Order Jasa
+        </a>
+      </div>
 
-        <!-- CONFIG -->
-        <div class="glass rounded-[28px] p-8 card border border-cyan-400/20">
-
-          <div class="w-16 h-16 rounded-2xl bg-cyan-400/10 border border-cyan-400/10 flex items-center justify-center text-2xl mb-8">
+      <!-- SERVICE 2: PLUGIN CONFIG -->
+      <div class="glass rounded-[24px] p-7 flex flex-col justify-between card border border-cyan-400/20 shadow-[0_0_25px_rgba(34,211,238,0.03)]">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-lg mb-6 border border-cyan-400/20">
             ⚙️
           </div>
-
-          <h3 class="text-2xl font-bold mb-3">
-            Plugin Config
-          </h3>
-
-          <p class="text-cyan-400 text-3xl font-black mb-5">
-            Start 5K
+          <h4 class="text-xl font-bold mb-2">Plugin Config</h4>
+          <p class="text-cyan-400 text-2xl font-black mb-4">Mulai 5K</p>
+          <p class="text-gray-400 text-sm leading-relaxed mb-6">
+            Setup premium plugin, kustomisasi menu GUI interaktif, pembuatan tingkat/ranks, permission nodes, dan perancangan database sistem ekonomi.
           </p>
-
-          <p class="text-gray-400 leading-relaxed mb-8">
-            Premium plugin setup, menu GUI,
-            ranks, economy system, permissions, dan custom features.
-          </p>
-
-          <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order.%0A%0A━━━━━━━━━━━━━━━%0A🛒%20Layanan%20:%20Plugin%20Config%0A🌐%20Nama%20Server%20:%20%0A⚙️%20Versi%20:%20%0A💰%20Budget%20:%20%0A📝%20Keterangan%20:%20%0A━━━━━━━━━━━━━━━"
-          target="_blank"
-          class="group relative overflow-hidden block text-center py-4 rounded-2xl bg-cyan-400 text-black font-bold btn">
-
-            Order Service
-
-          </a>
-
         </div>
+        <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order.%0A%0A━━━━━━━━━━━━━━━%0A🛒%20Layanan%20:%20Plugin%20Config%0A🌐%20Nama%20Server%20:%20%0A⚙️%20Versi%20:%20%0A📝%20Keterangan%20Config%20:%20%0A━━━━━━━━━━━━━━━"
+           target="_blank"
+           class="block text-center py-3.5 rounded-xl bg-cyan-400 text-black font-bold text-xs uppercase tracking-wider btn">
+          Order Jasa
+        </a>
+      </div>
 
-        <!-- FULL SETUP -->
-        <div class="glass rounded-[28px] p-8 card">
-
-          <div class="w-16 h-16 rounded-2xl bg-cyan-400/10 border border-cyan-400/10 flex items-center justify-center text-2xl mb-8">
+      <!-- SERVICE 3: FULL SETUP -->
+      <div class="glass rounded-[24px] p-7 flex flex-col justify-between card">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-400/10 flex items-center justify-center text-lg mb-6 border border-cyan-400/20">
             🚀
           </div>
-
-          <h3 class="text-2xl font-bold mb-3">
-            Full Setup
-          </h3>
-
-          <p class="text-cyan-400 text-3xl font-black mb-5">
-            Start 30K
+          <h4 class="text-xl font-bold mb-2">Full Setup Server</h4>
+          <p class="text-cyan-400 text-2xl font-black mb-4">Mulai 30K</p>
+          <p class="text-gray-400 text-sm leading-relaxed mb-6">
+            Pembangunan arsitektur dasar server dari nol (0) hingga kondisi optimal siap rilis ke publik. Termasuk penyetelan proteksi & pre-build optimization.
           </p>
-
-          <p class="text-gray-400 leading-relaxed mb-8">
-            Full Minecraft server development
-            from zero to ready-to-release production setup.
-          </p>
-
-          <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order.%0A%0A━━━━━━━━━━━━━━━%0A🛒%20Layanan%20:%20Full%20Setup%0A🌐%20Nama%20Server%20:%20%0A⚙️%20Versi%20:%20%0A💰%20Budget%20:%20%0A📝%20Keterangan%20:%20%0A━━━━━━━━━━━━━━━"
-          target="_blank"
-          class="group relative overflow-hidden block text-center py-4 rounded-2xl bg-cyan-400 text-black font-bold btn">
-
-            Order Service
-
-          </a>
-
         </div>
-
+        <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20ingin%20order.%0A%0A━━━━━━━━━━━━━━━%0A🛒%20Layanan%20:%20Full%20Setup%20Server%0A🌐%20Nama%20Server%20:%20%0A⚙️%20Versi%20:%20%0A📝%20Keterangan%20Konsep%20:%20%0A━━━━━━━━━━━━━━━"
+           target="_blank"
+           class="block text-center py-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-cyan-400 hover:text-black hover:border-cyan-400 font-bold text-xs uppercase tracking-wider btn">
+          Order Jasa
+        </a>
       </div>
 
     </div>
@@ -323,19 +224,18 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-white/5 py-10 text-center text-gray-500 text-sm">
-
+  <footer class="border-t border-white/5 py-8 text-center text-gray-600 text-xs w-full relative z-10 bg-[#040612]">
     © 2026 Dyyrex Developer — All Rights Reserved
-
   </footer>
 
-  <!-- FLOATING WA -->
+  <!-- FLOATING WA BUTTON (Ikon Dibersihkan biar minimalis) -->
   <a href="https://wa.me/6281316683463"
-  target="_blank"
-  class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-cyan-400 text-black flex items-center justify-center text-2xl font-black shadow-[0_0_35px_rgba(34,211,238,0.5)] hover:scale-110 transition z-50">
-
-  ✆
-
+     target="_blank"
+     class="fixed bottom-6 right-6 w-14 h-14 rounded-xl bg-cyan-400 text-black flex items-center justify-center shadow-[0_0_30px_rgba(34,211,238,0.4)] hover:scale-105 transition z-50 group"
+     title="Chat WhatsApp">
+    <svg class="w-6 h-6 transition-transform group-hover:rotate-6" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.411 0 11.989 0c3.183.001 6.177 1.24 8.43 3.496 2.254 2.256 3.491 5.253 3.489 8.435-.004 6.581-5.355 11.93-11.932 11.93-2.006-.002-3.975-.51-5.728-1.473L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 2.022 14.069.997 11.477 1c-5.442 0-9.866 4.372-9.87 9.802 0 1.701.462 3.364 1.338 4.811l-.995 3.636 3.71-.969z"/>
+    </svg>
   </a>
 
 </body>
