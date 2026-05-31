@@ -1,26 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
-
-:root { --neon: #00ff41; } /* Warna hijau terminal */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap');
 
 body {
-    background: #0a0a0a;
-    font-family: 'Space Mono', monospace;
-    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #111;
+    line-height: 1.6;
 }
 
-.brutal-card {
-    border: 2px solid #333;
-    background: #111;
-    position: relative;
+.card {
+    border: 1px solid #eee;
+    padding: 40px;
+    transition: 0.4s;
 }
 
-.brutal-card:hover {
-    border-color: var(--neon);
-    box-shadow: 4px 4px 0px var(--neon);
-}
-
-input, textarea {
-    background: #000;
-    border: 2px solid #333;
-    color: var(--neon);
+.card:hover {
+    border-color: #000;
 }
