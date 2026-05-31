@@ -1,226 +1,421 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dyyrex | Developer Shop</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        /* Container Utama - Lebar Maksimal Diperluas Biar Nggak Sempit */
-        .glass-container {
-            background-color: #0b0f19; 
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-            width: 100%;
-            max-w: 1300px; 
-            height: 88vh;
-            overflow-y: auto;
-            position: relative;
-            scrollbar-width: none; 
-            border: 1px solid rgba(255, 255, 255, 0.03);
-        }
-        .glass-container::-webkit-scrollbar { display: none; }
+  <title>Dyyrex Developer | Jasa Setup Server Minecraft</title>
 
-        /* Cyan Neon Glow Effects */
-        .text-glow {
-            color: #00d2ff;
-            text-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
-        }
+  <!-- SEO -->
+  <meta name="description" content="Jasa setup server Minecraft premium Indonesia. Config plugin, fix bug, anti lag, optimasi server, dan full setup oleh Dyyrex Developer.">
+  <meta name="keywords" content="minecraft server setup, jasa minecraft indonesia, config plugin minecraft, fix bug minecraft">
+  
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        /* Floating Sidebar Nav (Kiri) */
-        .sidebar-nav {
-            position: fixed;
-            left: max(20px, calc(50% - 690px)); 
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(11, 15, 25, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 40px;
-            padding: 1.5rem 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            z-index: 50;
-        }
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        .nav-item {
-            color: #4b5563;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            padding: 12px;
-            border-radius: 50%;
-        }
-        .nav-item:hover, .nav-item.active {
-            color: #00d2ff;
-            background: rgba(0, 210, 255, 0.1);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-        }
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-        /* Shop Cards */
-        .shop-card {
-            background: #121826;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .shop-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.15);
-            border-color: rgba(0, 210, 255, 0.4);
-        }
+  <style>
+    *{
+      font-family:'Poppins',sans-serif;
+    }
 
-        /* Watermark Background Text */
-        .bg-text {
-            position: absolute;
-            font-size: clamp(5rem, 12vw, 13rem);
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.015);
-            top: 35%;
-            left: 5%;
-            transform: translateY(-50%);
-            z-index: 0;
-            pointer-events: none;
-            user-select: none;
-            letter-spacing: -5px;
-        }
-    </style>
+    body{
+      background:
+      radial-gradient(circle at top right, rgba(0,255,255,0.08), transparent 25%),
+      radial-gradient(circle at bottom left, rgba(0,255,255,0.05), transparent 20%),
+      #050816;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    .glass{
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+      backdrop-filter:blur(10px);
+    }
+
+    .glow{
+      box-shadow:0 0 25px rgba(0,255,255,0.15);
+    }
+
+    .cyan{
+      color:#00e5ff;
+    }
+
+    .btn-glow:hover{
+      box-shadow:0 0 30px rgba(0,255,255,0.4);
+      transform:translateY(-2px);
+    }
+
+    .card-hover{
+      transition:0.3s ease;
+    }
+
+    .card-hover:hover{
+      transform:translateY(-8px);
+      border-color:rgba(0,255,255,0.5);
+      box-shadow:0 0 30px rgba(0,255,255,0.12);
+    }
+
+    .bg-grid{
+      background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size:40px 40px;
+    }
+
+    .text-shadow{
+      text-shadow:0 0 20px rgba(0,255,255,0.4);
+    }
+  </style>
 </head>
-<body>
 
-    <!-- FLOATING SIDEBAR NAV -->
-    <nav class="sidebar-nav hidden lg:flex">
-        <a href="#home" class="nav-item active" title="Home">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+<body class="bg-grid">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 left-0 w-full z-50 glass">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+      <h1 class="text-2xl font-black tracking-wider">
+        DYY<span class="cyan">REX</span>
+      </h1>
+
+      <div class="hidden md:flex gap-8 text-sm font-medium text-gray-300">
+        <a href="#home" class="hover:text-cyan-400 transition">Home</a>
+        <a href="#services" class="hover:text-cyan-400 transition">Services</a>
+        <a href="#stats" class="hover:text-cyan-400 transition">Stats</a>
+        <a href="#testi" class="hover:text-cyan-400 transition">Testimoni</a>
+      </div>
+
+      <a href="https://wa.me/6281316683463"
+      target="_blank"
+      class="px-5 py-2 rounded-xl bg-cyan-400 text-black font-bold text-sm btn-glow transition">
+      Contact
+      </a>
+
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="min-h-screen flex items-center relative overflow-hidden">
+
+    <!-- Glow -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-400/10 blur-[120px] rounded-full"></div>
+
+    <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center pt-24">
+
+      <!-- LEFT -->
+      <div data-aos="fade-right">
+
+        <p class="uppercase tracking-[5px] text-cyan-400 text-sm font-semibold mb-5">
+          Minecraft Infrastructure Developer
+        </p>
+
+        <h1 class="text-5xl md:text-7xl font-black leading-tight text-shadow">
+          Jasa Setup
+          <span class="cyan">Server Minecraft</span>
+          Premium
+        </h1>
+
+        <p class="text-gray-400 text-lg mt-8 leading-relaxed max-w-xl">
+          Setup server anti lag, config plugin premium, fix bug,
+          optimasi performa, dan full setup Minecraft server
+          untuk SMP, survival, economy, dan lainnya.
+        </p>
+
+        <div class="flex flex-wrap gap-5 mt-10">
+
+          <a href="#services"
+          class="px-8 py-4 rounded-2xl bg-cyan-400 text-black font-bold btn-glow transition">
+          Lihat Jasa
+          </a>
+
+          <a href="https://wa.me/6281316683463"
+          target="_blank"
+          class="px-8 py-4 rounded-2xl border border-gray-700 hover:border-cyan-400 hover:text-cyan-400 transition">
+          Order Sekarang
+          </a>
+
+        </div>
+
+        <div class="mt-5 flex items-center gap-2 text-green-400 text-sm">
+          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          Online sekarang
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="relative flex justify-center" data-aos="fade-left">
+
+        <div class="absolute w-[350px] h-[350px] bg-cyan-400/10 blur-[100px] rounded-full"></div>
+
+        <img
+        src="https://i.imgur.com/8Km9tLL.png"
+        class="relative z-10 w-full max-w-md drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+        alt="Character">
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- STATS -->
+  <section id="stats" class="py-20">
+
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="glass rounded-3xl p-8 text-center glow">
+          <h2 class="text-4xl font-black cyan">50+</h2>
+          <p class="text-gray-400 mt-2">Server Setup</p>
+        </div>
+
+        <div class="glass rounded-3xl p-8 text-center glow">
+          <h2 class="text-4xl font-black cyan">120+</h2>
+          <p class="text-gray-400 mt-2">Bug Fixed</p>
+        </div>
+
+        <div class="glass rounded-3xl p-8 text-center glow">
+          <h2 class="text-4xl font-black cyan">99%</h2>
+          <p class="text-gray-400 mt-2">Client Puas</p>
+        </div>
+
+        <div class="glass rounded-3xl p-8 text-center glow">
+          <h2 class="text-4xl font-black cyan">&lt;10m</h2>
+          <p class="text-gray-400 mt-2">Fast Response</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="py-24">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="mb-16 text-center">
+
+        <p class="text-cyan-400 uppercase tracking-[4px] text-sm mb-3">
+          Services
+        </p>
+
+        <h2 class="text-5xl font-black">
+          Layanan <span class="cyan">Premium</span>
+        </h2>
+
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- CARD -->
+        <div class="glass rounded-3xl p-8 card-hover">
+
+          <div class="w-14 h-14 rounded-2xl bg-cyan-400/10 flex items-center justify-center mb-6">
+            💻
+          </div>
+
+          <h3 class="text-2xl font-bold mb-3">
+            Fix Bug
+          </h3>
+
+          <p class="text-cyan-400 font-bold text-3xl mb-5">
+            3K - 10K
+          </p>
+
+          <p class="text-gray-400 leading-relaxed mb-8">
+            Fix error plugin, crash console,
+            bug economy, dan masalah server lainnya.
+          </p>
+
+          <a href="https://wa.me/6281316683463"
+          class="block text-center py-4 rounded-2xl bg-cyan-400 text-black font-bold hover:opacity-90 transition">
+          Order Sekarang
+          </a>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="glass rounded-3xl p-8 card-hover border border-cyan-400/30">
+
+          <div class="w-14 h-14 rounded-2xl bg-cyan-400/10 flex items-center justify-center mb-6">
+            ⚙️
+          </div>
+
+          <h3 class="text-2xl font-bold mb-3">
+            Config Plugin
+          </h3>
+
+          <p class="text-cyan-400 font-bold text-3xl mb-5">
+            Mulai 5K
+          </p>
+
+          <p class="text-gray-400 leading-relaxed mb-8">
+            Setup GUI, economy, ranks,
+            permission, menu custom, dan lainnya.
+          </p>
+
+          <a href="https://wa.me/6281316683463"
+          class="block text-center py-4 rounded-2xl bg-cyan-400 text-black font-bold hover:opacity-90 transition">
+          Order Sekarang
+          </a>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="glass rounded-3xl p-8 card-hover">
+
+          <div class="w-14 h-14 rounded-2xl bg-cyan-400/10 flex items-center justify-center mb-6">
+            🚀
+          </div>
+
+          <h3 class="text-2xl font-bold mb-3">
+            Full Setup
+          </h3>
+
+          <p class="text-cyan-400 font-bold text-3xl mb-5">
+            Mulai 30K
+          </p>
+
+          <p class="text-gray-400 leading-relaxed mb-8">
+            Full build server Minecraft
+            dari nol sampai siap release.
+          </p>
+
+          <a href="https://wa.me/6281316683463"
+          class="block text-center py-4 rounded-2xl bg-cyan-400 text-black font-bold hover:opacity-90 transition">
+          Order Sekarang
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- TESTIMONI -->
+  <section id="testi" class="py-24">
+
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-16">
+
+        <p class="text-cyan-400 uppercase tracking-[4px] text-sm mb-3">
+          Testimonial
+        </p>
+
+        <h2 class="text-5xl font-black">
+          Kata <span class="cyan">Client</span>
+        </h2>
+
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <div class="glass rounded-3xl p-8">
+          <p class="text-gray-300 leading-relaxed">
+            “Config rapih banget, TPS server jadi stabil dan ga lag.”
+          </p>
+
+          <div class="mt-6">
+            <h3 class="font-bold">Arkan SMP</h3>
+            <p class="text-gray-500 text-sm">Minecraft Owner</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <p class="text-gray-300 leading-relaxed">
+            “Fast respon dan bug langsung kelar dalam hitungan menit.”
+          </p>
+
+          <div class="mt-6">
+            <h3 class="font-bold">Lynx Network</h3>
+            <p class="text-gray-500 text-sm">Server Community</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-3xl p-8">
+          <p class="text-gray-300 leading-relaxed">
+            “Worth it banget buat harga segini, setup nya premium.”
+          </p>
+
+          <div class="mt-6">
+            <h3 class="font-bold">Kaze SMP</h3>
+            <p class="text-gray-500 text-sm">Survival Server</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24">
+
+    <div class="max-w-5xl mx-auto px-6">
+
+      <div class="glass rounded-[40px] p-12 text-center glow">
+
+        <h2 class="text-5xl font-black leading-tight">
+          Ready Build Your
+          <span class="cyan">Minecraft Server?</span>
+        </h2>
+
+        <p class="text-gray-400 mt-6 text-lg">
+          Konsultasi gratis dan fast response.
+        </p>
+
+        <a href="https://wa.me/6281316683463"
+        target="_blank"
+        class="inline-block mt-10 px-10 py-5 rounded-2xl bg-cyan-400 text-black font-black text-lg btn-glow transition">
+        Order via WhatsApp
         </a>
-        <a href="#shop" class="nav-item" title="Shop">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-        </a>
-    </nav>
 
-    <!-- MAIN BOX -->
-    <main class="glass-container text-white px-6 md:px-16 lg:px-24 py-12 scroll-smooth">
-        
-        <!-- HERO SECTION (Teks Kiri, Char Kanan) -->
-        <section id="home" class="min-h-[75vh] flex flex-col lg:flex-row items-center justify-between relative mb-24 pt-6 lg:pt-0">
-            <!-- Watermark -->
-            <div class="bg-text">DYYREX</div>
-            
-            <!-- Sisi Kiri: Deskripsi -->
-            <div class="relative z-20 w-full lg:w-1/2 order-2 lg:order-1 text-center lg:text-left mt-8 lg:mt-0">
-                <h1 class="text-5xl md:text-7xl font-black mb-3 uppercase tracking-tight">DYY<span class="text-glow">REX</span></h1>
-                <h2 class="text-lg md:text-2xl font-semibold mb-6 text-gray-400 tracking-wide">Infrastructure & System Developer</h2>
-                
-                <p class="text-gray-400 text-sm md:text-base max-w-md mx-auto lg:mx-0 mb-10 leading-relaxed bg-[#121826]/40 backdrop-blur-md p-5 rounded-2xl border border-gray-800/50">
-                    Membangun dan melakukan optimasi penuh pada arsitektur server Minecraft. Fokus utama pada stabilitas core, balancing sistem ekonomi, serta performa tinggi tanpa lag.
-                </p>
-                
-                <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-                    <a href="#shop" class="px-8 py-3.5 bg-white text-black rounded-full font-bold text-sm hover:bg-[#00d2ff] hover:shadow-[0_0_25px_rgba(0,210,255,0.4)] transition-all uppercase tracking-wider">
-                        Buka Toko
-                    </a>
-                    <a href="https://wa.me/6281316683463" target="_blank" class="px-8 py-3.5 border border-gray-700 rounded-full font-bold text-sm hover:border-[#00d2ff] hover:text-[#00d2ff] transition-all bg-black/20 backdrop-blur-sm tracking-wider">
-                        Hubungi Saya
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Sisi Kanan: Karakter Anime Makima (Tidak tumpang tindih karena Flexbox) -->
-            <div class="relative w-full lg:w-1/2 h-[350px] md:h-[500px] lg:h-[650px] order-1 lg:order-2 flex justify-center lg:justify-end overflow-visible">
-                <!-- Efek Semburat Cahaya di Belakang Karakter -->
-                <div class="absolute inset-0 bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none"></div>
-                <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5f0018a2-8560-4f86-b6ed-ce255489220d/dfta1it-fc942fb7-7288-4c67-8292-5416cb99624b.png/v1/fill/w_1280,h_1575/makima_from_chainsaw_man___png_render_by_xanccount_dfta1it-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTU3NSIsInBhdGgiOiIvZi81ZjAwMThhMi04NTYwLTRmODYtYjZlZC1jZTI1NTQ4OTIyMGQvZGZ0YTFpdC1mYzk0MmZiNy03Mjg4LTRjNjctODI5Mi01NDE2Y2I5OTYyNGIucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.8v1shNpAQ2Ulzg-gD0J-Ctms4-ywdHScFTc__U0srgE" 
-                     alt="Makima Dev" 
-                     class="h-full w-auto object-contain object-bottom select-none pointer-events-none drop-shadow-[-15px_10px_30px_rgba(0,0,0,0.6)]">
-            </div>
-        </section>
+      </div>
 
-        <!-- SHOP SECTION -->
-        <section id="shop" class="mb-16 relative z-20 pt-8">
-            <div class="text-center lg:text-left mb-12">
-                <h2 class="text-4xl font-black mb-2 uppercase tracking-tight">Catalog <span class="text-glow">Shop</span></h2>
-                <p class="text-gray-400 text-sm">Layanan konfigurasi profesional, instan, dan aman.</p>
-            </div>
+    </div>
 
-            <!-- Grid Responsive: Otomatis membesar di desktop biar lega -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl">
-                
-                <!-- Jasa 1: Fix Bug -->
-                <div class="shop-card p-8 flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6 text-[#00d2ff] border border-gray-800">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2">Fix Bug</h3>
-                        <p class="text-2xl font-semibold text-[#00d2ff] mb-4">3k - 10k <span class="text-xs font-normal text-gray-500">/ Kasus</span></p>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">Pembersihan error log konsol, crash plugin, konflik data yml, hingga malfungsi fungsionalitas sistem.</p>
-                    </div>
-                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20mau%20order%20jasa%20*Fix%20Bug*." target="_blank" class="w-full py-3.5 bg-gray-900 border border-gray-800 text-center rounded-xl text-sm font-bold hover:bg-[#00d2ff] hover:text-black hover:border-[#00d2ff] transition-all uppercase tracking-wider">
-                        Order via WA
-                    </a>
-                </div>
+  </section>
 
-                <!-- Jasa 2: Config Plugin -->
-                <div class="shop-card p-8 flex flex-col justify-between border-cyan-500/20 shadow-[0_0_20px_rgba(0,210,255,0.05)]">
-                    <div>
-                        <div class="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6 text-[#00d2ff] border border-gray-800">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2">Config Plugin</h3>
-                        <p class="text-2xl font-semibold text-[#00d2ff] mb-4">Mulai 5k</p>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">Pembuatan kustom menu GUI, setup database kustom ekonomi, konfigurasi rank, hingga integrasi resource pack.</p>
-                    </div>
-                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20mau%20order%20jasa%20*Config%20Plugin*." target="_blank" class="w-full py-3.5 bg-gradient-to-r from-[#00d2ff] to-[#0088cc] text-black rounded-xl text-sm font-bold hover:opacity-90 transition-all uppercase tracking-wider">
-                        Order via WA
-                    </a>
-                </div>
+  <!-- FOOTER -->
+  <footer class="border-t border-white/5 py-10 text-center text-gray-500 text-sm">
+    © 2026 Dyyrex Developer — All Rights Reserved
+  </footer>
 
-                <!-- Jasa 3: Full Setup -->
-                <div class="shop-card p-8 flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 bg-gray-900 rounded-2xl flex items-center justify-center mb-6 text-[#00d2ff] border border-gray-800">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-2">Full Setup</h3>
-                        <p class="text-2xl font-semibold text-[#00d2ff] mb-4">Mulai 30k</p>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">Pembangunan sistem arsitektur server menyeluruh dari nol esensial. Optimalisasi performa anti-lag tinggi, siap pakai.</p>
-                    </div>
-                    <a href="https://wa.me/6281316683463?text=Halo%20Dyyrex,%20saya%20mau%20order%20jasa%20*Full%20Setup*." target="_blank" class="w-full py-3.5 bg-gray-900 border border-gray-800 text-center rounded-xl text-sm font-bold hover:bg-[#00d2ff] hover:text-black hover:border-[#00d2ff] transition-all uppercase tracking-wider">
-                        Order via WA
-                    </a>
-                </div>
+  <!-- FLOATING WA -->
+  <a href="https://wa.me/6281316683463"
+  target="_blank"
+  class="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-cyan-400 text-black flex items-center justify-center text-2xl font-black shadow-[0_0_30px_rgba(0,255,255,0.5)] hover:scale-110 transition z-50">
+  ✆
+  </a>
 
-            </div>
-        </section>
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-        <!-- FOOTER -->
-        <footer class="text-center text-gray-600 text-xs mt-16 pt-6 border-t border-gray-900/40">
-            <p>&copy; 2026 Dyyrex Solutions. Powered by Tailwind CSS.</p>
-        </footer>
+  <script>
+    AOS.init({
+      duration:1000,
+      once:true
+    });
+  </script>
 
-    </main>
-
-    <!-- SCRIPT (Nav Active Class Switcher) -->
-    <script>
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            item.addEventListener('click', function() {
-                navItems.forEach(nav => nav.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    </script>
 </body>
 </html>
